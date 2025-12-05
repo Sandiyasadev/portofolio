@@ -1,0 +1,455 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const caseStudies = [
+  {
+    slug: 'ecommerce-order-processing',
+    industry: 'E-commerce',
+    function: 'Operations',
+    title: 'Automated Order Processing Pipeline',
+    metric: '40h/week saved',
+    metricDetail: '90% reduction in manual data entry',
+    excerpt: 'Streamlined order-to-fulfillment workflow reducing manual data entry by 90%, eliminating copy-paste errors, and enabling same-day shipping.',
+    tools: ['n8n', 'WooCommerce', 'Airtable', 'Slack', 'SendGrid'],
+    thumbnail: 'https://images.unsplash.com/photo-1556740749-887f6717d7e4?w=600&h=400&fit=crop'
+  },
+  {
+    slug: 'agency-lead-routing',
+    industry: 'Agency',
+    function: 'Sales',
+    title: 'Lead Enrichment & Routing System',
+    metric: '15min → 30sec',
+    metricDetail: '30x faster lead response time',
+    excerpt: 'AI-powered lead scoring with instant assignment to the right sales rep, including automatic enrichment and Slack notifications.',
+    tools: ['n8n', 'HubSpot', 'Clearbit', 'OpenAI', 'Slack'],
+    thumbnail: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop'
+  },
+  {
+    slug: 'saas-customer-onboarding',
+    industry: 'SaaS',
+    function: 'Customer Success',
+    title: 'Customer Onboarding Automation',
+    metric: '85% reduction',
+    metricDetail: 'in onboarding errors',
+    excerpt: 'End-to-end onboarding flow from signup to active customer in 24 hours with automated welcome sequences and provisioning.',
+    tools: ['n8n', 'Stripe', 'Intercom', 'Notion', 'Slack'],
+    thumbnail: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&h=400&fit=crop'
+  },
+  {
+    slug: 'healthcare-appointment-scheduling',
+    industry: 'Healthcare',
+    function: 'Operations',
+    title: 'Appointment Scheduling System',
+    metric: '60% fewer no-shows',
+    metricDetail: 'with automated reminders',
+    excerpt: 'Multi-channel appointment booking with SMS/email reminders, calendar sync, and automated follow-ups to reduce missed appointments.',
+    tools: ['n8n', 'Cal.com', 'Twilio', 'Google Calendar', 'Airtable'],
+    thumbnail: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&h=400&fit=crop'
+  },
+  {
+    slug: 'finance-reporting-automation',
+    industry: 'Finance',
+    function: 'Finance',
+    title: 'Weekly Financial Reporting',
+    metric: '8h → 15min',
+    metricDetail: 'report generation time',
+    excerpt: 'Automated weekly financial reports pulling data from multiple sources, generating visualizations, and distributing to stakeholders.',
+    tools: ['n8n', 'QuickBooks', 'Google Sheets', 'Slack', 'PDF'],
+    thumbnail: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&h=400&fit=crop'
+  },
+  {
+    slug: 'recruitment-pipeline',
+    industry: 'HR Tech',
+    function: 'HR',
+    title: 'Recruitment Pipeline Automation',
+    metric: '50% faster hiring',
+    metricDetail: 'from application to offer',
+    excerpt: 'End-to-end candidate tracking with automated screening, interview scheduling, and feedback collection across hiring stages.',
+    tools: ['n8n', 'Lever', 'Calendly', 'Slack', 'DocuSign'],
+    thumbnail: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&h=400&fit=crop'
+  }
+];
+
+const industries = [...new Set(caseStudies.map(c => c.industry))];
+const functions = [...new Set(caseStudies.map(c => c.function))];
+---
+
+<Layout title="Case Studies | n8n Expert - Real Automation Results">
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="container">
+      <span class="badge badge-primary">Case Studies</span>
+      <h1>Real Results, <span class="gradient-text">Measured Outcomes</span></h1>
+      <p class="page-subtitle">
+        See how businesses like yours saved 20+ hours/week with custom n8n automations. 
+        Each case includes architecture diagrams, metrics, and lessons learned.
+      </p>
+    </div>
+  </section>
+
+  <!-- Filters -->
+  <section class="filters-section">
+    <div class="container">
+      <div class="filters">
+        <div class="filter-group">
+          <label>Industry</label>
+          <select id="industry-filter" class="filter-select">
+            <option value="">All Industries</option>
+            {industries.map(industry => (
+              <option value={industry}>{industry}</option>
+            ))}
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Function</label>
+          <select id="function-filter" class="filter-select">
+            <option value="">All Functions</option>
+            {functions.map(fn => (
+              <option value={fn}>{fn}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Case Studies Grid -->
+  <section class="section">
+    <div class="container">
+      <div class="cases-grid" id="cases-grid">
+        {caseStudies.map((caseStudy) => (
+          <article 
+            class="case-card" 
+            data-industry={caseStudy.industry}
+            data-function={caseStudy.function}
+          >
+            <div class="case-thumbnail">
+              <img 
+                src={caseStudy.thumbnail} 
+                alt={caseStudy.title}
+                loading="lazy"
+              />
+              <div class="case-overlay">
+                <a href={`/case-studies/${caseStudy.slug}`} class="case-link">
+                  Read Case Study →
+                </a>
+              </div>
+            </div>
+            <div class="case-content">
+              <div class="case-tags">
+                <span class="badge">{caseStudy.industry}</span>
+                <span class="badge">{caseStudy.function}</span>
+              </div>
+              <h2>{caseStudy.title}</h2>
+              <div class="case-metric">
+                <span class="metric-value">{caseStudy.metric}</span>
+                <span class="metric-detail">{caseStudy.metricDetail}</span>
+              </div>
+              <p>{caseStudy.excerpt}</p>
+              <div class="case-tools">
+                {caseStudy.tools.map((tool) => (
+                  <span class="tool-badge">{tool}</span>
+                ))}
+              </div>
+              <a href={`/case-studies/${caseStudy.slug}`} class="btn btn-secondary">
+                Read full breakdown →
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div id="no-results" class="no-results" style="display: none;">
+        <p>No case studies match your filters. Try adjusting your selection.</p>
+        <button id="clear-filters" class="btn btn-secondary">Clear Filters</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Want Results Like These?</h2>
+        <p>Let's explore how automation can save your team 10–40 hours per week.</p>
+        <a href="/contact" class="btn btn-primary btn-lg">
+          🗓️ Book a Free Strategy Call
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Page Header */
+  .page-header {
+    padding: var(--space-3xl) 0 var(--space-2xl);
+    background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-alt) 100%);
+    text-align: center;
+  }
+
+  .page-header .badge {
+    margin-bottom: var(--space-lg);
+  }
+
+  .page-header h1 {
+    margin-bottom: var(--space-md);
+  }
+
+  .page-subtitle {
+    font-size: 1.125rem;
+    max-width: 650px;
+    margin: 0 auto;
+  }
+
+  /* Filters */
+  .filters-section {
+    padding: var(--space-lg) 0;
+    background-color: var(--color-bg-alt);
+    border-bottom: 1px solid var(--color-border);
+    position: sticky;
+    top: 72px;
+    z-index: 40;
+  }
+
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-lg);
+  }
+
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .filter-group label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+  }
+
+  .filter-select {
+    padding: var(--space-sm) var(--space-md);
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    color: var(--color-text);
+    cursor: pointer;
+    min-width: 160px;
+  }
+
+  /* Cases Grid */
+  .cases-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+
+  @media (min-width: 768px) {
+    .cases-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .cases-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Case Card */
+  .case-card {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    transition: all var(--transition-base);
+  }
+
+  .case-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+  }
+
+  .case-card.hidden {
+    display: none;
+  }
+
+  .case-thumbnail {
+    position: relative;
+    aspect-ratio: 3/2;
+    overflow: hidden;
+  }
+
+  .case-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+  }
+
+  .case-card:hover .case-thumbnail img {
+    transform: scale(1.05);
+  }
+
+  .case-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity var(--transition-base);
+  }
+
+  .case-card:hover .case-overlay {
+    opacity: 1;
+  }
+
+  .case-overlay .case-link {
+    color: white;
+    font-weight: 600;
+  }
+
+  .case-content {
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .case-tags {
+    display: flex;
+    gap: var(--space-xs);
+  }
+
+  .case-content h2 {
+    font-size: 1.25rem;
+    margin: 0;
+  }
+
+  .case-metric {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .metric-value {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-success);
+  }
+
+  .metric-detail {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  .case-content p {
+    font-size: 0.875rem;
+    margin: 0;
+  }
+
+  .case-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  .tool-badge {
+    font-size: 0.6875rem;
+    padding: 0.125rem 0.5rem;
+    background-color: var(--color-bg-alt);
+    border-radius: var(--radius-full);
+    color: var(--color-text-muted);
+  }
+
+  /* No Results */
+  .no-results {
+    text-align: center;
+    padding: var(--space-3xl);
+  }
+
+  .no-results p {
+    margin-bottom: var(--space-lg);
+  }
+
+  /* CTA Section */
+  .cta-section {
+    padding: var(--space-3xl) 0;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    color: white;
+  }
+
+  .cta-content {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .cta-content h2 {
+    color: white;
+    margin-bottom: var(--space-md);
+  }
+
+  .cta-content p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.125rem;
+    margin-bottom: var(--space-xl);
+  }
+
+  .cta-section .btn-primary {
+    background: white;
+    color: var(--color-primary);
+  }
+
+  .cta-section .btn-primary:hover {
+    color: var(--color-primary);
+  }
+</style>
+
+<script>
+  const industryFilter = document.getElementById('industry-filter') as HTMLSelectElement;
+  const functionFilter = document.getElementById('function-filter') as HTMLSelectElement;
+  const casesGrid = document.getElementById('cases-grid');
+  const noResults = document.getElementById('no-results');
+  const clearFiltersBtn = document.getElementById('clear-filters');
+
+  function filterCases() {
+    const industry = industryFilter.value;
+    const func = functionFilter.value;
+    const cards = casesGrid?.querySelectorAll('.case-card') as NodeListOf<HTMLElement>;
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+      const matchIndustry = !industry || card.dataset.industry === industry;
+      const matchFunction = !func || card.dataset.function === func;
+      
+      if (matchIndustry && matchFunction) {
+        card.classList.remove('hidden');
+        visibleCount++;
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+
+    if (noResults) {
+      noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+  }
+
+  function clearFilters() {
+    industryFilter.value = '';
+    functionFilter.value = '';
+    filterCases();
+  }
+
+  industryFilter?.addEventListener('change', filterCases);
+  functionFilter?.addEventListener('change', filterCases);
+  clearFiltersBtn?.addEventListener('click', clearFilters);
+</script>

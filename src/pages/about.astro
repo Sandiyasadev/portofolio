@@ -1,0 +1,453 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const tools = [
+  { name: 'n8n', category: 'Automation' },
+  { name: 'Zapier', category: 'Automation' },
+  { name: 'Make', category: 'Automation' },
+  { name: 'Docker', category: 'DevOps' },
+  { name: 'PostgreSQL', category: 'Database' },
+  { name: 'Redis', category: 'Database' },
+  { name: 'Node.js', category: 'Development' },
+  { name: 'Python', category: 'Development' },
+  { name: 'TypeScript', category: 'Development' },
+  { name: 'OpenAI API', category: 'AI' },
+  { name: 'Claude API', category: 'AI' },
+  { name: 'LangChain', category: 'AI' },
+  { name: 'Airtable', category: 'Productivity' },
+  { name: 'Notion', category: 'Productivity' },
+  { name: 'Slack', category: 'Productivity' },
+  { name: 'HubSpot', category: 'CRM' },
+  { name: 'Salesforce', category: 'CRM' },
+  { name: 'Stripe', category: 'Payments' },
+  { name: 'WooCommerce', category: 'E-commerce' },
+  { name: 'Shopify', category: 'E-commerce' },
+];
+
+const timeline = [
+  { year: '2024', title: 'Launched independent consulting practice', description: 'Focused on n8n automation for SMBs and agencies' },
+  { year: '2023', title: '100+ workflows deployed', description: 'Helped 40+ clients automate their operations' },
+  { year: '2022', title: 'Deep dive into n8n', description: 'Became certified n8n expert and contributor' },
+  { year: '2020', title: 'Started automation journey', description: 'First enterprise automation projects with Zapier and Make' },
+  { year: '2018', title: 'Full-stack development', description: 'Built SaaS products and internal tools' },
+];
+
+const achievements = [
+  { icon: '🏆', title: 'n8n Certified Expert', description: 'Official certification from n8n' },
+  { icon: '⭐', title: '500+ Workflows Built', description: 'Across 50+ industries' },
+  { icon: '📊', title: '10,000+ Hours Saved', description: 'For clients annually' },
+  { icon: '💯', title: '100% Project Completion', description: 'Zero abandoned projects' },
+];
+---
+
+<Layout title="About | n8n Expert - Automation Architect">
+  <!-- Hero Section -->
+  <section class="about-hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-image">
+          <div class="image-placeholder">
+            <span>👨‍💻</span>
+          </div>
+        </div>
+        <div class="hero-text">
+          <span class="badge badge-primary">About Me</span>
+          <h1>Hi, I'm Your <span class="gradient-text">Automation Architect</span></h1>
+          <p class="hero-subtitle">
+            I help businesses save 10-40 hours per week by building reliable, production-grade 
+            n8n workflows. No duct-tape solutions—just automation that <em>actually works</em>.
+          </p>
+          <div class="hero-cta">
+            <a href="/contact" class="btn btn-primary">Let's Work Together</a>
+            <a href="/case-studies" class="btn btn-secondary">See My Work</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Story Section -->
+  <section class="section">
+    <div class="container">
+      <div class="story-grid">
+        <div class="story-content">
+          <h2>My <span class="gradient-text">Approach</span></h2>
+          <p>
+            I believe automation should be invisible—working in the background, reliably, 
+            without constant attention. That means building workflows that handle edge cases, 
+            recover from errors, and scale with your business.
+          </p>
+          <p>
+            After building 500+ workflows for 40+ clients, I've learned that the best automation 
+            isn't about connecting the most apps—it's about understanding the business process 
+            deeply and designing systems that truly work.
+          </p>
+          <p>
+            Every project starts with understanding <strong>why</strong> before touching any tools. 
+            What's the actual problem? What does success look like? Only then do we design the solution.
+          </p>
+        </div>
+        <div class="philosophy-cards">
+          <div class="philosophy-card">
+            <span class="philosophy-icon">🎯</span>
+            <h3>Outcome-Focused</h3>
+            <p>I measure success by hours saved and errors eliminated—not features shipped.</p>
+          </div>
+          <div class="philosophy-card">
+            <span class="philosophy-icon">🔒</span>
+            <h3>Security-First</h3>
+            <p>Your data is sacred. Every workflow is built with security best practices.</p>
+          </div>
+          <div class="philosophy-card">
+            <span class="philosophy-icon">📚</span>
+            <h3>Knowledge Transfer</h3>
+            <p>I don't just build—I teach. Your team should be able to maintain and extend.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Achievements -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="achievements-grid">
+        {achievements.map(achievement => (
+          <div class="achievement-card">
+            <span class="achievement-icon">{achievement.icon}</span>
+            <h3>{achievement.title}</h3>
+            <p>{achievement.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Toolbelt -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>My <span class="gradient-text">Toolbelt</span></h2>
+        <p>Technologies I work with daily to build robust automation solutions.</p>
+      </div>
+      <div class="tools-grid">
+        {tools.map(tool => (
+          <div class="tool-item">
+            <span class="tool-name">{tool.name}</span>
+            <span class="tool-category">{tool.category}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <h2>My <span class="gradient-text">Journey</span></h2>
+      </div>
+      <div class="timeline">
+        {timeline.map((item, index) => (
+          <div class="timeline-item">
+            <div class="timeline-marker">
+              <span class="timeline-year">{item.year}</span>
+            </div>
+            <div class="timeline-content">
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Let's Build Something Great</h2>
+        <p>Ready to automate your operations? I'd love to hear about your challenges.</p>
+        <a href="/contact" class="btn btn-primary btn-lg">
+          🗓️ Book a Free Strategy Call
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* About Hero */
+  .about-hero {
+    padding: var(--space-3xl) 0;
+    background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-alt) 100%);
+  }
+
+  .hero-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+    align-items: center;
+  }
+
+  .hero-image {
+    display: flex;
+    justify-content: center;
+  }
+
+  .image-placeholder {
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+  }
+
+  .hero-text .badge {
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero-text h1 {
+    margin-bottom: var(--space-md);
+  }
+
+  .hero-subtitle {
+    font-size: 1.125rem;
+    margin-bottom: var(--space-xl);
+  }
+
+  .hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+
+  @media (min-width: 1024px) {
+    .hero-content {
+      grid-template-columns: 300px 1fr;
+    }
+  }
+
+  /* Story Section */
+  .story-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+  }
+
+  .story-content p {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+  }
+
+  .philosophy-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-lg);
+  }
+
+  .philosophy-card {
+    background-color: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    text-align: center;
+  }
+
+  .philosophy-icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: var(--space-md);
+  }
+
+  .philosophy-card h3 {
+    font-size: 1rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .philosophy-card p {
+    font-size: 0.875rem;
+    margin: 0;
+  }
+
+  @media (min-width: 1024px) {
+    .story-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  /* Achievements */
+  .achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  @media (min-width: 768px) {
+    .achievements-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .achievement-card {
+    text-align: center;
+    padding: var(--space-lg);
+  }
+
+  .achievement-icon {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: var(--space-md);
+  }
+
+  .achievement-card h3 {
+    font-size: 1rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .achievement-card p {
+    font-size: 0.875rem;
+    margin: 0;
+  }
+
+  /* Tools Grid */
+  .tools-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    justify-content: center;
+  }
+
+  .tool-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.125rem;
+    padding: var(--space-sm) var(--space-md);
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+  }
+
+  .tool-item:hover {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .tool-name {
+    font-weight: 600;
+    font-size: 0.875rem;
+  }
+
+  .tool-category {
+    font-size: 0.6875rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Timeline */
+  .timeline {
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 60px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: var(--color-border);
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+    position: relative;
+  }
+
+  .timeline-marker {
+    width: 60px;
+    text-align: center;
+    position: relative;
+  }
+
+  .timeline-marker::after {
+    content: '';
+    position: absolute;
+    right: -6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    background-color: var(--color-primary);
+    border-radius: var(--radius-full);
+    border: 2px solid var(--color-bg-alt);
+  }
+
+  .timeline-year {
+    font-weight: 700;
+    font-size: 0.875rem;
+    color: var(--color-primary);
+  }
+
+  .timeline-content {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+  }
+
+  .timeline-content h3 {
+    font-size: 1rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .timeline-content p {
+    font-size: 0.875rem;
+    margin: 0;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    padding: var(--space-3xl) 0;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    color: white;
+  }
+
+  .cta-content {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .cta-content h2 {
+    color: white;
+    margin-bottom: var(--space-md);
+  }
+
+  .cta-content p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.125rem;
+    margin-bottom: var(--space-xl);
+  }
+
+  .cta-section .btn-primary {
+    background: white;
+    color: var(--color-primary);
+  }
+
+  .cta-section .btn-primary:hover {
+    color: var(--color-primary);
+  }
+</style>

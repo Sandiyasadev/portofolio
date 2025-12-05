@@ -1,0 +1,486 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const budgetOptions = [
+  { value: '', label: 'Select budget range (optional)' },
+  { value: '<$500', label: 'Under $500' },
+  { value: '$500-$2000', label: '$500 - $2,000' },
+  { value: '$2000-$5000', label: '$2,000 - $5,000' },
+  { value: '>$5000', label: '$5,000+' },
+  { value: 'not-sure', label: 'Not sure yet' }
+];
+
+const faqs = [
+  {
+    question: 'How long does a typical project take?',
+    answer: 'Most projects range from 1-4 weeks depending on complexity. Small automations can be done in days, while enterprise-grade workflows may take longer. I\'ll give you a clear timeline during our discovery call.'
+  },
+  {
+    question: 'What if I need changes after the project is done?',
+    answer: 'All projects include a 30-day bug fix warranty. For feature changes or enhancements, I offer both one-time updates and managed retainer options.'
+  },
+  {
+    question: 'Do you work with self-hosted n8n or n8n Cloud?',
+    answer: 'Both! I can work with your existing setup or help you choose the right option based on your security, scale, and budget requirements.'
+  },
+  {
+    question: 'Can you integrate with custom/internal APIs?',
+    answer: 'Absolutely. I\'ve integrated with hundreds of APIs—public and private. If you have API documentation, I can build the integration.'
+  }
+];
+---
+
+<Layout title="Contact | n8n Expert - Let's Talk Automation">
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="container">
+      <span class="badge badge-primary">Contact</span>
+      <h1>Let's Talk <span class="gradient-text">Automation</span></h1>
+      <p class="page-subtitle">
+        Ready to save 10-40 hours per week? Let's discuss your automation needs. 
+        No commitment, just clarity on your opportunities.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="contact-grid">
+        <!-- Contact Form -->
+        <div class="contact-form-wrapper">
+          <form id="contact-form" class="contact-form" method="POST">
+            <div class="form-group">
+              <label for="name">Name <span class="required">*</span></label>
+              <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                placeholder="Your full name"
+                required 
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email <span class="required">*</span></label>
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                placeholder="your@email.com"
+                required 
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="company">Company</label>
+              <input 
+                type="text" 
+                id="company" 
+                name="company" 
+                placeholder="Your company name"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="use-case">What do you want to automate? <span class="required">*</span></label>
+              <textarea 
+                id="use-case" 
+                name="use_case" 
+                rows="4"
+                placeholder="Briefly describe your current process and what you'd like to achieve..."
+                required
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="budget">Budget Range</label>
+              <select id="budget" name="budget">
+                {budgetOptions.map(option => (
+                  <option value={option.value}>{option.label}</option>
+                ))}
+              </select>
+            </div>
+
+            <input type="hidden" name="source" value="contact-page" />
+            <input type="hidden" name="timestamp" id="timestamp" value="" />
+
+            <button type="submit" class="btn btn-primary btn-lg submit-btn">
+              <span class="btn-text">Send Message</span>
+              <span class="btn-loading" style="display: none;">Sending...</span>
+            </button>
+
+            <p class="form-note">
+              I'll respond within 24 hours. Your information is secure and will never be shared.
+            </p>
+          </form>
+
+          <div id="form-success" class="form-success" style="display: none;">
+            <div class="success-icon">✅</div>
+            <h3>Message Sent!</h3>
+            <p>Thanks for reaching out. I'll get back to you within 24 hours.</p>
+            <a href="/" class="btn btn-secondary">Back to Home</a>
+          </div>
+
+          <div id="form-error" class="form-error" style="display: none;">
+            <div class="error-icon">⚠️</div>
+            <h3>Something went wrong</h3>
+            <p>Please try again or email me directly at <a href="mailto:hello@example.com">hello@example.com</a></p>
+            <button id="retry-btn" class="btn btn-secondary">Try Again</button>
+          </div>
+        </div>
+
+        <!-- Alternative Channels -->
+        <div class="contact-sidebar">
+          <div class="sidebar-card">
+            <h3>📅 Prefer to Book Directly?</h3>
+            <p>Skip the form and schedule a 30-minute discovery call.</p>
+            <a 
+              href="https://cal.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="btn btn-primary"
+            >
+              Open Calendar →
+            </a>
+          </div>
+
+          <div class="sidebar-card">
+            <h3>📱 Quick Chat?</h3>
+            <p>For quick questions, reach out on WhatsApp.</p>
+            <a 
+              href="https://wa.me/1234567890" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="btn btn-secondary"
+            >
+              WhatsApp →
+            </a>
+          </div>
+
+          <div class="sidebar-card">
+            <h3>📧 Email Directly</h3>
+            <p>
+              <a href="mailto:hello@example.com">hello@example.com</a>
+            </p>
+          </div>
+
+          <div class="response-time">
+            <span class="response-icon">⚡</span>
+            <span>Average response time: <strong>4 hours</strong></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <h2>Frequently <span class="gradient-text">Asked Questions</span></h2>
+      </div>
+
+      <div class="faq-list">
+        {faqs.map((faq, index) => (
+          <details class="faq-item">
+            <summary class="faq-question">
+              <span>{faq.question}</span>
+              <span class="faq-icon">+</span>
+            </summary>
+            <div class="faq-answer">
+              <p>{faq.answer}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Page Header */
+  .page-header {
+    padding: var(--space-3xl) 0 var(--space-2xl);
+    background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-alt) 100%);
+    text-align: center;
+  }
+
+  .page-header .badge {
+    margin-bottom: var(--space-lg);
+  }
+
+  .page-header h1 {
+    margin-bottom: var(--space-md);
+  }
+
+  .page-subtitle {
+    font-size: 1.125rem;
+    max-width: 550px;
+    margin: 0 auto;
+  }
+
+  /* Contact Grid */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+  }
+
+  @media (min-width: 1024px) {
+    .contact-grid {
+      grid-template-columns: 2fr 1fr;
+    }
+  }
+
+  /* Contact Form */
+  .contact-form-wrapper {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .form-group label {
+    font-weight: 600;
+    font-size: 0.875rem;
+  }
+
+  .required {
+    color: var(--color-error);
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    padding: var(--space-sm) var(--space-md);
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    font-family: inherit;
+    color: var(--color-text);
+    transition: border-color var(--transition-fast);
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .submit-btn {
+    width: 100%;
+  }
+
+  .submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  .form-note {
+    font-size: 0.75rem;
+    text-align: center;
+    margin: 0;
+  }
+
+  /* Form States */
+  .form-success,
+  .form-error {
+    text-align: center;
+    padding: var(--space-2xl);
+  }
+
+  .success-icon,
+  .error-icon {
+    font-size: 3rem;
+    margin-bottom: var(--space-md);
+  }
+
+  .form-success h3,
+  .form-error h3 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .form-success p,
+  .form-error p {
+    margin-bottom: var(--space-lg);
+  }
+
+  /* Sidebar */
+  .contact-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .sidebar-card {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+  }
+
+  .sidebar-card h3 {
+    font-size: 1rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .sidebar-card p {
+    font-size: 0.875rem;
+    margin-bottom: var(--space-md);
+  }
+
+  .sidebar-card p:last-child {
+    margin-bottom: 0;
+  }
+
+  .response-time {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+    background-color: rgba(16, 185, 129, 0.1);
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    color: var(--color-success);
+  }
+
+  .response-icon {
+    font-size: 1.25rem;
+  }
+
+  /* FAQ Section */
+  .faq-list {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .faq-item {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-lg);
+    cursor: pointer;
+    font-weight: 600;
+    list-style: none;
+  }
+
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-icon {
+    font-size: 1.25rem;
+    color: var(--color-primary);
+    transition: transform var(--transition-fast);
+  }
+
+  .faq-item[open] .faq-icon {
+    transform: rotate(45deg);
+  }
+
+  .faq-answer {
+    padding: 0 var(--space-lg) var(--space-lg);
+  }
+
+  .faq-answer p {
+    margin: 0;
+    font-size: 0.9375rem;
+  }
+</style>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const formSuccess = document.getElementById('form-success');
+  const formError = document.getElementById('form-error');
+  const retryBtn = document.getElementById('retry-btn');
+  const timestampField = document.getElementById('timestamp') as HTMLInputElement;
+
+  // Set timestamp on page load
+  timestampField.value = new Date().toISOString();
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const submitBtn = form.querySelector('.submit-btn') as HTMLButtonElement;
+    const btnText = submitBtn.querySelector('.btn-text') as HTMLElement;
+    const btnLoading = submitBtn.querySelector('.btn-loading') as HTMLElement;
+
+    // Show loading state
+    submitBtn.disabled = true;
+    btnText.style.display = 'none';
+    btnLoading.style.display = 'inline';
+
+    try {
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      // Send to n8n webhook
+      // Replace with your actual n8n webhook URL
+      const webhookUrl = 'https://your-n8n-instance.com/webhook/lead-contact';
+      
+      const response = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) throw new Error('Failed to submit');
+
+      // Track analytics event
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', 'submit_form_contact', {
+          'event_category': 'lead',
+          'event_label': data.use_case
+        });
+      }
+
+      // Show success
+      form.style.display = 'none';
+      formSuccess!.style.display = 'block';
+    } catch (error) {
+      console.error('Form submission error:', error);
+      form.style.display = 'none';
+      formError!.style.display = 'block';
+    } finally {
+      submitBtn.disabled = false;
+      btnText.style.display = 'inline';
+      btnLoading.style.display = 'none';
+    }
+  });
+
+  retryBtn?.addEventListener('click', () => {
+    formError!.style.display = 'none';
+    form!.style.display = 'flex';
+  });
+</script>

@@ -1,0 +1,496 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const posts = [
+  {
+    slug: 'n8n-vs-zapier-which-to-choose',
+    title: 'n8n vs Zapier: Which Automation Tool Should You Choose in 2024?',
+    category: 'n8n Best Practices',
+    excerpt: 'A detailed comparison of n8n and Zapier covering pricing, features, hosting options, and ideal use cases for each platform.',
+    date: '2024-11-28',
+    readTime: '8 min read',
+    featured: true,
+    thumbnail: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&h=400&fit=crop'
+  },
+  {
+    slug: 'automating-lead-enrichment-with-ai',
+    title: 'How to Build an AI-Powered Lead Enrichment Pipeline with n8n',
+    category: 'Integration Guides',
+    excerpt: 'Step-by-step guide to building a workflow that automatically enriches leads with company data and generates AI-based qualification scores.',
+    date: '2024-11-15',
+    readTime: '12 min read',
+    featured: true,
+    thumbnail: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop'
+  },
+  {
+    slug: 'calculating-automation-roi',
+    title: 'How to Calculate ROI for Your Automation Projects',
+    category: 'Automation ROI Stories',
+    excerpt: 'A practical framework for measuring the real business impact of automation, including templates and real-world examples.',
+    date: '2024-11-01',
+    readTime: '6 min read',
+    featured: false,
+    thumbnail: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop'
+  },
+  {
+    slug: 'n8n-error-handling-best-practices',
+    title: 'Error Handling in n8n: Building Resilient Workflows',
+    category: 'n8n Best Practices',
+    excerpt: 'Learn how to build n8n workflows that gracefully handle errors, retry failed operations, and alert you when things go wrong.',
+    date: '2024-10-20',
+    readTime: '10 min read',
+    featured: false,
+    thumbnail: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=600&h=400&fit=crop'
+  },
+  {
+    slug: 'integrating-chatgpt-with-n8n',
+    title: 'Integrating ChatGPT with n8n: 5 Practical Use Cases',
+    category: 'AI-Assisted Ops',
+    excerpt: 'Discover five practical ways to integrate OpenAI\'s GPT models into your n8n workflows for smarter automation.',
+    date: '2024-10-05',
+    readTime: '9 min read',
+    featured: true,
+    thumbnail: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop'
+  },
+  {
+    slug: 'slack-airtable-workflow-tutorial',
+    title: 'Building a Slack + Airtable Task Manager with n8n',
+    category: 'Integration Guides',
+    excerpt: 'Create a powerful task management system that syncs Slack messages to Airtable and keeps your team organized.',
+    date: '2024-09-18',
+    readTime: '7 min read',
+    featured: false,
+    thumbnail: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop'
+  }
+];
+
+const categories = [...new Set(posts.map(p => p.category))];
+const featuredPosts = posts.filter(p => p.featured).slice(0, 2);
+const recentPosts = posts.filter(p => !featuredPosts.includes(p));
+
+function formatDate(dateString: string): string {
+  return new Date(dateString).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+}
+---
+
+<Layout title="Blog | n8n Expert - Automation Insights">
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="container">
+      <span class="badge badge-primary">Blog</span>
+      <h1>Automation <span class="gradient-text">Insights</span></h1>
+      <p class="page-subtitle">
+        Practical guides, best practices, and lessons learned from 500+ workflow implementations.
+      </p>
+    </div>
+  </section>
+
+  <!-- Featured Posts -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Featured Articles</h2>
+      <div class="featured-grid">
+        {featuredPosts.map(post => (
+          <article class="featured-post">
+            <div class="featured-image">
+              <img src={post.thumbnail} alt={post.title} loading="lazy" />
+            </div>
+            <div class="featured-content">
+              <div class="post-meta">
+                <span class="badge">{post.category}</span>
+                <span class="post-date">{formatDate(post.date)}</span>
+                <span class="read-time">{post.readTime}</span>
+              </div>
+              <h3><a href={`/blog/${post.slug}`}>{post.title}</a></h3>
+              <p>{post.excerpt}</p>
+              <a href={`/blog/${post.slug}`} class="read-more">Read more →</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Category Filter + All Posts -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="blog-layout">
+        <!-- Sidebar -->
+        <aside class="blog-sidebar">
+          <div class="sidebar-section">
+            <h4>Categories</h4>
+            <ul class="category-list">
+              {categories.map(category => (
+                <li>
+                  <a href={`/blog?category=${encodeURIComponent(category)}`}>
+                    {category}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="sidebar-section">
+            <h4>Newsletter</h4>
+            <p>Get automation tips delivered to your inbox weekly.</p>
+            <form class="newsletter-form" id="newsletter-form">
+              <input 
+                type="email" 
+                name="email" 
+                placeholder="your@email.com" 
+                required 
+              />
+              <button type="submit" class="btn btn-primary">Subscribe</button>
+            </form>
+          </div>
+        </aside>
+
+        <!-- Posts Grid -->
+        <div class="posts-section">
+          <h2 class="section-title">All Articles</h2>
+          <div class="posts-grid">
+            {recentPosts.map(post => (
+              <article class="post-card">
+                <div class="post-thumbnail">
+                  <img src={post.thumbnail} alt={post.title} loading="lazy" />
+                </div>
+                <div class="post-content">
+                  <div class="post-meta">
+                    <span class="badge">{post.category}</span>
+                    <span class="post-date">{formatDate(post.date)}</span>
+                  </div>
+                  <h3><a href={`/blog/${post.slug}`}>{post.title}</a></h3>
+                  <p>{post.excerpt}</p>
+                  <div class="post-footer">
+                    <span class="read-time">{post.readTime}</span>
+                    <a href={`/blog/${post.slug}`} class="read-more">Read →</a>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Want Automation Tips in Your Inbox?</h2>
+        <p>Join 500+ automation enthusiasts. No spam, just actionable insights.</p>
+        <form class="inline-newsletter">
+          <input type="email" placeholder="your@email.com" required />
+          <button type="submit" class="btn btn-primary">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Page Header */
+  .page-header {
+    padding: var(--space-3xl) 0 var(--space-2xl);
+    background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-alt) 100%);
+    text-align: center;
+  }
+
+  .page-header .badge {
+    margin-bottom: var(--space-lg);
+  }
+
+  .page-header h1 {
+    margin-bottom: var(--space-md);
+  }
+
+  .page-subtitle {
+    font-size: 1.125rem;
+    max-width: 550px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-xl);
+  }
+
+  /* Featured Posts */
+  .featured-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+
+  @media (min-width: 1024px) {
+    .featured-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .featured-post {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    transition: all var(--transition-base);
+  }
+
+  .featured-post:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+  }
+
+  .featured-image {
+    aspect-ratio: 16/9;
+    overflow: hidden;
+  }
+
+  .featured-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+  }
+
+  .featured-post:hover .featured-image img {
+    transform: scale(1.05);
+  }
+
+  .featured-content {
+    padding: var(--space-xl);
+  }
+
+  .post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+  }
+
+  .featured-content h3 {
+    font-size: 1.25rem;
+    margin-bottom: var(--space-md);
+  }
+
+  .featured-content h3 a {
+    color: var(--color-text);
+  }
+
+  .featured-content h3 a:hover {
+    color: var(--color-primary);
+  }
+
+  .featured-content p {
+    font-size: 0.9375rem;
+    margin-bottom: var(--space-md);
+  }
+
+  .read-more {
+    font-weight: 600;
+    font-size: 0.875rem;
+  }
+
+  /* Blog Layout */
+  .blog-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+  }
+
+  @media (min-width: 1024px) {
+    .blog-layout {
+      grid-template-columns: 280px 1fr;
+    }
+  }
+
+  /* Sidebar */
+  .blog-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  .sidebar-section {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+  }
+
+  .sidebar-section h4 {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-md);
+  }
+
+  .category-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .category-list li {
+    margin-bottom: var(--space-sm);
+  }
+
+  .category-list a {
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+  }
+
+  .category-list a:hover {
+    color: var(--color-primary);
+  }
+
+  .newsletter-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .newsletter-form input {
+    padding: var(--space-sm) var(--space-md);
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    color: var(--color-text);
+  }
+
+  .newsletter-form input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+  }
+
+  /* Posts Grid */
+  .posts-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  .post-card {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: all var(--transition-base);
+  }
+
+  .post-card:hover {
+    box-shadow: var(--shadow-md);
+  }
+
+  @media (min-width: 640px) {
+    .post-card {
+      grid-template-columns: 200px 1fr;
+    }
+  }
+
+  .post-thumbnail {
+    aspect-ratio: 16/9;
+    overflow: hidden;
+  }
+
+  @media (min-width: 640px) {
+    .post-thumbnail {
+      aspect-ratio: 1;
+    }
+  }
+
+  .post-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .post-content {
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .post-content h3 {
+    font-size: 1rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .post-content h3 a {
+    color: var(--color-text);
+  }
+
+  .post-content h3 a:hover {
+    color: var(--color-primary);
+  }
+
+  .post-content p {
+    font-size: 0.875rem;
+    flex: 1;
+    margin-bottom: var(--space-md);
+  }
+
+  .post-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+  }
+
+  .read-time {
+    color: var(--color-text-muted);
+  }
+
+  /* CTA Section */
+  .cta-section {
+    padding: var(--space-3xl) 0;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    color: white;
+  }
+
+  .cta-content {
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .cta-content h2 {
+    color: white;
+    margin-bottom: var(--space-md);
+  }
+
+  .cta-content p {
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: var(--space-xl);
+  }
+
+  .inline-newsletter {
+    display: flex;
+    gap: var(--space-sm);
+  }
+
+  .inline-newsletter input {
+    flex: 1;
+    padding: var(--space-sm) var(--space-md);
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+  }
+
+  .cta-section .btn-primary {
+    background: white;
+    color: var(--color-primary);
+  }
+</style>
