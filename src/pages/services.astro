@@ -175,9 +175,9 @@ const processSteps = [
 
   <section class="section">
     <div class="container">
-      <div class="services-grid">
+      <div class="services-grid reveal-stagger">
         {services.map((service) => (
-          <article id={service.id} class="service-card">
+          <article id={service.id} class="service-card hover-lift">
             <div class="service-header">
               <span class="service-icon">{service.icon}</span>
               <div>
@@ -242,7 +242,7 @@ const processSteps = [
 
   <section class="section section-alt">
     <div class="container">
-      <div class="not-sure-box">
+      <div class="not-sure-box reveal-scale">
         <div class="not-sure-content">
           <h2>Not Sure Which Service You Need?</h2>
           <p>
@@ -259,21 +259,23 @@ const processSteps = [
 
   <section class="section">
     <div class="container">
-      <SectionHeader 
-        title="How We" 
-        highlight="Work Together"
-        description="A simple, transparent process designed for results."
-      />
+      <div class="reveal">
+        <SectionHeader 
+          title="How We" 
+          highlight="Work Together"
+          description="A simple, transparent process designed for results."
+        />
+      </div>
 
       <div class="process-timeline">
         {processSteps.map((step, index) => (
           <>
-            <div class="process-step">
+            <div class="process-step reveal" style={`--delay: ${index * 0.15}s`}>
               <div class="step-number">{step.number}</div>
               <h3>{step.title}</h3>
               <p>{step.description}</p>
             </div>
-            {index < processSteps.length - 1 && <div class="process-arrow">→</div>}
+            {index < processSteps.length - 1 && <div class="process-arrow reveal" style={`--delay: ${index * 0.15 + 0.1}s`}>→</div>}
           </>
         ))}
       </div>

@@ -62,10 +62,158 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     
     <Header />
 
-    <main id="main-content">
+    <main id="main-content" class="page-transition">
       <slot />
     </main>
 
     <Footer />
+
+    <script>
+      // Apple-style scroll animations
+      document.addEventListener('DOMContentLoaded', () => {
+        // Intersection Observer for reveal animations
+        const observerOptions = {
+          root: null,
+          rootMargin: '0px 0px -100px 0px',
+          threshold: 0.1
+        };
+
+        const revealObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('active');
+              // Optional: unobserve after animation
+              // revealObserver.unobserve(entry.target);
+            }
+          });
+        }, observerOptions);
+
+        // Observe all reveal elements
+        const revealElements = document.querySelectorAll(
+          '.reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-blur, .reveal-stagger, .img-reveal'
+        );
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Smooth parallax effect on scroll
+        let ticking = false;
+        const parallaxElements = document.querySelectorAll('.parallax-element');
+        
+        if (parallaxElements.length > 0) {
+          window.addEventListener('scroll', () => {
+            if (!ticking) {
+              requestAnimationFrame(() => {
+                const scrollY = window.scrollY;
+                parallaxElements.forEach(el => {
+                  const speed = parseFloat((el as HTMLElement).dataset.speed || '0.5');
+                  const yPos = -(scrollY * speed);
+                  (el as HTMLElement).style.transform = `translateY(${yPos}px)`;
+                });
+                ticking = false;
+              });
+              ticking = true;
+            }
+          });
+        }
+
+        // Counter animation
+        const counters = document.querySelectorAll('.counter[data-target]');
+        const counterObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const counter = entry.target as HTMLElement;
+              const target = parseInt(counter.dataset.target || '0');
+              const duration = 2000;
+              const start = 0;
+              const startTime = performance.now();
+
+              const updateCounter = (currentTime: number) => {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                const current = Math.round(start + (target - start) * easeOut);
+                counter.textContent = current.toString();
+
+                if (progress < 1) {
+                  requestAnimationFrame(updateCounter);
+                }
+              };
+
+              requestAnimationFrame(updateCounter);
+              counterObserver.unobserve(counter);
+            }
+          });
+        }, { threshold: 0.5 });
+
+        counters.forEach(counter => counterObserver.observe(counter));
+
+        // Magnetic button effect (subtle)
+        const magneticButtons = document.querySelectorAll('.btn-magnetic');
+        magneticButtons.forEach(btn => {
+          btn.addEventListener('mousemove', (e) => {
+            const rect = (btn as HTMLElement).getBoundingClientRect();
+            const x = (e as MouseEvent).clientX - rect.left - rect.width / 2;
+            const y = (e as MouseEvent).clientY - rect.top - rect.height / 2;
+            (btn as HTMLElement).style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+          });
+
+          btn.addEventListener('mouseleave', () => {
+            (btn as HTMLElement).style.transform = 'translate(0, 0)';
+          });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', (e) => {
+            const href = (anchor as HTMLAnchorElement).getAttribute('href');
+            if (href && href !== '#') {
+              e.preventDefault();
+              const target = document.querySelector(href);
+              if (target) {
+                target.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start'
+                });
+              }
+            }
+          });
+        });
+
+        // Text split animation helper
+        const splitTextElements = document.querySelectorAll('.split-text');
+        splitTextElements.forEach(el => {
+          const text = el.textContent || '';
+          el.innerHTML = text.split('').map((char, i) => 
+            `<span style="animation-delay: ${i * 30}ms">${char === ' ' ? '&nbsp;' : char}</span>`
+          ).join('');
+        });
+      });
+
+      // Navbar hide on scroll down, show on scroll up
+      let lastScroll = 0;
+      const header = document.querySelector('header');
+      
+      if (header) {
+        window.addEventListener('scroll', () => {
+          const currentScroll = window.scrollY;
+          
+          if (currentScroll <= 0) {
+            header.classList.remove('scroll-up');
+            return;
+          }
+          
+          if (currentScroll > lastScroll && !header.classList.contains('scroll-down')) {
+            // Scroll down
+            header.classList.remove('scroll-up');
+            header.classList.add('scroll-down');
+          } else if (currentScroll < lastScroll && header.classList.contains('scroll-down')) {
+            // Scroll up
+            header.classList.remove('scroll-down');
+            header.classList.add('scroll-up');
+          }
+          
+          lastScroll = currentScroll;
+        });
+      }
+    </script>
   </body>
 </html>

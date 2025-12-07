@@ -78,9 +78,9 @@ const functions = [...new Set(caseStudies.map(c => c.function))];
   <!-- Page Header -->
   <section class="page-header">
     <div class="container">
-      <span class="badge badge-primary">Case Studies</span>
-      <h1>Real Results, <span class="gradient-text">Measured Outcomes</span></h1>
-      <p class="page-subtitle">
+      <div class="hero-animate" style="--delay: 0.1s"><span class="badge badge-primary">Case Studies</span></div>
+      <h1 class="hero-animate" style="--delay: 0.2s">Real Results, <span class="gradient-text-animated">Measured Outcomes</span></h1>
+      <p class="page-subtitle hero-animate" style="--delay: 0.3s">
         See how businesses like yours saved 20+ hours/week with custom n8n automations. 
         Each case includes architecture diagrams, metrics, and lessons learned.
       </p>
@@ -116,10 +116,10 @@ const functions = [...new Set(caseStudies.map(c => c.function))];
   <!-- Case Studies Grid -->
   <section class="section">
     <div class="container">
-      <div class="cases-grid" id="cases-grid">
+      <div class="cases-grid reveal-stagger" id="cases-grid">
         {caseStudies.map((caseStudy) => (
           <article 
-            class="case-card" 
+            class="case-card hover-lift" 
             data-industry={caseStudy.industry}
             data-function={caseStudy.function}
           >
@@ -167,9 +167,9 @@ const functions = [...new Set(caseStudies.map(c => c.function))];
   </section>
 
   <!-- CTA Section -->
-  <section class="cta-section">
+  <section class="cta-section section">
     <div class="container">
-      <div class="cta-content">
+      <div class="cta-box reveal-scale">
         <h2>Want Results Like These?</h2>
         <p>Let's explore how automation can save your team 10–40 hours per week.</p>
         <a href="/contact" class="btn btn-primary btn-lg">
@@ -186,6 +186,21 @@ const functions = [...new Set(caseStudies.map(c => c.function))];
     padding: var(--space-3xl) 0 var(--space-2xl);
     background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-alt) 100%);
     text-align: center;
+  }
+
+  /* Hero animations */
+  .hero-animate {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: heroFadeIn 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    animation-delay: var(--delay, 0s);
+  }
+
+  @keyframes heroFadeIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .page-header .badge {
@@ -207,9 +222,6 @@ const functions = [...new Set(caseStudies.map(c => c.function))];
     padding: var(--space-lg) 0;
     background-color: var(--color-bg-alt);
     border-bottom: 1px solid var(--color-border);
-    position: sticky;
-    top: 72px;
-    z-index: 40;
   }
 
   .filters {
@@ -380,36 +392,23 @@ const functions = [...new Set(caseStudies.map(c => c.function))];
   }
 
   /* CTA Section */
-  .cta-section {
-    padding: var(--space-3xl) 0;
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-    color: white;
-  }
-
-  .cta-content {
+  .cta-box {
     text-align: center;
     max-width: 600px;
     margin: 0 auto;
+    padding: var(--space-2xl);
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
   }
 
-  .cta-content h2 {
-    color: white;
+  .cta-box h2 {
     margin-bottom: var(--space-md);
   }
 
-  .cta-content p {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 1.125rem;
+  .cta-box p {
     margin-bottom: var(--space-xl);
-  }
-
-  .cta-section .btn-primary {
-    background: white;
-    color: var(--color-primary);
-  }
-
-  .cta-section .btn-primary:hover {
-    color: var(--color-primary);
+    font-size: 1.0625rem;
   }
 </style>
 

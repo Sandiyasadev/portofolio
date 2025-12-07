@@ -120,12 +120,14 @@ const heroStats = [
 
   <section class="section section-alt">
     <div class="container">
-      <SectionHeader 
-        title="How I Help You" 
-        highlight="Automate Operations"
-        description="From audit to deployment to ongoing optimization—end-to-end automation services."
-      />
-      <div class="grid-4">
+      <div class="reveal">
+        <SectionHeader 
+          title="How I Help You" 
+          highlight="Automate Operations"
+          description="From audit to deployment to ongoing optimization—end-to-end automation services."
+        />
+      </div>
+      <div class="grid-4 reveal-stagger">
         {valueBlocks.map((block) => (
           <ValueCard {...block} />
         ))}
@@ -135,17 +137,19 @@ const heroStats = [
 
   <section class="section">
     <div class="container">
-      <SectionHeader 
-        title="Real Results," 
-        highlight="Measured Outcomes"
-        description="See how businesses like yours saved 20+ hours/week with custom n8n automations."
-      />
-      <div class="grid-3">
+      <div class="reveal">
+        <SectionHeader 
+          title="Real Results," 
+          highlight="Measured Outcomes"
+          description="See how businesses like yours saved 20+ hours/week with custom n8n automations."
+        />
+      </div>
+      <div class="grid-3 reveal-stagger">
         {caseStudies.map((study) => (
           <CaseStudyCard {...study} />
         ))}
       </div>
-      <div class="section-cta">
+      <div class="section-cta reveal">
         <Button href="/case-studies" variant="secondary">
           View All Case Studies →
         </Button>
@@ -162,12 +166,14 @@ const heroStats = [
 
   <section class="section">
     <div class="container">
-      <SectionHeader 
-        title="What" 
-        highlight="Clients Say"
-        description="Real feedback from teams that transformed their operations."
-      />
-      <div class="grid-3">
+      <div class="reveal">
+        <SectionHeader 
+          title="What" 
+          highlight="Clients Say"
+          description="Real feedback from teams that transformed their operations."
+        />
+      </div>
+      <div class="grid-3 reveal-stagger">
         {testimonials.map((testimonial) => (
           <TestimonialCard {...testimonial} />
         ))}

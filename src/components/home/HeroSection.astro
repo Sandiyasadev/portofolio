@@ -25,16 +25,16 @@ const { badge, title, highlight, subtitle, primaryCTA, secondaryCTA, stats } = A
   <div class="container">
     <div class="hero-content">
       {badge && (
-        <div class="hero-badge">
+        <div class="hero-badge hero-animate" style="--delay: 0.1s">
           <Badge variant="primary">{badge}</Badge>
         </div>
       )}
-      <h1 class="hero-title">
-        {title}{highlight && <>—<span class="gradient-text">{highlight}</span></>}
+      <h1 class="hero-title hero-animate" style="--delay: 0.2s">
+        {title}{highlight && <>—<span class="gradient-text-animated">{highlight}</span></>}
       </h1>
-      <p class="hero-subtitle">{subtitle}</p>
-      <div class="hero-cta">
-        <Button href={primaryCTA.href} variant="primary" size="lg">
+      <p class="hero-subtitle hero-animate" style="--delay: 0.4s">{subtitle}</p>
+      <div class="hero-cta hero-animate" style="--delay: 0.6s">
+        <Button href={primaryCTA.href} variant="primary" size="lg" class="btn-shine">
           {primaryCTA.text}
         </Button>
         {secondaryCTA && (
@@ -44,9 +44,9 @@ const { badge, title, highlight, subtitle, primaryCTA, secondaryCTA, stats } = A
         )}
       </div>
       {stats && stats.length > 0 && (
-        <div class="hero-stats">
-          {stats.map(({ value, label }) => (
-            <div class="stat">
+        <div class="hero-stats hero-animate" style="--delay: 0.8s">
+          {stats.map(({ value, label }, i) => (
+            <div class="stat" style={`--delay: ${0.8 + i * 0.1}s`}>
               <span class="stat-value">{value}</span>
               <span class="stat-label">{label}</span>
             </div>
@@ -55,18 +55,18 @@ const { badge, title, highlight, subtitle, primaryCTA, secondaryCTA, stats } = A
       )}
     </div>
     <div class="hero-visual">
-      <div class="workflow-diagram">
-        <div class="workflow-node trigger">
+      <div class="workflow-diagram float">
+        <div class="workflow-node trigger node-animate" style="--delay: 0.3s">
           <span class="node-icon"><Icon name="inbox" size={24} /></span>
           <span class="node-label">Trigger</span>
         </div>
-        <div class="workflow-arrow"><Icon name="chevron-right" size={20} /></div>
-        <div class="workflow-node process">
+        <div class="workflow-arrow arrow-animate" style="--delay: 0.5s"><Icon name="chevron-right" size={20} /></div>
+        <div class="workflow-node process node-animate" style="--delay: 0.6s">
           <span class="node-icon"><Icon name="settings" size={24} /></span>
           <span class="node-label">Process</span>
         </div>
-        <div class="workflow-arrow"><Icon name="chevron-right" size={20} /></div>
-        <div class="workflow-node action">
+        <div class="workflow-arrow arrow-animate" style="--delay: 0.8s"><Icon name="chevron-right" size={20} /></div>
+        <div class="workflow-node action node-animate" style="--delay: 0.9s">
           <span class="node-icon"><Icon name="rocket" size={24} /></span>
           <span class="node-label">Action</span>
         </div>
@@ -79,6 +79,7 @@ const { badge, title, highlight, subtitle, primaryCTA, secondaryCTA, stats } = A
   .hero {
     padding: var(--space-3xl) 0;
     background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-alt) 100%);
+    overflow: hidden;
   }
 
   .hero .container {
@@ -86,6 +87,21 @@ const { badge, title, highlight, subtitle, primaryCTA, secondaryCTA, stats } = A
     grid-template-columns: 1fr;
     gap: var(--space-2xl);
     align-items: center;
+  }
+
+  /* Hero animations */
+  .hero-animate {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: heroFadeIn 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    animation-delay: var(--delay, 0s);
+  }
+
+  @keyframes heroFadeIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .hero-badge {
@@ -123,6 +139,9 @@ const { badge, title, highlight, subtitle, primaryCTA, secondaryCTA, stats } = A
   .stat {
     display: flex;
     flex-direction: column;
+    opacity: 0;
+    animation: heroFadeIn 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    animation-delay: var(--delay, 0s);
   }
 
   .stat-value {
@@ -162,6 +181,38 @@ const { badge, title, highlight, subtitle, primaryCTA, secondaryCTA, stats } = A
     background-color: var(--color-bg-alt);
     border: 1px solid var(--color-border);
     min-width: 80px;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .workflow-node:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .node-animate {
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+    animation: nodeAppear 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    animation-delay: var(--delay, 0s);
+  }
+
+  .arrow-animate {
+    opacity: 0;
+    animation: arrowAppear 0.4s ease forwards;
+    animation-delay: var(--delay, 0s);
+  }
+
+  @keyframes nodeAppear {
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes arrowAppear {
+    to {
+      opacity: 1;
+    }
   }
 
   .workflow-node.trigger { border-color: var(--color-success); }

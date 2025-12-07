@@ -54,20 +54,20 @@ const philosophy = [
   <section class="about-hero">
     <div class="container">
       <div class="hero-content">
-        <div class="hero-image">
+        <div class="hero-image reveal-scale">
           <div class="image-placeholder">
             <Icon name="user" size={80} />
           </div>
         </div>
         <div class="hero-text">
-          <Badge variant="primary">About Me</Badge>
-          <h1>Hi, I'm Your <span class="gradient-text">Automation Architect</span></h1>
-          <p class="hero-subtitle">
+          <div class="reveal" style="--delay: 0.1s"><Badge variant="primary">About Me</Badge></div>
+          <h1 class="reveal" style="--delay: 0.2s">Hi, I'm Your <span class="gradient-text-animated">Automation Architect</span></h1>
+          <p class="hero-subtitle reveal" style="--delay: 0.3s">
             I help businesses save 10-40 hours per week by building reliable, production-grade 
             n8n workflows. No duct-tape solutions—just automation that <em>actually works</em>.
           </p>
-          <div class="hero-cta">
-            <Button href="/contact">Let's Work Together</Button>
+          <div class="hero-cta reveal" style="--delay: 0.4s">
+            <Button href="/contact" class="btn-shine">Let's Work Together</Button>
             <Button href="/case-studies" variant="secondary">See My Work</Button>
           </div>
         </div>
@@ -78,7 +78,7 @@ const philosophy = [
   <section class="section">
     <div class="container">
       <div class="story-grid">
-        <div class="story-content">
+        <div class="story-content reveal-left">
           <h2>My <span class="gradient-text">Approach</span></h2>
           <p>
             I believe automation should be invisible—working in the background, reliably, 
@@ -95,9 +95,9 @@ const philosophy = [
             What's the actual problem? What does success look like? Only then do we design the solution.
           </p>
         </div>
-        <div class="philosophy-cards">
+        <div class="philosophy-cards reveal-stagger">
           {philosophy.map(({ icon, title, description }) => (
-            <div class="philosophy-card">
+            <div class="philosophy-card hover-lift">
               <span class="philosophy-icon">
                 <Icon name={icon} size={28} />
               </span>
@@ -112,9 +112,9 @@ const philosophy = [
 
   <section class="section section-alt">
     <div class="container">
-      <div class="achievements-grid">
+      <div class="achievements-grid reveal-stagger">
         {achievements.map(({ icon, title, description }) => (
-          <div class="achievement-card">
+          <div class="achievement-card hover-lift">
             <span class="achievement-icon">
               <Icon name={icon} size={32} />
             </span>
@@ -128,8 +128,10 @@ const philosophy = [
 
   <section class="section">
     <div class="container">
-      <SectionHeader title="My" highlight="Toolbelt" description="Technologies I work with daily to build robust automation solutions." />
-      <div class="tools-grid">
+      <div class="reveal">
+        <SectionHeader title="My" highlight="Toolbelt" description="Technologies I work with daily to build robust automation solutions." />
+      </div>
+      <div class="tools-grid reveal-stagger">
         {tools.map(({ name, category }) => (
           <div class="tool-item">
             <span class="tool-name">{name}</span>
@@ -142,10 +144,12 @@ const philosophy = [
 
   <section class="section section-alt">
     <div class="container">
-      <SectionHeader title="My" highlight="Journey" />
+      <div class="reveal">
+        <SectionHeader title="My" highlight="Journey" />
+      </div>
       <div class="timeline">
-        {timeline.map(({ year, title, description }) => (
-          <div class="timeline-item">
+        {timeline.map(({ year, title, description }, i) => (
+          <div class="timeline-item reveal" style={`--delay: ${i * 0.15}s`}>
             <div class="timeline-marker">
               <span class="timeline-year">{year}</span>
             </div>

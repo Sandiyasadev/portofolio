@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Icon from '../../components/ui/Icon.astro';
 
 const posts = [
   {
@@ -81,9 +82,9 @@ function formatDate(dateString: string): string {
   <!-- Page Header -->
   <section class="page-header">
     <div class="container">
-      <span class="badge badge-primary">Blog</span>
-      <h1>Automation <span class="gradient-text">Insights</span></h1>
-      <p class="page-subtitle">
+      <div class="hero-animate" style="--delay: 0.1s"><span class="badge badge-primary">Blog</span></div>
+      <h1 class="hero-animate" style="--delay: 0.2s">Automation <span class="gradient-text-animated">Insights</span></h1>
+      <p class="page-subtitle hero-animate" style="--delay: 0.3s">
         Practical guides, best practices, and lessons learned from 500+ workflow implementations.
       </p>
     </div>
@@ -92,10 +93,10 @@ function formatDate(dateString: string): string {
   <!-- Featured Posts -->
   <section class="section">
     <div class="container">
-      <h2 class="section-title">Featured Articles</h2>
-      <div class="featured-grid">
+      <h2 class="section-title reveal">Featured Articles</h2>
+      <div class="featured-grid reveal-stagger">
         {featuredPosts.map(post => (
-          <article class="featured-post">
+          <article class="featured-post hover-lift">
             <div class="featured-image">
               <img src={post.thumbnail} alt={post.title} loading="lazy" />
             </div>
@@ -120,13 +121,13 @@ function formatDate(dateString: string): string {
     <div class="container">
       <div class="blog-layout">
         <!-- Sidebar -->
-        <aside class="blog-sidebar">
+        <aside class="blog-sidebar reveal-left">
           <div class="sidebar-section">
             <h4>Categories</h4>
             <ul class="category-list">
               {categories.map(category => (
                 <li>
-                  <a href={`/blog?category=${encodeURIComponent(category)}`}>
+                  <a href={`/blog?category=${encodeURIComponent(category)}`} class="link-underline">
                     {category}
                   </a>
                 </li>
@@ -134,27 +135,45 @@ function formatDate(dateString: string): string {
             </ul>
           </div>
 
-          <div class="sidebar-section">
+          <div class="sidebar-section newsletter-section">
+            <div class="newsletter-icon">
+              <Icon name="mail" size={24} />
+            </div>
             <h4>Newsletter</h4>
             <p>Get automation tips delivered to your inbox weekly.</p>
             <form class="newsletter-form" id="newsletter-form">
-              <input 
-                type="email" 
-                name="email" 
-                placeholder="your@email.com" 
-                required 
-              />
-              <button type="submit" class="btn btn-primary">Subscribe</button>
+              <div class="newsletter-input-wrapper">
+                <Icon name="mail" size={18} />
+                <input 
+                  type="email" 
+                  name="email" 
+                  placeholder="your@email.com" 
+                  required 
+                />
+              </div>
+              <button type="submit" class="btn btn-primary newsletter-btn">
+                <span class="btn-text">
+                  <Icon name="send" size={16} />
+                  Subscribe
+                </span>
+                <span class="btn-loading">
+                  <span class="spinner"></span>
+                </span>
+              </button>
             </form>
+            <p class="newsletter-note">
+              <Icon name="shield" size={12} />
+              No spam, unsubscribe anytime.
+            </p>
           </div>
         </aside>
 
         <!-- Posts Grid -->
         <div class="posts-section">
-          <h2 class="section-title">All Articles</h2>
-          <div class="posts-grid">
+          <h2 class="section-title reveal">All Articles</h2>
+          <div class="posts-grid reveal-stagger">
             {recentPosts.map(post => (
-              <article class="post-card">
+              <article class="post-card hover-lift">
                 <div class="post-thumbnail">
                   <img src={post.thumbnail} alt={post.title} loading="lazy" />
                 </div>
@@ -179,15 +198,33 @@ function formatDate(dateString: string): string {
   </section>
 
   <!-- CTA -->
-  <section class="cta-section">
+  <section class="cta-section section">
     <div class="container">
-      <div class="cta-content">
+      <div class="cta-box reveal-scale">
+        <div class="cta-icon">
+          <Icon name="mail" size={32} />
+        </div>
         <h2>Want Automation Tips in Your Inbox?</h2>
         <p>Join 500+ automation enthusiasts. No spam, just actionable insights.</p>
-        <form class="inline-newsletter">
-          <input type="email" placeholder="your@email.com" required />
-          <button type="submit" class="btn btn-primary">Subscribe</button>
+        <form class="inline-newsletter" id="cta-newsletter-form">
+          <div class="inline-input-wrapper">
+            <Icon name="mail" size={18} />
+            <input type="email" placeholder="your@email.com" required />
+          </div>
+          <button type="submit" class="btn btn-primary cta-btn">
+            <span class="btn-text">
+              <Icon name="send" size={16} />
+              Subscribe
+            </span>
+            <span class="btn-loading">
+              <span class="spinner"></span>
+            </span>
+          </button>
         </form>
+        <p class="cta-note">
+          <Icon name="shield" size={14} />
+          We respect your privacy. Unsubscribe anytime.
+        </p>
       </div>
     </div>
   </section>
@@ -199,6 +236,21 @@ function formatDate(dateString: string): string {
     padding: var(--space-3xl) 0 var(--space-2xl);
     background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-alt) 100%);
     text-align: center;
+  }
+
+  /* Hero animations */
+  .hero-animate {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: heroFadeIn 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    animation-delay: var(--delay, 0s);
+  }
+
+  @keyframes heroFadeIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .page-header .badge {
@@ -352,24 +404,116 @@ function formatDate(dateString: string): string {
     color: var(--color-primary);
   }
 
+  .newsletter-section {
+    text-align: center;
+  }
+
+  .newsletter-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    margin: 0 auto var(--space-md);
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+    border-radius: var(--radius-lg);
+    color: var(--color-primary);
+  }
+
   .newsletter-form {
     display: flex;
     flex-direction: column;
     gap: var(--space-sm);
   }
 
-  .newsletter-form input {
-    padding: var(--space-sm) var(--space-md);
-    background-color: var(--color-bg);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    font-size: 0.875rem;
-    color: var(--color-text);
+  .newsletter-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
   }
 
-  .newsletter-form input:focus {
+  .newsletter-input-wrapper :global(.icon) {
+    position: absolute;
+    left: 12px;
+    color: var(--color-text-muted);
+    transition: color 0.3s ease;
+  }
+
+  .newsletter-input-wrapper input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    background-color: var(--color-bg);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    font-size: 0.875rem;
+    color: var(--color-text);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     outline: none;
+  }
+
+  .newsletter-input-wrapper input:hover {
+    border-color: var(--color-text-muted);
+  }
+
+  .newsletter-input-wrapper input:focus {
     border-color: var(--color-primary);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+  }
+
+  .newsletter-input-wrapper input:focus + :global(.icon),
+  .newsletter-input-wrapper:focus-within :global(.icon) {
+    color: var(--color-primary);
+  }
+
+  .newsletter-btn {
+    width: 100%;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .newsletter-btn .btn-text {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .newsletter-btn .btn-loading {
+    display: none;
+  }
+
+  .newsletter-btn.loading .btn-text {
+    display: none;
+  }
+
+  .newsletter-btn.loading .btn-loading {
+    display: inline-flex;
+  }
+
+  .newsletter-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+  }
+
+  .newsletter-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    margin-top: var(--space-sm);
+  }
+
+  /* Spinner Animation */
+  .spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
   }
 
   /* Posts Grid */
@@ -454,43 +598,114 @@ function formatDate(dateString: string): string {
   }
 
   /* CTA Section */
-  .cta-section {
-    padding: var(--space-3xl) 0;
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-    color: white;
-  }
-
-  .cta-content {
+  .cta-box {
     text-align: center;
-    max-width: 500px;
+    max-width: 550px;
     margin: 0 auto;
+    padding: var(--space-2xl);
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
   }
 
-  .cta-content h2 {
-    color: white;
+  .cta-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto var(--space-lg);
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(6, 182, 212, 0.15) 100%);
+    border-radius: var(--radius-xl);
+    color: var(--color-primary);
+  }
+
+  .cta-box h2 {
     margin-bottom: var(--space-md);
   }
 
-  .cta-content p {
-    color: rgba(255, 255, 255, 0.9);
+  .cta-box > p {
     margin-bottom: var(--space-xl);
   }
 
   .inline-newsletter {
     display: flex;
+    flex-direction: column;
     gap: var(--space-sm);
   }
 
-  .inline-newsletter input {
-    flex: 1;
-    padding: var(--space-sm) var(--space-md);
-    border: none;
-    border-radius: var(--radius-md);
-    font-size: 1rem;
+  @media (min-width: 480px) {
+    .inline-newsletter {
+      flex-direction: row;
+    }
   }
 
-  .cta-section .btn-primary {
-    background: white;
+  .inline-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 1;
+  }
+
+  .inline-input-wrapper :global(.icon) {
+    position: absolute;
+    left: 14px;
+    color: var(--color-text-muted);
+    transition: color 0.3s ease;
+    z-index: 1;
+  }
+
+  .inline-input-wrapper input {
+    width: 100%;
+    padding: 0.875rem 1rem 0.875rem 2.75rem;
+    background-color: var(--color-bg);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    font-size: 1rem;
+    color: var(--color-text);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
+  }
+
+  .inline-input-wrapper input:hover {
+    border-color: var(--color-text-muted);
+  }
+
+  .inline-input-wrapper input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+  }
+
+  .inline-input-wrapper input:focus ~ :global(.icon),
+  .inline-input-wrapper:focus-within :global(.icon) {
     color: var(--color-primary);
+  }
+
+  .cta-btn .btn-text {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .cta-btn .btn-loading {
+    display: none;
+  }
+
+  .cta-btn.loading .btn-text {
+    display: none;
+  }
+
+  .cta-btn.loading .btn-loading {
+    display: inline-flex;
+  }
+
+  .cta-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    margin-top: var(--space-md);
   }
 </style>
