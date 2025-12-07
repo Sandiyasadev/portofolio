@@ -6,39 +6,39 @@ import { ValueCard, CaseStudyCard, TestimonialCard } from '../components/cards';
 import Button from '../components/ui/Button.astro';
 
 const integrations = [
-  { name: 'Google Workspace', icon: '📧' },
-  { name: 'Slack', icon: '💬' },
-  { name: 'Notion', icon: '📝' },
-  { name: 'Airtable', icon: '📊' },
-  { name: 'HubSpot', icon: '🎯' },
-  { name: 'WooCommerce', icon: '🛒' },
-  { name: 'WhatsApp', icon: '📱' },
-  { name: 'PostgreSQL', icon: '🐘' },
-  { name: 'OpenAI', icon: '🤖' },
-  { name: 'Stripe', icon: '💳' },
+  { name: 'Google Workspace', icon: 'mail' },
+  { name: 'Slack', icon: 'message-square' },
+  { name: 'Notion', icon: 'file-text' },
+  { name: 'Airtable', icon: 'database' },
+  { name: 'HubSpot', icon: 'target' },
+  { name: 'WooCommerce', icon: 'shopping-cart' },
+  { name: 'WhatsApp', icon: 'phone' },
+  { name: 'PostgreSQL', icon: 'database' },
+  { name: 'OpenAI', icon: 'bot' },
+  { name: 'Stripe', icon: 'credit-card' },
 ];
 
 const valueBlocks = [
   {
-    icon: '🔍',
+    icon: 'search',
     title: 'Automation Audit',
     description: 'Get a prioritized roadmap of what to automate first for maximum ROI.',
     link: '/services#audit'
   },
   {
-    icon: '⚙️',
+    icon: 'settings',
     title: 'Build & Deploy',
     description: 'Production-ready n8n workflows with error handling, logging, and documentation.',
     link: '/services#development'
   },
   {
-    icon: '📈',
+    icon: 'trending-up',
     title: 'Monitoring & Optimization',
     description: 'Hands-off automation with 24/7 monitoring and proactive improvements.',
     link: '/services#managed'
   },
   {
-    icon: '🎓',
+    icon: 'graduation-cap',
     title: 'Training & Handover',
     description: 'Your team becomes self-sufficient in building and maintaining workflows.',
     link: '/services#training'
@@ -75,30 +75,27 @@ const testimonials = [
     name: "Sarah Chen",
     role: "COO",
     company: "TechRetail Co",
-    avatar: "👩‍💼"
   },
   {
     quote: "Finally, automation that just works. No more duct-tape solutions that break every week.",
     name: "Michael Torres",
     role: "Operations Manager",
     company: "Growth Agency",
-    avatar: "👨‍💻"
   },
   {
     quote: "The documentation and training were exceptional. Our team can now handle most updates ourselves.",
     name: "Aisha Patel",
     role: "RevOps Lead",
     company: "CloudScale Inc",
-    avatar: "👩‍🔬"
   }
 ];
 
 const securityFeatures = [
-  { icon: '🔐', title: 'Secure Credential Handling', description: 'OAuth, encrypted secrets, no hardcoded keys' },
-  { icon: '📝', title: 'Version Control', description: 'All workflows tracked in Git with change history' },
-  { icon: '📊', title: 'Comprehensive Logging', description: 'Every execution logged for debugging and auditing' },
-  { icon: '🔄', title: 'Error Recovery', description: 'Automatic retries and fallback mechanisms' },
-  { icon: '⚡', title: 'Monitoring & Alerts', description: 'Real-time notifications when things go wrong' },
+  { icon: 'lock', title: 'Secure Credential Handling', description: 'OAuth, encrypted secrets, no hardcoded keys' },
+  { icon: 'git-branch', title: 'Version Control', description: 'All workflows tracked in Git with change history' },
+  { icon: 'bar-chart', title: 'Comprehensive Logging', description: 'Every execution logged for debugging and auditing' },
+  { icon: 'refresh-cw', title: 'Error Recovery', description: 'Automatic retries and fallback mechanisms' },
+  { icon: 'bell', title: 'Monitoring & Alerts', description: 'Real-time notifications when things go wrong' },
 ];
 
 const heroStats = [
@@ -110,12 +107,12 @@ const heroStats = [
 
 <Layout title="n8n Expert | Automation Architect - Automate Smarter">
   <HeroSection
-    badge="⚡ n8n Certified Expert"
+    badge="n8n Certified Expert"
     title="Stop Wasting Hours on Manual Work"
     highlight="Automate with Confidence"
     subtitle="I build reliable n8n workflows that save 10–40 hours per week, reduce human errors, and give you real-time visibility into your operations. No more duct-tape automation."
-    primaryCTA={{ text: '🗓️ Book a 30-Min Call', href: '/contact' }}
-    secondaryCTA={{ text: 'See Real Results →', href: '/case-studies' }}
+    primaryCTA={{ text: 'Book a 30-Min Call', href: '/contact' }}
+    secondaryCTA={{ text: 'See Real Results', href: '/case-studies' }}
     stats={heroStats}
   />
 
@@ -181,7 +178,7 @@ const heroStats = [
   <CTASection
     title="Ready to Automate?"
     description="Let's map your automation opportunities and estimate your time savings. No commitment, just clarity."
-    buttonText="🗓️ Book a Free Strategy Call"
+    buttonText="Book a Free Strategy Call"
     note="30-minute call • No pressure • Actionable insights"
   />
 </Layout>

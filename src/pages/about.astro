@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Badge from '../components/ui/Badge.astro';
 import Button from '../components/ui/Button.astro';
+import Icon from '../components/ui/Icon.astro';
 import { SectionHeader, CTASection } from '../components/sections';
 
 const tools = [
@@ -36,16 +37,16 @@ const timeline = [
 ];
 
 const achievements = [
-  { icon: '🏆', title: 'n8n Certified Expert', description: 'Official certification from n8n' },
-  { icon: '⭐', title: '500+ Workflows Built', description: 'Across 50+ industries' },
-  { icon: '📊', title: '10,000+ Hours Saved', description: 'For clients annually' },
-  { icon: '💯', title: '100% Project Completion', description: 'Zero abandoned projects' },
+  { icon: 'trophy', title: 'n8n Certified Expert', description: 'Official certification from n8n' },
+  { icon: 'star', title: '500+ Workflows Built', description: 'Across 50+ industries' },
+  { icon: 'bar-chart', title: '10,000+ Hours Saved', description: 'For clients annually' },
+  { icon: 'check-circle', title: '100% Project Completion', description: 'Zero abandoned projects' },
 ];
 
 const philosophy = [
-  { icon: '🎯', title: 'Outcome-Focused', description: 'I measure success by hours saved and errors eliminated—not features shipped.' },
-  { icon: '🔒', title: 'Security-First', description: 'Your data is sacred. Every workflow is built with security best practices.' },
-  { icon: '📚', title: 'Knowledge Transfer', description: "I don't just build—I teach. Your team should be able to maintain and extend." },
+  { icon: 'target', title: 'Outcome-Focused', description: 'I measure success by hours saved and errors eliminated—not features shipped.' },
+  { icon: 'lock', title: 'Security-First', description: 'Your data is sacred. Every workflow is built with security best practices.' },
+  { icon: 'book-open', title: 'Knowledge Transfer', description: "I don't just build—I teach. Your team should be able to maintain and extend." },
 ];
 ---
 
@@ -55,7 +56,7 @@ const philosophy = [
       <div class="hero-content">
         <div class="hero-image">
           <div class="image-placeholder">
-            <span>👨‍💻</span>
+            <Icon name="user" size={80} />
           </div>
         </div>
         <div class="hero-text">
@@ -97,7 +98,9 @@ const philosophy = [
         <div class="philosophy-cards">
           {philosophy.map(({ icon, title, description }) => (
             <div class="philosophy-card">
-              <span class="philosophy-icon">{icon}</span>
+              <span class="philosophy-icon">
+                <Icon name={icon} size={28} />
+              </span>
               <h3>{title}</h3>
               <p>{description}</p>
             </div>
@@ -112,7 +115,9 @@ const philosophy = [
       <div class="achievements-grid">
         {achievements.map(({ icon, title, description }) => (
           <div class="achievement-card">
-            <span class="achievement-icon">{icon}</span>
+            <span class="achievement-icon">
+              <Icon name={icon} size={32} />
+            </span>
             <h3>{title}</h3>
             <p>{description}</p>
           </div>
@@ -157,7 +162,7 @@ const philosophy = [
   <CTASection
     title="Let's Build Something Great"
     description="Ready to automate your operations? I'd love to hear about your challenges."
-    buttonText="🗓️ Book a Free Strategy Call"
+    buttonText="Book a Free Strategy Call"
   />
 </Layout>
 
@@ -187,7 +192,7 @@ const philosophy = [
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 5rem;
+    color: white;
   }
 
   .hero-text :global(.badge) {
@@ -241,9 +246,15 @@ const philosophy = [
   }
 
   .philosophy-icon {
-    font-size: 2rem;
-    display: block;
-    margin-bottom: var(--space-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    margin: 0 auto var(--space-md);
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+    border-radius: var(--radius-lg);
+    color: var(--color-primary);
   }
 
   .philosophy-card h3 {
@@ -280,9 +291,15 @@ const philosophy = [
   }
 
   .achievement-icon {
-    font-size: 2.5rem;
-    display: block;
-    margin-bottom: var(--space-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto var(--space-md);
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+    border-radius: var(--radius-lg);
+    color: var(--color-primary);
   }
 
   .achievement-card h3 {

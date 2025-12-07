@@ -1,4 +1,6 @@
 ---
+import Icon from '../ui/Icon.astro';
+
 interface Integration {
   name: string;
   icon: string;
@@ -18,7 +20,9 @@ const { label = 'Integrated with 50+ platforms including:', integrations } = Ast
     <div class="proof-logos">
       {integrations.map(({ name, icon }) => (
         <div class="proof-logo" title={name}>
-          <span class="proof-icon">{icon}</span>
+          <span class="proof-icon">
+            <Icon name={icon} size={24} />
+          </span>
           <span class="proof-name">{name}</span>
         </div>
       ))}
@@ -62,7 +66,10 @@ const { label = 'Integrated with 50+ platforms including:', integrations } = Ast
   }
 
   .proof-icon {
-    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-muted);
   }
 
   .proof-name {

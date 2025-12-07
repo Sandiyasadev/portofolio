@@ -1,22 +1,27 @@
 ---
+import Icon from '../ui/Icon.astro';
+
 interface Props {
   quote: string;
   name: string;
   role: string;
   company: string;
-  avatar?: string;
 }
 
-const { quote, name, role, company, avatar = '👤' } = Astro.props;
+const { quote, name, role, company } = Astro.props;
 ---
 
 <blockquote class="testimonial-card card">
   <div class="testimonial-quote">
-    <span class="quote-mark">"</span>
+    <span class="quote-mark">
+      <Icon name="message-square" size={24} />
+    </span>
     <p>{quote}</p>
   </div>
   <footer class="testimonial-author">
-    <span class="author-avatar">{avatar}</span>
+    <span class="author-avatar">
+      <Icon name="user" size={20} />
+    </span>
     <div class="author-info">
       <strong>{name}</strong>
       <span>{role}, {company}</span>
@@ -36,10 +41,15 @@ const { quote, name, role, company, avatar = '👤' } = Astro.props;
   }
 
   .quote-mark {
-    font-size: 3rem;
-    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+    border-radius: var(--radius-md);
     color: var(--color-primary);
-    opacity: 0.5;
+    margin-bottom: var(--space-md);
   }
 
   .testimonial-quote p {
@@ -57,7 +67,15 @@ const { quote, name, role, company, avatar = '👤' } = Astro.props;
   }
 
   .author-avatar {
-    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    color: var(--color-text-muted);
   }
 
   .author-info {

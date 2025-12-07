@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Icon from '../components/ui/Icon.astro';
 
 const workflows = [
   {
@@ -11,7 +12,7 @@ const workflows = [
     useCase: 'Capture form submissions, enrich lead data, store in CRM, alert sales team',
     complexity: 'Beginner',
     setupTime: '30 min',
-    icon: '📥'
+    icon: 'inbox'
   },
   {
     slug: 'email-to-notion-summary',
@@ -22,7 +23,7 @@ const workflows = [
     useCase: 'Auto-capture important emails, generate AI summaries, save to Notion database',
     complexity: 'Intermediate',
     setupTime: '45 min',
-    icon: '📧'
+    icon: 'mail'
   },
   {
     slug: 'invoice-processing-automation',
@@ -33,7 +34,7 @@ const workflows = [
     useCase: 'Extract data from invoice PDFs, validate, sync to accounting software',
     complexity: 'Advanced',
     setupTime: '2 hours',
-    icon: '🧾'
+    icon: 'file-text'
   },
   {
     slug: 'social-media-scheduler',
@@ -44,7 +45,7 @@ const workflows = [
     useCase: 'Schedule and publish content across multiple social platforms from one calendar',
     complexity: 'Intermediate',
     setupTime: '1 hour',
-    icon: '📱'
+    icon: 'globe'
   },
   {
     slug: 'customer-feedback-analysis',
@@ -55,7 +56,7 @@ const workflows = [
     useCase: 'Analyze survey responses with AI, categorize sentiment, alert on negative feedback',
     complexity: 'Intermediate',
     setupTime: '45 min',
-    icon: '💬'
+    icon: 'message-square'
   },
   {
     slug: 'ecommerce-order-sync',
@@ -66,7 +67,7 @@ const workflows = [
     useCase: 'Sync orders to database, update inventory, notify fulfillment team',
     complexity: 'Intermediate',
     setupTime: '1 hour',
-    icon: '🛒'
+    icon: 'shopping-cart'
   },
   {
     slug: 'appointment-reminder-system',
@@ -77,7 +78,7 @@ const workflows = [
     useCase: 'Send SMS and email reminders at configurable intervals before appointments',
     complexity: 'Beginner',
     setupTime: '30 min',
-    icon: '📅'
+    icon: 'calendar'
   },
   {
     slug: 'competitor-monitoring',
@@ -88,7 +89,7 @@ const workflows = [
     useCase: 'Scrape competitor prices daily, track changes, alert on significant differences',
     complexity: 'Advanced',
     setupTime: '2 hours',
-    icon: '📊'
+    icon: 'bar-chart'
   }
 ];
 
@@ -127,7 +128,9 @@ const categories = [...new Set(workflows.map(w => w.category))];
         {workflows.map(workflow => (
           <article class="workflow-card" data-category={workflow.category}>
             <div class="workflow-header">
-              <span class="workflow-icon">{workflow.icon}</span>
+              <span class="workflow-icon">
+                <Icon name={workflow.icon} size={24} />
+              </span>
               <span class="badge">{workflow.category}</span>
             </div>
             <h2>{workflow.title}</h2>
@@ -176,7 +179,9 @@ const categories = [...new Set(workflows.map(w => w.category))];
     <div class="modal-content">
       <button class="modal-close" aria-label="Close modal">×</button>
       <div class="modal-header">
-        <span class="modal-icon">📥</span>
+        <span class="modal-icon">
+          <Icon name="inbox" size={32} />
+        </span>
         <h3>Request Template</h3>
         <p class="modal-subtitle" id="modal-workflow-name"></p>
       </div>
@@ -184,29 +189,59 @@ const categories = [...new Set(workflows.map(w => w.category))];
         <input type="hidden" name="workflow_slug" id="workflow-slug" />
         <input type="hidden" name="source" value="workflow-library" />
         
-        <div class="form-group">
-          <label for="requester-email">Email Address</label>
+        <div class="form-group floating">
+          <input 
+            type="text" 
+            id="requester-name" 
+            name="name" 
+            placeholder=" "
+            required 
+            autocomplete="name"
+          />
+          <label for="requester-name">
+            <Icon name="user" size={18} />
+            <span>Your Name</span>
+          </label>
+          <span class="focus-border"></span>
+        </div>
+
+        <div class="form-group floating">
           <input 
             type="email" 
             id="requester-email" 
             name="email" 
-            placeholder="your@email.com"
+            placeholder=" "
             required 
+            autocomplete="email"
           />
+          <label for="requester-email">
+            <Icon name="mail" size={18} />
+            <span>Email Address</span>
+          </label>
+          <span class="focus-border"></span>
         </div>
 
-        <button type="submit" class="btn btn-primary btn-lg">
-          <span class="btn-text">Send Me the Template</span>
-          <span class="btn-loading" style="display: none;">Sending...</span>
+        <button type="submit" class="btn btn-primary btn-lg submit-btn">
+          <span class="btn-text">
+            <Icon name="send" size={18} />
+            Send Me the Template
+          </span>
+          <span class="btn-loading">
+            <span class="spinner"></span>
+            Sending...
+          </span>
         </button>
         
         <p class="modal-note">
+          <Icon name="clock" size={14} />
           I'll send you the workflow JSON + setup documentation within 24 hours.
         </p>
       </form>
 
       <div id="modal-success" class="modal-success" style="display: none;">
-        <span class="success-icon">✅</span>
+        <span class="success-icon">
+          <Icon name="check-circle" size={48} />
+        </span>
         <h4>Request Received!</h4>
         <p>Check your inbox within 24 hours for the template and documentation.</p>
         <button class="btn btn-secondary modal-close-btn">Close</button>
@@ -341,7 +376,14 @@ const categories = [...new Set(workflows.map(w => w.category))];
   }
 
   .workflow-icon {
-    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+    border-radius: var(--radius-lg);
+    color: var(--color-primary);
   }
 
   .workflow-card h2 {
@@ -458,9 +500,15 @@ const categories = [...new Set(workflows.map(w => w.category))];
   }
 
   .modal-icon {
-    font-size: 2.5rem;
-    display: block;
-    margin-bottom: var(--space-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto var(--space-md);
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+    border-radius: var(--radius-lg);
+    color: var(--color-primary);
   }
 
   .modal-header h3 {
@@ -474,40 +522,144 @@ const categories = [...new Set(workflows.map(w => w.category))];
     font-weight: 500;
   }
 
-  .modal-form .form-group {
-    margin-bottom: var(--space-lg);
+  /* Floating Label Form */
+  .modal-form .form-group.floating {
+    position: relative;
+    margin-bottom: var(--space-xl);
   }
 
-  .modal-form label {
-    display: block;
-    font-weight: 600;
-    font-size: 0.875rem;
-    margin-bottom: var(--space-xs);
-  }
-
-  .modal-form input {
+  .modal-form .form-group.floating input {
     width: 100%;
-    padding: var(--space-sm) var(--space-md);
+    padding: 1.25rem 1rem 0.5rem 2.75rem;
     background-color: var(--color-bg);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-lg);
     font-size: 1rem;
     color: var(--color-text);
-  }
-
-  .modal-form input:focus {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     outline: none;
-    border-color: var(--color-primary);
   }
 
-  .modal-form .btn {
+  .modal-form .form-group.floating input:hover {
+    border-color: var(--color-text-muted);
+  }
+
+  .modal-form .form-group.floating input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+  }
+
+  .modal-form .form-group.floating label {
+    position: absolute;
+    left: 2.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .modal-form .form-group.floating label :global(.icon) {
+    position: absolute;
+    left: -1.75rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .modal-form .form-group.floating input:focus + label,
+  .modal-form .form-group.floating input:not(:placeholder-shown) + label {
+    top: 0.5rem;
+    transform: translateY(0);
+    font-size: 0.75rem;
+    color: var(--color-primary);
+  }
+
+  .modal-form .form-group.floating input:focus + label :global(.icon),
+  .modal-form .form-group.floating input:not(:placeholder-shown) + label :global(.icon) {
+    color: var(--color-primary);
+  }
+
+  .modal-form .form-group.floating .focus-border {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(135deg, var(--color-primary) 0%, #06b6d4 100%);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  }
+
+  .modal-form .form-group.floating input:focus ~ .focus-border {
+    left: 0;
     width: 100%;
   }
 
+  /* Submit Button */
+  .modal-form .submit-btn {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .modal-form .submit-btn .btn-text {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    transition: all 0.3s ease;
+  }
+
+  .modal-form .submit-btn .btn-loading {
+    display: none;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .modal-form .submit-btn.loading .btn-text {
+    display: none;
+  }
+
+  .modal-form .submit-btn.loading .btn-loading {
+    display: inline-flex;
+  }
+
+  .modal-form .submit-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+  }
+
+  .modal-form .submit-btn:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  /* Spinner Animation */
+  .spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid transparent;
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Modal Note */
   .modal-note {
-    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    font-size: 0.8125rem;
     text-align: center;
-    margin: var(--space-md) 0 0;
+    margin: var(--space-lg) 0 0;
+    color: var(--color-text-muted);
   }
 
   .modal-success {
@@ -515,9 +667,13 @@ const categories = [...new Set(workflows.map(w => w.category))];
   }
 
   .modal-success .success-icon {
-    font-size: 3rem;
-    display: block;
-    margin-bottom: var(--space-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto var(--space-md);
+    color: var(--color-success);
   }
 
   .modal-success h4 {
@@ -628,13 +784,10 @@ const categories = [...new Set(workflows.map(w => w.category))];
   requestForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    const submitBtn = requestForm.querySelector('button[type="submit"]') as HTMLButtonElement;
-    const btnText = submitBtn.querySelector('.btn-text') as HTMLElement;
-    const btnLoading = submitBtn.querySelector('.btn-loading') as HTMLElement;
+    const submitBtn = requestForm.querySelector('.submit-btn') as HTMLButtonElement;
 
     submitBtn.disabled = true;
-    btnText.style.display = 'none';
-    btnLoading.style.display = 'inline';
+    submitBtn.classList.add('loading');
 
     try {
       const formData = new FormData(requestForm);
@@ -664,8 +817,7 @@ const categories = [...new Set(workflows.map(w => w.category))];
       alert('Something went wrong. Please try again or email directly.');
     } finally {
       submitBtn.disabled = false;
-      btnText.style.display = 'inline';
-      btnLoading.style.display = 'none';
+      submitBtn.classList.remove('loading');
     }
   });
 </script>
