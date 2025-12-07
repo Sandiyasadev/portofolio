@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 
 interface Props {
   title: string;
@@ -23,31 +25,24 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     
-    <!-- Canonical -->
     <link rel="canonical" href={canonicalURL} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
     
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
     
-    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={image} />
     
-    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={image} />
     
-    <!-- Schema.org Person -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -65,303 +60,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
     
-    <!-- Navigation -->
-    <header class="header">
-      <nav class="nav container">
-        <a href="/" class="nav-logo">
-          <span class="logo-icon">⚡</span>
-          <span class="logo-text">AutomateFlow</span>
-        </a>
-        
-        <ul class="nav-links">
-          <li><a href="/services">Services</a></li>
-          <li><a href="/case-studies">Case Studies</a></li>
-          <li><a href="/workflow-library">Workflows</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/blog">Blog</a></li>
-        </ul>
-        
-        <a href="/contact" class="btn btn-primary nav-cta">
-          Book a Call
-        </a>
-        
-        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
-          <span class="hamburger"></span>
-        </button>
-      </nav>
-    </header>
+    <Header />
 
     <main id="main-content">
       <slot />
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-grid">
-          <div class="footer-brand">
-            <a href="/" class="footer-logo">
-              <span class="logo-icon">⚡</span>
-              <span class="logo-text">AutomateFlow</span>
-            </a>
-            <p>Reliable workflows that save hours—not just demos.</p>
-          </div>
-          
-          <div class="footer-links">
-            <h4>Services</h4>
-            <ul>
-              <li><a href="/services#audit">Automation Audit</a></li>
-              <li><a href="/services#development">Workflow Development</a></li>
-              <li><a href="/services#integration">Integration & Data Sync</a></li>
-              <li><a href="/services#ai">AI + Automation</a></li>
-            </ul>
-          </div>
-          
-          <div class="footer-links">
-            <h4>Resources</h4>
-            <ul>
-              <li><a href="/case-studies">Case Studies</a></li>
-              <li><a href="/workflow-library">Workflow Library</a></li>
-              <li><a href="/blog">Blog</a></li>
-              <li><a href="/about">About</a></li>
-            </ul>
-          </div>
-          
-          <div class="footer-links">
-            <h4>Connect</h4>
-            <ul>
-              <li><a href="/contact">Contact</a></li>
-              <li><a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a></li>
-              <li><a href="https://github.com" target="_blank" rel="noopener">GitHub</a></li>
-              <li><a href="https://twitter.com" target="_blank" rel="noopener">Twitter</a></li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="footer-bottom">
-          <p>&copy; {new Date().getFullYear()} AutomateFlow. All rights reserved.</p>
-          <div class="footer-legal">
-            <a href="/privacy">Privacy Policy</a>
-            <a href="/terms">Terms of Service</a>
-          </div>
-        </div>
-      </div>
-    </footer>
-
-    <style>
-      /* Header */
-      .header {
-        position: sticky;
-        top: 0;
-        z-index: 50;
-        background-color: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-        border-bottom: 1px solid var(--color-border);
-      }
-      
-      @media (prefers-color-scheme: dark) {
-        .header {
-          background-color: rgba(15, 23, 42, 0.95);
-        }
-      }
-      
-      .nav {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        height: 72px;
-      }
-      
-      .nav-logo {
-        display: flex;
-        align-items: center;
-        gap: var(--space-sm);
-        font-weight: 700;
-        font-size: 1.25rem;
-        color: var(--color-text);
-      }
-      
-      .nav-logo:hover {
-        color: var(--color-text);
-      }
-      
-      .logo-icon {
-        font-size: 1.5rem;
-      }
-      
-      .nav-links {
-        display: none;
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        gap: var(--space-xl);
-      }
-      
-      .nav-links a {
-        color: var(--color-text-muted);
-        font-weight: 500;
-        transition: color var(--transition-fast);
-      }
-      
-      .nav-links a:hover {
-        color: var(--color-primary);
-      }
-      
-      .nav-cta {
-        display: none;
-      }
-      
-      .nav-toggle {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 40px;
-        height: 40px;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-      }
-      
-      .hamburger {
-        position: relative;
-        width: 24px;
-        height: 2px;
-        background-color: var(--color-text);
-        transition: background-color var(--transition-fast);
-      }
-      
-      .hamburger::before,
-      .hamburger::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        width: 24px;
-        height: 2px;
-        background-color: var(--color-text);
-        transition: transform var(--transition-base);
-      }
-      
-      .hamburger::before {
-        top: -8px;
-      }
-      
-      .hamburger::after {
-        bottom: -8px;
-      }
-      
-      @media (min-width: 768px) {
-        .nav-links {
-          display: flex;
-        }
-        
-        .nav-cta {
-          display: inline-flex;
-        }
-        
-        .nav-toggle {
-          display: none;
-        }
-      }
-      
-      /* Footer */
-      .footer {
-        background-color: var(--color-bg-alt);
-        border-top: 1px solid var(--color-border);
-        padding: var(--space-3xl) 0 var(--space-xl);
-      }
-      
-      .footer-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: var(--space-xl);
-        margin-bottom: var(--space-2xl);
-      }
-      
-      .footer-brand p {
-        margin-top: var(--space-md);
-        font-size: 0.875rem;
-      }
-      
-      .footer-logo {
-        display: flex;
-        align-items: center;
-        gap: var(--space-sm);
-        font-weight: 700;
-        font-size: 1.125rem;
-        color: var(--color-text);
-      }
-      
-      .footer-links h4 {
-        font-size: 0.875rem;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        margin-bottom: var(--space-md);
-      }
-      
-      .footer-links ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-      }
-      
-      .footer-links li {
-        margin-bottom: var(--space-sm);
-      }
-      
-      .footer-links a {
-        color: var(--color-text-muted);
-        font-size: 0.875rem;
-      }
-      
-      .footer-links a:hover {
-        color: var(--color-primary);
-      }
-      
-      .footer-bottom {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-md);
-        padding-top: var(--space-xl);
-        border-top: 1px solid var(--color-border);
-        font-size: 0.875rem;
-        color: var(--color-text-muted);
-      }
-      
-      .footer-bottom p {
-        margin: 0;
-      }
-      
-      .footer-legal {
-        display: flex;
-        gap: var(--space-lg);
-      }
-      
-      .footer-legal a {
-        color: var(--color-text-muted);
-      }
-      
-      @media (min-width: 768px) {
-        .footer-grid {
-          grid-template-columns: 2fr repeat(3, 1fr);
-        }
-        
-        .footer-bottom {
-          flex-direction: row;
-          justify-content: space-between;
-        }
-      }
-    </style>
-
-    <script>
-      // Mobile navigation toggle
-      const navToggle = document.querySelector('.nav-toggle');
-      const navLinks = document.querySelector('.nav-links');
-      
-      navToggle?.addEventListener('click', () => {
-        const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
-        navToggle.setAttribute('aria-expanded', String(!isExpanded));
-        navLinks?.classList.toggle('nav-open');
-      });
-    </script>
+    <Footer />
   </body>
 </html>

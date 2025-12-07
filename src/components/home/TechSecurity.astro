@@ -1,0 +1,112 @@
+---
+interface Feature {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  title: string;
+  highlight?: string;
+  description: string;
+  features: Feature[];
+}
+
+const { title, highlight, description, features } = Astro.props;
+---
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="tech-grid">
+      <div class="tech-content">
+        <h2>{title} {highlight && <span class="gradient-text">{highlight}</span>}</h2>
+        <p>{description}</p>
+        <ul class="tech-list">
+          {features.map(({ icon, title: featureTitle, description: featureDesc }) => (
+            <li>
+              <span class="tech-icon">{icon}</span>
+              <span><strong>{featureTitle}</strong> — {featureDesc}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="tech-visual">
+        <div class="security-badge">
+          <span class="security-icon">🛡️</span>
+          <span class="security-text">Enterprise-Grade Security</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .tech-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+    align-items: center;
+  }
+
+  .tech-content h2 {
+    margin-bottom: var(--space-md);
+  }
+
+  .tech-content > p {
+    font-size: 1.125rem;
+    margin-bottom: var(--space-xl);
+  }
+
+  .tech-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .tech-list li {
+    display: flex;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+    align-items: flex-start;
+  }
+
+  .tech-icon {
+    font-size: 1.25rem;
+  }
+
+  .tech-list span:last-child {
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+  }
+
+  .tech-visual {
+    display: flex;
+    justify-content: center;
+  }
+
+  .security-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-2xl);
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+  }
+
+  .security-icon {
+    font-size: 4rem;
+  }
+
+  .security-text {
+    font-weight: 700;
+    font-size: 1.125rem;
+  }
+
+  @media (min-width: 1024px) {
+    .tech-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

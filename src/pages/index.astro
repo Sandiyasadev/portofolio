@@ -1,7 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { HeroSection, ProofBar, TechSecurity } from '../components/home';
+import { SectionHeader, CTASection } from '../components/sections';
+import { ValueCard, CaseStudyCard, TestimonialCard } from '../components/cards';
+import Button from '../components/ui/Button.astro';
 
-// Integration logos for proof bar
 const integrations = [
   { name: 'Google Workspace', icon: '📧' },
   { name: 'Slack', icon: '💬' },
@@ -15,7 +18,6 @@ const integrations = [
   { name: 'Stripe', icon: '💳' },
 ];
 
-// Value blocks
 const valueBlocks = [
   {
     icon: '🔍',
@@ -43,7 +45,6 @@ const valueBlocks = [
   }
 ];
 
-// Featured case studies
 const caseStudies = [
   {
     industry: 'E-commerce',
@@ -68,7 +69,6 @@ const caseStudies = [
   }
 ];
 
-// Testimonials
 const testimonials = [
   {
     quote: "We saved over 40 hours per week and eliminated countless manual errors. The ROI was visible within the first month.",
@@ -92,623 +92,103 @@ const testimonials = [
     avatar: "👩‍🔬"
   }
 ];
+
+const securityFeatures = [
+  { icon: '🔐', title: 'Secure Credential Handling', description: 'OAuth, encrypted secrets, no hardcoded keys' },
+  { icon: '📝', title: 'Version Control', description: 'All workflows tracked in Git with change history' },
+  { icon: '📊', title: 'Comprehensive Logging', description: 'Every execution logged for debugging and auditing' },
+  { icon: '🔄', title: 'Error Recovery', description: 'Automatic retries and fallback mechanisms' },
+  { icon: '⚡', title: 'Monitoring & Alerts', description: 'Real-time notifications when things go wrong' },
+];
+
+const heroStats = [
+  { value: '500+', label: 'Workflows Built' },
+  { value: '40+', label: 'Happy Clients' },
+  { value: '10,000+', label: 'Hours Saved' },
+];
 ---
 
 <Layout title="n8n Expert | Automation Architect - Automate Smarter">
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="container">
-      <div class="hero-content">
-        <div class="hero-badge">
-          <span class="badge badge-primary">⚡ n8n Certified Expert</span>
-        </div>
-        <h1 class="hero-title">
-          Stop Wasting Hours on Manual Work—<span class="gradient-text">Automate with Confidence</span>
-        </h1>
-        <p class="hero-subtitle">
-          I build reliable n8n workflows that save 10–40 hours per week, reduce human errors, and give you real-time visibility into your operations. No more duct-tape automation.
-        </p>
-        <div class="hero-cta">
-          <a href="/contact" class="btn btn-primary btn-lg">
-            🗓️ Book a 30-Min Call
-          </a>
-          <a href="/case-studies" class="btn btn-secondary btn-lg">
-            See Real Results →
-          </a>
-        </div>
-        <div class="hero-stats">
-          <div class="stat">
-            <span class="stat-value">500+</span>
-            <span class="stat-label">Workflows Built</span>
-          </div>
-          <div class="stat">
-            <span class="stat-value">40+</span>
-            <span class="stat-label">Happy Clients</span>
-          </div>
-          <div class="stat">
-            <span class="stat-value">10,000+</span>
-            <span class="stat-label">Hours Saved</span>
-          </div>
-        </div>
-      </div>
-      <div class="hero-visual">
-        <div class="workflow-diagram">
-          <div class="workflow-node trigger">
-            <span class="node-icon">📥</span>
-            <span class="node-label">Trigger</span>
-          </div>
-          <div class="workflow-arrow">→</div>
-          <div class="workflow-node process">
-            <span class="node-icon">⚙️</span>
-            <span class="node-label">Process</span>
-          </div>
-          <div class="workflow-arrow">→</div>
-          <div class="workflow-node action">
-            <span class="node-icon">🚀</span>
-            <span class="node-label">Action</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <HeroSection
+    badge="⚡ n8n Certified Expert"
+    title="Stop Wasting Hours on Manual Work"
+    highlight="Automate with Confidence"
+    subtitle="I build reliable n8n workflows that save 10–40 hours per week, reduce human errors, and give you real-time visibility into your operations. No more duct-tape automation."
+    primaryCTA={{ text: '🗓️ Book a 30-Min Call', href: '/contact' }}
+    secondaryCTA={{ text: 'See Real Results →', href: '/case-studies' }}
+    stats={heroStats}
+  />
 
-  <!-- Proof Bar -->
-  <section class="proof-bar">
-    <div class="container">
-      <p class="proof-label">Integrated with 50+ platforms including:</p>
-      <div class="proof-logos">
-        {integrations.map(({ name, icon }) => (
-          <div class="proof-logo" title={name}>
-            <span class="proof-icon">{icon}</span>
-            <span class="proof-name">{name}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+  <ProofBar integrations={integrations} />
 
-  <!-- Value Blocks -->
   <section class="section section-alt">
     <div class="container">
-      <div class="section-header">
-        <h2>How I Help You <span class="gradient-text">Automate Operations</span></h2>
-        <p>From audit to deployment to ongoing optimization—end-to-end automation services.</p>
-      </div>
+      <SectionHeader 
+        title="How I Help You" 
+        highlight="Automate Operations"
+        description="From audit to deployment to ongoing optimization—end-to-end automation services."
+      />
       <div class="grid-4">
-        {valueBlocks.map(({ icon, title, description, link }) => (
-          <a href={link} class="value-card card">
-            <span class="value-icon">{icon}</span>
-            <h3>{title}</h3>
-            <p>{description}</p>
-            <span class="value-link">Learn more →</span>
-          </a>
+        {valueBlocks.map((block) => (
+          <ValueCard {...block} />
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Featured Case Studies -->
   <section class="section">
     <div class="container">
-      <div class="section-header">
-        <h2>Real Results, <span class="gradient-text">Measured Outcomes</span></h2>
-        <p>See how businesses like yours saved 20+ hours/week with custom n8n automations.</p>
-      </div>
+      <SectionHeader 
+        title="Real Results," 
+        highlight="Measured Outcomes"
+        description="See how businesses like yours saved 20+ hours/week with custom n8n automations."
+      />
       <div class="grid-3">
-        {caseStudies.map(({ industry, title, metric, description, slug }) => (
-          <article class="case-card card">
-            <span class="badge">{industry}</span>
-            <h3>{title}</h3>
-            <div class="case-metric">
-              <span class="metric-value">{metric}</span>
-            </div>
-            <p>{description}</p>
-            <a href={`/case-studies/${slug}`} class="case-link">
-              Read full breakdown →
-            </a>
-          </article>
+        {caseStudies.map((study) => (
+          <CaseStudyCard {...study} />
         ))}
       </div>
       <div class="section-cta">
-        <a href="/case-studies" class="btn btn-secondary">
+        <Button href="/case-studies" variant="secondary">
           View All Case Studies →
-        </a>
+        </Button>
       </div>
     </div>
   </section>
 
-  <!-- Tech & Security -->
-  <section class="section section-alt">
-    <div class="container">
-      <div class="tech-grid">
-        <div class="tech-content">
-          <h2>Built for <span class="gradient-text">Security & Reliability</span></h2>
-          <p>Your automations handle sensitive data. I build with security and maintainability in mind from day one.</p>
-          <ul class="tech-list">
-            <li>
-              <span class="tech-icon">🔐</span>
-              <span><strong>Secure Credential Handling</strong> — OAuth, encrypted secrets, no hardcoded keys</span>
-            </li>
-            <li>
-              <span class="tech-icon">📝</span>
-              <span><strong>Version Control</strong> — All workflows tracked in Git with change history</span>
-            </li>
-            <li>
-              <span class="tech-icon">📊</span>
-              <span><strong>Comprehensive Logging</strong> — Every execution logged for debugging and auditing</span>
-            </li>
-            <li>
-              <span class="tech-icon">🔄</span>
-              <span><strong>Error Recovery</strong> — Automatic retries and fallback mechanisms</span>
-            </li>
-            <li>
-              <span class="tech-icon">⚡</span>
-              <span><strong>Monitoring & Alerts</strong> — Real-time notifications when things go wrong</span>
-            </li>
-          </ul>
-        </div>
-        <div class="tech-visual">
-          <div class="security-badge">
-            <span class="security-icon">🛡️</span>
-            <span class="security-text">Enterprise-Grade Security</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <TechSecurity
+    title="Built for"
+    highlight="Security & Reliability"
+    description="Your automations handle sensitive data. I build with security and maintainability in mind from day one."
+    features={securityFeatures}
+  />
 
-  <!-- Testimonials -->
   <section class="section">
     <div class="container">
-      <div class="section-header">
-        <h2>What <span class="gradient-text">Clients Say</span></h2>
-        <p>Real feedback from teams that transformed their operations.</p>
-      </div>
+      <SectionHeader 
+        title="What" 
+        highlight="Clients Say"
+        description="Real feedback from teams that transformed their operations."
+      />
       <div class="grid-3">
-        {testimonials.map(({ quote, name, role, company, avatar }) => (
-          <blockquote class="testimonial-card card">
-            <div class="testimonial-quote">
-              <span class="quote-mark">"</span>
-              <p>{quote}</p>
-            </div>
-            <footer class="testimonial-author">
-              <span class="author-avatar">{avatar}</span>
-              <div class="author-info">
-                <strong>{name}</strong>
-                <span>{role}, {company}</span>
-              </div>
-            </footer>
-          </blockquote>
+        {testimonials.map((testimonial) => (
+          <TestimonialCard {...testimonial} />
         ))}
       </div>
     </div>
   </section>
 
-  <!-- CTA Footer -->
-  <section class="cta-section">
-    <div class="container">
-      <div class="cta-content">
-        <h2>Ready to Automate?</h2>
-        <p>Let's map your automation opportunities and estimate your time savings. No commitment, just clarity.</p>
-        <div class="cta-buttons">
-          <a href="/contact" class="btn btn-primary btn-lg">
-            🗓️ Book a Free Strategy Call
-          </a>
-          <span class="cta-note">30-minute call • No pressure • Actionable insights</span>
-        </div>
-      </div>
-    </div>
-  </section>
+  <CTASection
+    title="Ready to Automate?"
+    description="Let's map your automation opportunities and estimate your time savings. No commitment, just clarity."
+    buttonText="🗓️ Book a Free Strategy Call"
+    note="30-minute call • No pressure • Actionable insights"
+  />
 </Layout>
 
 <style>
-  /* Hero Section */
-  .hero {
-    padding: var(--space-3xl) 0;
-    background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-alt) 100%);
-  }
-
-  .hero .container {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-2xl);
-    align-items: center;
-  }
-
-  .hero-badge {
-    margin-bottom: var(--space-lg);
-  }
-
-  .hero-title {
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    line-height: 1.1;
-    margin-bottom: var(--space-lg);
-  }
-
-  .hero-subtitle {
-    font-size: 1.125rem;
-    color: var(--color-text-muted);
-    max-width: 600px;
-    line-height: 1.7;
-  }
-
-  .hero-cta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-md);
-    margin-top: var(--space-xl);
-  }
-
-  .hero-stats {
-    display: flex;
-    gap: var(--space-xl);
-    margin-top: var(--space-2xl);
-    padding-top: var(--space-xl);
-    border-top: 1px solid var(--color-border);
-  }
-
-  .stat {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .stat-value {
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--color-primary);
-  }
-
-  .stat-label {
-    font-size: 0.875rem;
-    color: var(--color-text-muted);
-  }
-
-  .hero-visual {
-    display: none;
-  }
-
-  .workflow-diagram {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-md);
-    padding: var(--space-xl);
-    background-color: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-lg);
-  }
-
-  .workflow-node {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-xs);
-    padding: var(--space-md);
-    border-radius: var(--radius-md);
-    background-color: var(--color-bg-alt);
-    border: 1px solid var(--color-border);
-    min-width: 80px;
-  }
-
-  .workflow-node.trigger { border-color: var(--color-success); }
-  .workflow-node.process { border-color: var(--color-primary); }
-  .workflow-node.action { border-color: var(--color-accent); }
-
-  .node-icon {
-    font-size: 1.5rem;
-  }
-
-  .node-label {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--color-text-muted);
-  }
-
-  .workflow-arrow {
-    font-size: 1.5rem;
-    color: var(--color-text-muted);
-  }
-
-  @media (min-width: 1024px) {
-    .hero .container {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .hero-visual {
-      display: block;
-    }
-  }
-
-  /* Proof Bar */
-  .proof-bar {
-    padding: var(--space-xl) 0;
-    background-color: var(--color-bg-alt);
-    border-top: 1px solid var(--color-border);
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .proof-label {
-    text-align: center;
-    font-size: 0.875rem;
-    color: var(--color-text-muted);
-    margin-bottom: var(--space-lg);
-  }
-
-  .proof-logos {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--space-lg);
-  }
-
-  .proof-logo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-xs);
-    opacity: 0.7;
-    transition: opacity var(--transition-fast);
-  }
-
-  .proof-logo:hover {
-    opacity: 1;
-  }
-
-  .proof-icon {
-    font-size: 1.5rem;
-  }
-
-  .proof-name {
-    font-size: 0.75rem;
-    color: var(--color-text-muted);
-  }
-
-  /* Section Header */
-  .section-header {
-    text-align: center;
-    max-width: 700px;
-    margin: 0 auto var(--space-2xl);
-  }
-
-  .section-header h2 {
-    margin-bottom: var(--space-md);
-  }
-
-  .section-header p {
-    font-size: 1.125rem;
-  }
-
   .section-cta {
     text-align: center;
     margin-top: var(--space-2xl);
-  }
-
-  /* Value Cards */
-  .value-card {
-    display: flex;
-    flex-direction: column;
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .value-icon {
-    font-size: 2rem;
-    margin-bottom: var(--space-md);
-  }
-
-  .value-card h3 {
-    font-size: 1.25rem;
-    margin-bottom: var(--space-sm);
-  }
-
-  .value-card p {
-    flex: 1;
-    font-size: 0.875rem;
-  }
-
-  .value-link {
-    color: var(--color-primary);
-    font-weight: 600;
-    font-size: 0.875rem;
-  }
-
-  /* Case Cards */
-  .case-card .badge {
-    margin-bottom: var(--space-md);
-  }
-
-  .case-card h3 {
-    font-size: 1.125rem;
-    margin-bottom: var(--space-md);
-  }
-
-  .case-metric {
-    margin-bottom: var(--space-md);
-  }
-
-  .metric-value {
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--color-success);
-  }
-
-  .case-card p {
-    font-size: 0.875rem;
-    margin-bottom: var(--space-md);
-  }
-
-  .case-link {
-    color: var(--color-primary);
-    font-weight: 600;
-    font-size: 0.875rem;
-  }
-
-  /* Tech & Security */
-  .tech-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-2xl);
-    align-items: center;
-  }
-
-  .tech-content h2 {
-    margin-bottom: var(--space-md);
-  }
-
-  .tech-content > p {
-    font-size: 1.125rem;
-    margin-bottom: var(--space-xl);
-  }
-
-  .tech-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .tech-list li {
-    display: flex;
-    gap: var(--space-md);
-    margin-bottom: var(--space-md);
-    align-items: flex-start;
-  }
-
-  .tech-icon {
-    font-size: 1.25rem;
-  }
-
-  .tech-list span:last-child {
-    font-size: 0.9375rem;
-    color: var(--color-text-muted);
-  }
-
-  .tech-visual {
-    display: flex;
-    justify-content: center;
-  }
-
-  .security-badge {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-md);
-    padding: var(--space-2xl);
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-xl);
-  }
-
-  .security-icon {
-    font-size: 4rem;
-  }
-
-  .security-text {
-    font-weight: 700;
-    font-size: 1.125rem;
-  }
-
-  @media (min-width: 1024px) {
-    .tech-grid {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-
-  /* Testimonials */
-  .testimonial-card {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-lg);
-  }
-
-  .testimonial-quote {
-    flex: 1;
-  }
-
-  .quote-mark {
-    font-size: 3rem;
-    line-height: 1;
-    color: var(--color-primary);
-    opacity: 0.5;
-  }
-
-  .testimonial-quote p {
-    font-size: 0.9375rem;
-    font-style: italic;
-    line-height: 1.7;
-  }
-
-  .testimonial-author {
-    display: flex;
-    align-items: center;
-    gap: var(--space-md);
-    padding-top: var(--space-md);
-    border-top: 1px solid var(--color-border);
-  }
-
-  .author-avatar {
-    font-size: 2rem;
-  }
-
-  .author-info {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .author-info strong {
-    color: var(--color-text);
-  }
-
-  .author-info span {
-    font-size: 0.875rem;
-    color: var(--color-text-muted);
-  }
-
-  /* CTA Section */
-  .cta-section {
-    padding: var(--space-3xl) 0;
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-    color: white;
-  }
-
-  .cta-content {
-    text-align: center;
-    max-width: 700px;
-    margin: 0 auto;
-  }
-
-  .cta-content h2 {
-    color: white;
-    margin-bottom: var(--space-md);
-  }
-
-  .cta-content p {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 1.125rem;
-    margin-bottom: var(--space-xl);
-  }
-
-  .cta-buttons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-md);
-  }
-
-  .cta-section .btn-primary {
-    background: white;
-    color: var(--color-primary);
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
-  }
-
-  .cta-section .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-    color: var(--color-primary);
-  }
-
-  .cta-note {
-    font-size: 0.875rem;
-    opacity: 0.8;
   }
 </style>

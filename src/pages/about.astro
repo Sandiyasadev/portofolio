@@ -1,5 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Badge from '../components/ui/Badge.astro';
+import Button from '../components/ui/Button.astro';
+import { SectionHeader, CTASection } from '../components/sections';
 
 const tools = [
   { name: 'n8n', category: 'Automation' },
@@ -38,10 +41,15 @@ const achievements = [
   { icon: '📊', title: '10,000+ Hours Saved', description: 'For clients annually' },
   { icon: '💯', title: '100% Project Completion', description: 'Zero abandoned projects' },
 ];
+
+const philosophy = [
+  { icon: '🎯', title: 'Outcome-Focused', description: 'I measure success by hours saved and errors eliminated—not features shipped.' },
+  { icon: '🔒', title: 'Security-First', description: 'Your data is sacred. Every workflow is built with security best practices.' },
+  { icon: '📚', title: 'Knowledge Transfer', description: "I don't just build—I teach. Your team should be able to maintain and extend." },
+];
 ---
 
 <Layout title="About | n8n Expert - Automation Architect">
-  <!-- Hero Section -->
   <section class="about-hero">
     <div class="container">
       <div class="hero-content">
@@ -51,22 +59,21 @@ const achievements = [
           </div>
         </div>
         <div class="hero-text">
-          <span class="badge badge-primary">About Me</span>
+          <Badge variant="primary">About Me</Badge>
           <h1>Hi, I'm Your <span class="gradient-text">Automation Architect</span></h1>
           <p class="hero-subtitle">
             I help businesses save 10-40 hours per week by building reliable, production-grade 
             n8n workflows. No duct-tape solutions—just automation that <em>actually works</em>.
           </p>
           <div class="hero-cta">
-            <a href="/contact" class="btn btn-primary">Let's Work Together</a>
-            <a href="/case-studies" class="btn btn-secondary">See My Work</a>
+            <Button href="/contact">Let's Work Together</Button>
+            <Button href="/case-studies" variant="secondary">See My Work</Button>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Story Section -->
   <section class="section">
     <div class="container">
       <div class="story-grid">
@@ -88,74 +95,58 @@ const achievements = [
           </p>
         </div>
         <div class="philosophy-cards">
-          <div class="philosophy-card">
-            <span class="philosophy-icon">🎯</span>
-            <h3>Outcome-Focused</h3>
-            <p>I measure success by hours saved and errors eliminated—not features shipped.</p>
-          </div>
-          <div class="philosophy-card">
-            <span class="philosophy-icon">🔒</span>
-            <h3>Security-First</h3>
-            <p>Your data is sacred. Every workflow is built with security best practices.</p>
-          </div>
-          <div class="philosophy-card">
-            <span class="philosophy-icon">📚</span>
-            <h3>Knowledge Transfer</h3>
-            <p>I don't just build—I teach. Your team should be able to maintain and extend.</p>
-          </div>
+          {philosophy.map(({ icon, title, description }) => (
+            <div class="philosophy-card">
+              <span class="philosophy-icon">{icon}</span>
+              <h3>{title}</h3>
+              <p>{description}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Achievements -->
   <section class="section section-alt">
     <div class="container">
       <div class="achievements-grid">
-        {achievements.map(achievement => (
+        {achievements.map(({ icon, title, description }) => (
           <div class="achievement-card">
-            <span class="achievement-icon">{achievement.icon}</span>
-            <h3>{achievement.title}</h3>
-            <p>{achievement.description}</p>
+            <span class="achievement-icon">{icon}</span>
+            <h3>{title}</h3>
+            <p>{description}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Toolbelt -->
   <section class="section">
     <div class="container">
-      <div class="section-header">
-        <h2>My <span class="gradient-text">Toolbelt</span></h2>
-        <p>Technologies I work with daily to build robust automation solutions.</p>
-      </div>
+      <SectionHeader title="My" highlight="Toolbelt" description="Technologies I work with daily to build robust automation solutions." />
       <div class="tools-grid">
-        {tools.map(tool => (
+        {tools.map(({ name, category }) => (
           <div class="tool-item">
-            <span class="tool-name">{tool.name}</span>
-            <span class="tool-category">{tool.category}</span>
+            <span class="tool-name">{name}</span>
+            <span class="tool-category">{category}</span>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Timeline -->
   <section class="section section-alt">
     <div class="container">
-      <div class="section-header">
-        <h2>My <span class="gradient-text">Journey</span></h2>
-      </div>
+      <SectionHeader title="My" highlight="Journey" />
       <div class="timeline">
-        {timeline.map((item, index) => (
+        {timeline.map(({ year, title, description }) => (
           <div class="timeline-item">
             <div class="timeline-marker">
-              <span class="timeline-year">{item.year}</span>
+              <span class="timeline-year">{year}</span>
             </div>
             <div class="timeline-content">
-              <h3>{item.title}</h3>
-              <p>{item.description}</p>
+              <h3>{title}</h3>
+              <p>{description}</p>
             </div>
           </div>
         ))}
@@ -163,22 +154,14 @@ const achievements = [
     </div>
   </section>
 
-  <!-- CTA Section -->
-  <section class="cta-section">
-    <div class="container">
-      <div class="cta-content">
-        <h2>Let's Build Something Great</h2>
-        <p>Ready to automate your operations? I'd love to hear about your challenges.</p>
-        <a href="/contact" class="btn btn-primary btn-lg">
-          🗓️ Book a Free Strategy Call
-        </a>
-      </div>
-    </div>
-  </section>
+  <CTASection
+    title="Let's Build Something Great"
+    description="Ready to automate your operations? I'd love to hear about your challenges."
+    buttonText="🗓️ Book a Free Strategy Call"
+  />
 </Layout>
 
 <style>
-  /* About Hero */
   .about-hero {
     padding: var(--space-3xl) 0;
     background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-alt) 100%);
@@ -207,7 +190,7 @@ const achievements = [
     font-size: 5rem;
   }
 
-  .hero-text .badge {
+  .hero-text :global(.badge) {
     margin-bottom: var(--space-lg);
   }
 
@@ -232,7 +215,6 @@ const achievements = [
     }
   }
 
-  /* Story Section */
   .story-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -280,7 +262,6 @@ const achievements = [
     }
   }
 
-  /* Achievements */
   .achievements-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -314,7 +295,6 @@ const achievements = [
     margin: 0;
   }
 
-  /* Tools Grid */
   .tools-grid {
     display: flex;
     flex-wrap: wrap;
@@ -351,7 +331,6 @@ const achievements = [
     letter-spacing: 0.05em;
   }
 
-  /* Timeline */
   .timeline {
     max-width: 700px;
     margin: 0 auto;
@@ -416,38 +395,5 @@ const achievements = [
   .timeline-content p {
     font-size: 0.875rem;
     margin: 0;
-  }
-
-  /* CTA Section */
-  .cta-section {
-    padding: var(--space-3xl) 0;
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-    color: white;
-  }
-
-  .cta-content {
-    text-align: center;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-
-  .cta-content h2 {
-    color: white;
-    margin-bottom: var(--space-md);
-  }
-
-  .cta-content p {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 1.125rem;
-    margin-bottom: var(--space-xl);
-  }
-
-  .cta-section .btn-primary {
-    background: white;
-    color: var(--color-primary);
-  }
-
-  .cta-section .btn-primary:hover {
-    color: var(--color-primary);
   }
 </style>

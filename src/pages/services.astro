@@ -1,5 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Badge from '../components/ui/Badge.astro';
+import Button from '../components/ui/Button.astro';
+import { PageHeader, SectionHeader } from '../components/sections';
 
 const services = [
   {
@@ -153,21 +156,23 @@ const services = [
     cta: 'Train Your Team'
   }
 ];
+
+const processSteps = [
+  { number: 1, title: 'Discovery Call', description: '30-minute call to understand your processes, pain points, and automation goals.' },
+  { number: 2, title: 'Proposal & Scope', description: 'Detailed proposal with timeline, deliverables, and investment. No hidden costs.' },
+  { number: 3, title: 'Build & Deploy', description: "I build your workflows with regular check-ins. You're involved, not in the dark." },
+  { number: 4, title: 'Handover & Support', description: 'Full documentation, training, and warranty period. You own everything.' },
+];
 ---
 
 <Layout title="Services | n8n Expert - Automation Services">
-  <!-- Page Header -->
-  <section class="page-header">
-    <div class="container">
-      <span class="badge badge-primary">Services</span>
-      <h1>Automation Services <span class="gradient-text">That Deliver Results</span></h1>
-      <p class="page-subtitle">
-        From discovery to deployment to ongoing optimization—end-to-end automation services tailored to your business needs.
-      </p>
-    </div>
-  </section>
+  <PageHeader 
+    badge="Services"
+    title="Automation Services"
+    highlight="That Deliver Results"
+    description="From discovery to deployment to ongoing optimization—end-to-end automation services tailored to your business needs."
+  />
 
-  <!-- Services Grid -->
   <section class="section">
     <div class="container">
       <div class="services-grid">
@@ -221,21 +226,20 @@ const services = [
               <span class="tools-label">🛠️ Tools:</span>
               <div class="tools-badges">
                 {service.tools.map((tool) => (
-                  <span class="badge">{tool}</span>
+                  <Badge>{tool}</Badge>
                 ))}
               </div>
             </div>
 
-            <a href="/contact" class="btn btn-primary service-cta">
+            <Button href="/contact" class="service-cta">
               {service.cta} →
-            </a>
+            </Button>
           </article>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Not Sure Section -->
   <section class="section section-alt">
     <div class="container">
       <div class="not-sure-box">
@@ -246,73 +250,38 @@ const services = [
             No commitment, just clarity on your automation opportunities.
           </p>
         </div>
-        <a href="/contact" class="btn btn-primary btn-lg">
+        <Button href="/contact" size="lg">
           🗓️ Book a Free Strategy Call
-        </a>
+        </Button>
       </div>
     </div>
   </section>
 
-  <!-- Process Section -->
   <section class="section">
     <div class="container">
-      <div class="section-header">
-        <h2>How We <span class="gradient-text">Work Together</span></h2>
-        <p>A simple, transparent process designed for results.</p>
-      </div>
+      <SectionHeader 
+        title="How We" 
+        highlight="Work Together"
+        description="A simple, transparent process designed for results."
+      />
 
       <div class="process-timeline">
-        <div class="process-step">
-          <div class="step-number">1</div>
-          <h3>Discovery Call</h3>
-          <p>30-minute call to understand your processes, pain points, and automation goals.</p>
-        </div>
-        <div class="process-arrow">→</div>
-        <div class="process-step">
-          <div class="step-number">2</div>
-          <h3>Proposal & Scope</h3>
-          <p>Detailed proposal with timeline, deliverables, and investment. No hidden costs.</p>
-        </div>
-        <div class="process-arrow">→</div>
-        <div class="process-step">
-          <div class="step-number">3</div>
-          <h3>Build & Deploy</h3>
-          <p>I build your workflows with regular check-ins. You're involved, not in the dark.</p>
-        </div>
-        <div class="process-arrow">→</div>
-        <div class="process-step">
-          <div class="step-number">4</div>
-          <h3>Handover & Support</h3>
-          <p>Full documentation, training, and warranty period. You own everything.</p>
-        </div>
+        {processSteps.map((step, index) => (
+          <>
+            <div class="process-step">
+              <div class="step-number">{step.number}</div>
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+            </div>
+            {index < processSteps.length - 1 && <div class="process-arrow">→</div>}
+          </>
+        ))}
       </div>
     </div>
   </section>
 </Layout>
 
 <style>
-  /* Page Header */
-  .page-header {
-    padding: var(--space-3xl) 0 var(--space-2xl);
-    background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-alt) 100%);
-    text-align: center;
-  }
-
-  .page-header .badge {
-    margin-bottom: var(--space-lg);
-  }
-
-  .page-header h1 {
-    margin-bottom: var(--space-md);
-  }
-
-  .page-subtitle {
-    font-size: 1.125rem;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-
-  /* Services Grid */
   .services-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -325,7 +294,6 @@ const services = [
     }
   }
 
-  /* Service Card */
   .service-card {
     background-color: var(--color-bg-card);
     border: 1px solid var(--color-border);
@@ -459,12 +427,11 @@ const services = [
     gap: var(--space-xs);
   }
 
-  .service-cta {
+  .service-card :global(.service-cta) {
     margin-top: auto;
     text-align: center;
   }
 
-  /* Not Sure Box */
   .not-sure-box {
     display: flex;
     flex-direction: column;
@@ -494,7 +461,6 @@ const services = [
     }
   }
 
-  /* Process Timeline */
   .process-timeline {
     display: grid;
     grid-template-columns: 1fr;

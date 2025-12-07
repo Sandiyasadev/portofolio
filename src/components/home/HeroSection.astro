@@ -1,0 +1,194 @@
+---
+import Badge from '../ui/Badge.astro';
+import Button from '../ui/Button.astro';
+
+interface Stat {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  badge?: string;
+  title: string;
+  highlight?: string;
+  subtitle: string;
+  primaryCTA: { text: string; href: string };
+  secondaryCTA?: { text: string; href: string };
+  stats?: Stat[];
+}
+
+const { badge, title, highlight, subtitle, primaryCTA, secondaryCTA, stats } = Astro.props;
+---
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      {badge && (
+        <div class="hero-badge">
+          <Badge variant="primary">{badge}</Badge>
+        </div>
+      )}
+      <h1 class="hero-title">
+        {title}{highlight && <>—<span class="gradient-text">{highlight}</span></>}
+      </h1>
+      <p class="hero-subtitle">{subtitle}</p>
+      <div class="hero-cta">
+        <Button href={primaryCTA.href} variant="primary" size="lg">
+          {primaryCTA.text}
+        </Button>
+        {secondaryCTA && (
+          <Button href={secondaryCTA.href} variant="secondary" size="lg">
+            {secondaryCTA.text}
+          </Button>
+        )}
+      </div>
+      {stats && stats.length > 0 && (
+        <div class="hero-stats">
+          {stats.map(({ value, label }) => (
+            <div class="stat">
+              <span class="stat-value">{value}</span>
+              <span class="stat-label">{label}</span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+    <div class="hero-visual">
+      <div class="workflow-diagram">
+        <div class="workflow-node trigger">
+          <span class="node-icon">📥</span>
+          <span class="node-label">Trigger</span>
+        </div>
+        <div class="workflow-arrow">→</div>
+        <div class="workflow-node process">
+          <span class="node-icon">⚙️</span>
+          <span class="node-label">Process</span>
+        </div>
+        <div class="workflow-arrow">→</div>
+        <div class="workflow-node action">
+          <span class="node-icon">🚀</span>
+          <span class="node-label">Action</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding: var(--space-3xl) 0;
+    background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-alt) 100%);
+  }
+
+  .hero .container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+    align-items: center;
+  }
+
+  .hero-badge {
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.1;
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero-subtitle {
+    font-size: 1.125rem;
+    color: var(--color-text-muted);
+    max-width: 600px;
+    line-height: 1.7;
+  }
+
+  .hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: var(--space-xl);
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-primary);
+  }
+
+  .stat-label {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  .hero-visual {
+    display: none;
+  }
+
+  .workflow-diagram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+    padding: var(--space-xl);
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .workflow-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    background-color: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    min-width: 80px;
+  }
+
+  .workflow-node.trigger { border-color: var(--color-success); }
+  .workflow-node.process { border-color: var(--color-primary); }
+  .workflow-node.action { border-color: var(--color-accent); }
+
+  .node-icon {
+    font-size: 1.5rem;
+  }
+
+  .node-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+
+  .workflow-arrow {
+    font-size: 1.5rem;
+    color: var(--color-text-muted);
+  }
+
+  @media (min-width: 1024px) {
+    .hero .container {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .hero-visual {
+      display: block;
+    }
+  }
+</style>

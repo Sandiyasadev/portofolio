@@ -1,0 +1,83 @@
+---
+import Button from '../ui/Button.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  buttonText: string;
+  buttonHref?: string;
+  note?: string;
+}
+
+const { 
+  title, 
+  description, 
+  buttonText, 
+  buttonHref = '/contact',
+  note 
+} = Astro.props;
+---
+
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-content">
+      <h2>{title}</h2>
+      {description && <p>{description}</p>}
+      <div class="cta-buttons">
+        <Button href={buttonHref} variant="primary" size="lg">
+          {buttonText}
+        </Button>
+        {note && <span class="cta-note">{note}</span>}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-section {
+    padding: var(--space-3xl) 0;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    color: white;
+  }
+
+  .cta-content {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .cta-content h2 {
+    color: white;
+    margin-bottom: var(--space-md);
+  }
+
+  .cta-content p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.125rem;
+    margin-bottom: var(--space-xl);
+  }
+
+  .cta-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .cta-section :global(.btn-primary) {
+    background: white;
+    color: var(--color-primary);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+  }
+
+  .cta-section :global(.btn-primary:hover) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    color: var(--color-primary);
+  }
+
+  .cta-note {
+    font-size: 0.875rem;
+    opacity: 0.8;
+  }
+</style>

@@ -1,0 +1,44 @@
+---
+import Badge from '../ui/Badge.astro';
+
+interface Props {
+  badge?: string;
+  title: string;
+  highlight?: string;
+  description?: string;
+}
+
+const { badge, title, highlight, description } = Astro.props;
+---
+
+<section class="page-header">
+  <div class="container">
+    {badge && <Badge variant="primary">{badge}</Badge>}
+    <h1>
+      {title} {highlight && <span class="gradient-text">{highlight}</span>}
+    </h1>
+    {description && <p class="page-subtitle">{description}</p>}
+  </div>
+</section>
+
+<style>
+  .page-header {
+    padding: var(--space-3xl) 0 var(--space-2xl);
+    background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-alt) 100%);
+    text-align: center;
+  }
+
+  .page-header :global(.badge) {
+    margin-bottom: var(--space-lg);
+  }
+
+  .page-header h1 {
+    margin-bottom: var(--space-md);
+  }
+
+  .page-subtitle {
+    font-size: 1.125rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+</style>

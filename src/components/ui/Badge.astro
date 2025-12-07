@@ -1,0 +1,18 @@
+---
+interface Props {
+  variant?: 'default' | 'primary';
+  class?: string;
+}
+
+const { variant = 'default', class: className = '' } = Astro.props;
+
+const classes = [
+  'badge',
+  variant === 'primary' && 'badge-primary',
+  className
+].filter(Boolean).join(' ');
+---
+
+<span class={classes}>
+  <slot />
+</span>

@@ -1,0 +1,48 @@
+---
+interface Props {
+  icon: string;
+  title: string;
+  description: string;
+  link?: string;
+  linkText?: string;
+}
+
+const { icon, title, description, link, linkText = 'Learn more →' } = Astro.props;
+---
+
+<a href={link} class="value-card card">
+  <span class="value-icon">{icon}</span>
+  <h3>{title}</h3>
+  <p>{description}</p>
+  {link && <span class="value-link">{linkText}</span>}
+</a>
+
+<style>
+  .value-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .value-icon {
+    font-size: 2rem;
+    margin-bottom: var(--space-md);
+  }
+
+  .value-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .value-card p {
+    flex: 1;
+    font-size: 0.875rem;
+  }
+
+  .value-link {
+    color: var(--color-primary);
+    font-weight: 600;
+    font-size: 0.875rem;
+  }
+</style>

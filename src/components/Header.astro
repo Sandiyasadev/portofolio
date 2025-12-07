@@ -1,0 +1,165 @@
+---
+const navLinks = [
+  { href: '/services', label: 'Services' },
+  { href: '/case-studies', label: 'Case Studies' },
+  { href: '/workflow-library', label: 'Workflows' },
+  { href: '/about', label: 'About' },
+  { href: '/blog', label: 'Blog' },
+];
+---
+
+<header class="header">
+  <nav class="nav container">
+    <a href="/" class="nav-logo">
+      <span class="logo-icon"><img  src="favicon.png"></span>
+      <span class="logo-text"></span>
+    </a>
+    
+    <ul class="nav-links">
+      {navLinks.map(({ href, label }) => (
+        <li><a href={href}>{label}</a></li>
+      ))}
+    </ul>
+    
+    <a href="/contact" class="btn btn-primary nav-cta">
+      Book a Call
+    </a>
+    
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span class="hamburger"></span>
+    </button>
+  </nav>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--color-border);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    .header {
+      background-color: rgba(15, 23, 42, 0.95);
+    }
+  }
+  
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+  
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--color-text);
+  }
+  
+  .nav-logo:hover {
+    color: var(--color-text);
+  }
+  
+  .logo-icon {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .logo-icon img {
+    height: 40px;
+    width: auto;
+  }
+  
+  .nav-links {
+    display: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: var(--space-xl);
+  }
+  
+  .nav-links a {
+    color: var(--color-text-muted);
+    font-weight: 500;
+    transition: color var(--transition-fast);
+  }
+  
+  .nav-links a:hover {
+    color: var(--color-primary);
+  }
+  
+  .nav-cta {
+    display: none;
+  }
+  
+  .nav-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .hamburger {
+    position: relative;
+    width: 24px;
+    height: 2px;
+    background-color: var(--color-text);
+    transition: background-color var(--transition-fast);
+  }
+  
+  .hamburger::before,
+  .hamburger::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 24px;
+    height: 2px;
+    background-color: var(--color-text);
+    transition: transform var(--transition-base);
+  }
+  
+  .hamburger::before {
+    top: -8px;
+  }
+  
+  .hamburger::after {
+    bottom: -8px;
+  }
+  
+  @media (min-width: 768px) {
+    .nav-links {
+      display: flex;
+    }
+    
+    .nav-cta {
+      display: inline-flex;
+    }
+    
+    .nav-toggle {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const navToggle = document.querySelector('.nav-toggle');
+  const navLinks = document.querySelector('.nav-links');
+  
+  navToggle?.addEventListener('click', () => {
+    const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+    navToggle.setAttribute('aria-expanded', String(!isExpanded));
+    navLinks?.classList.toggle('nav-open');
+  });
+</script>
