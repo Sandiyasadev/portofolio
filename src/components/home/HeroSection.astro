@@ -1,12 +1,6 @@
 ---
 import Badge from '../ui/Badge.astro';
 import Button from '../ui/Button.astro';
-import Icon from '../ui/Icon.astro';
-
-interface Stat {
-  value: string;
-  label: string;
-}
 
 interface Props {
   badge?: string;
@@ -15,60 +9,67 @@ interface Props {
   subtitle: string;
   primaryCTA: { text: string; href: string };
   secondaryCTA?: { text: string; href: string };
-  stats?: Stat[];
 }
 
-const { badge, title, highlight, subtitle, primaryCTA, secondaryCTA, stats } = Astro.props;
+const { badge, title, highlight, subtitle, primaryCTA, secondaryCTA } = Astro.props;
 ---
 
 <section class="hero">
+  <!-- Decorative background elements -->
+  <div class="hero-bg">
+    <div class="gradient-orb orb-1"></div>
+    <div class="gradient-orb orb-2"></div>
+    <div class="grid-pattern"></div>
+  </div>
+  
   <div class="container">
     <div class="hero-content">
       {badge && (
-        <div class="hero-badge hero-animate" style="--delay: 0.1s">
+        <div class="hero-badge hero-animate" style="animation-delay: 0s">
           <Badge variant="primary">{badge}</Badge>
         </div>
       )}
-      <h1 class="hero-title hero-animate" style="--delay: 0.2s">
-        {title}{highlight && <>—<span class="gradient-text-animated">{highlight}</span></>}
+      
+      <h1 class="hero-title hero-animate" style="animation-delay: 0.1s">
+        {title}
+        {highlight && (
+          <>
+            <br />
+            <span class="gradient-text">{highlight}</span>
+          </>
+        )}
       </h1>
-      <p class="hero-subtitle hero-animate" style="--delay: 0.4s">{subtitle}</p>
-      <div class="hero-cta hero-animate" style="--delay: 0.6s">
-        <Button href={primaryCTA.href} variant="primary" size="lg" class="btn-shine">
+      
+      <p class="hero-subtitle hero-animate" style="animation-delay: 0.2s">
+        {subtitle}
+      </p>
+      
+      <div class="hero-cta hero-animate" style="animation-delay: 0.3s">
+        <Button href={primaryCTA.href} variant="primary" size="lg">
           {primaryCTA.text}
         </Button>
         {secondaryCTA && (
           <Button href={secondaryCTA.href} variant="secondary" size="lg">
-            {secondaryCTA.text}
+            {secondaryCTA.text} →
           </Button>
         )}
       </div>
-      {stats && stats.length > 0 && (
-        <div class="hero-stats hero-animate" style="--delay: 0.8s">
-          {stats.map(({ value, label }, i) => (
-            <div class="stat" style={`--delay: ${0.8 + i * 0.1}s`}>
-              <span class="stat-value">{value}</span>
-              <span class="stat-label">{label}</span>
-            </div>
-          ))}
+      
+      <!-- Stats -->
+      <div class="hero-stats hero-animate" style="animation-delay: 0.4s">
+        <div class="stat-item">
+          <span class="stat-value">10+</span>
+          <span class="stat-label">Projects Delivered</span>
         </div>
-      )}
-    </div>
-    <div class="hero-visual">
-      <div class="workflow-diagram float">
-        <div class="workflow-node trigger node-animate" style="--delay: 0.3s">
-          <span class="node-icon"><Icon name="inbox" size={24} /></span>
-          <span class="node-label">Trigger</span>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-value">40hrs</span>
+          <span class="stat-label">Saved Weekly</span>
         </div>
-        <div class="workflow-arrow arrow-animate" style="--delay: 0.5s"><Icon name="chevron-right" size={20} /></div>
-        <div class="workflow-node process node-animate" style="--delay: 0.6s">
-          <span class="node-icon"><Icon name="settings" size={24} /></span>
-          <span class="node-label">Process</span>
-        </div>
-        <div class="workflow-arrow arrow-animate" style="--delay: 0.8s"><Icon name="chevron-right" size={20} /></div>
-        <div class="workflow-node action node-animate" style="--delay: 0.9s">
-          <span class="node-icon"><Icon name="rocket" size={24} /></span>
-          <span class="node-label">Action</span>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-value">99%</span>
+          <span class="stat-label">Success Rate</span>
         </div>
       </div>
     </div>
@@ -77,177 +78,195 @@ const { badge, title, highlight, subtitle, primaryCTA, secondaryCTA, stats } = A
 
 <style>
   .hero {
-    padding: var(--space-3xl) 0;
-    background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-alt) 100%);
+    position: relative;
+    padding: calc(var(--space-3xl) + 70px) 0 var(--space-3xl);
     overflow: hidden;
+    text-align: center;
+    min-height: 92vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Background effects */
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  .gradient-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: 0.45;
+  }
+
+  .orb-1 {
+    width: 550px;
+    height: 550px;
+    background: linear-gradient(135deg, rgba(0, 113, 227, 0.35) 0%, rgba(175, 82, 222, 0.25) 100%);
+    top: -180px;
+    right: -80px;
+    animation: floatOrb 18s ease-in-out infinite;
+  }
+
+  .orb-2 {
+    width: 380px;
+    height: 380px;
+    background: linear-gradient(135deg, rgba(41, 151, 255, 0.25) 0%, rgba(52, 199, 89, 0.18) 100%);
+    bottom: -120px;
+    left: -60px;
+    animation: floatOrb 15s ease-in-out infinite reverse;
+  }
+
+  @keyframes floatOrb {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(25px, -25px) scale(1.04); }
+    66% { transform: translate(-18px, 18px) scale(0.96); }
+  }
+
+  .grid-pattern {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(to right, var(--color-border) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--color-border) 1px, transparent 1px);
+    background-size: 55px 55px;
+    opacity: 0.28;
+    mask-image: radial-gradient(ellipse 75% 75% at 50% 50%, black 15%, transparent 65%);
+    -webkit-mask-image: radial-gradient(ellipse 75% 75% at 50% 50%, black 15%, transparent 65%);
   }
 
   .hero .container {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-2xl);
+    position: relative;
+    z-index: 1;
+    max-width: 850px;
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-  }
-
-  /* Hero animations */
-  .hero-animate {
-    opacity: 0;
-    transform: translateY(30px);
-    animation: heroFadeIn 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-    animation-delay: var(--delay, 0s);
-  }
-
-  @keyframes heroFadeIn {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    gap: var(--space-md);
   }
 
   .hero-badge {
-    margin-bottom: var(--space-lg);
+    margin-bottom: var(--space-sm);
   }
 
   .hero-title {
-    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-size: clamp(2.5rem, 6.5vw, 4.25rem);
+    font-weight: 700;
     line-height: 1.1;
-    margin-bottom: var(--space-lg);
+    letter-spacing: -0.025em;
+    margin-bottom: var(--space-sm);
+    color: var(--color-text);
   }
 
   .hero-subtitle {
-    font-size: 1.125rem;
+    font-size: clamp(1.0625rem, 1.8vw, 1.25rem);
     color: var(--color-text-muted);
-    max-width: 600px;
-    line-height: 1.7;
+    max-width: 550px;
+    line-height: 1.6;
+    font-weight: 400;
+    margin-bottom: var(--space-lg);
   }
 
   .hero-cta {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-md);
-    margin-top: var(--space-xl);
+    justify-content: center;
+    margin-top: var(--space-sm);
   }
 
+  /* Stats section */
   .hero-stats {
     display: flex;
+    align-items: center;
+    justify-content: center;
     gap: var(--space-xl);
     margin-top: var(--space-2xl);
     padding-top: var(--space-xl);
     border-top: 1px solid var(--color-border);
   }
 
-  .stat {
+  .stat-item {
     display: flex;
     flex-direction: column;
-    opacity: 0;
-    animation: heroFadeIn 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-    animation-delay: var(--delay, 0s);
+    align-items: center;
+    gap: 0.2rem;
   }
 
   .stat-value {
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--color-primary);
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: var(--color-text);
+    letter-spacing: -0.01em;
   }
 
   .stat-label {
-    font-size: 0.875rem;
-    color: var(--color-text-muted);
-  }
-
-  .hero-visual {
-    display: none;
-  }
-
-  .workflow-diagram {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-md);
-    padding: var(--space-xl);
-    background-color: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-lg);
-  }
-
-  .workflow-node {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-xs);
-    padding: var(--space-md);
-    border-radius: var(--radius-md);
-    background-color: var(--color-bg-alt);
-    border: 1px solid var(--color-border);
-    min-width: 80px;
-    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-  }
-
-  .workflow-node:hover {
-    transform: translateY(-4px) scale(1.05);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  }
-
-  .node-animate {
-    opacity: 0;
-    transform: translateY(20px) scale(0.9);
-    animation: nodeAppear 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-    animation-delay: var(--delay, 0s);
-  }
-
-  .arrow-animate {
-    opacity: 0;
-    animation: arrowAppear 0.4s ease forwards;
-    animation-delay: var(--delay, 0s);
-  }
-
-  @keyframes nodeAppear {
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-
-  @keyframes arrowAppear {
-    to {
-      opacity: 1;
-    }
-  }
-
-  .workflow-node.trigger { border-color: var(--color-success); }
-  .workflow-node.process { border-color: var(--color-primary); }
-  .workflow-node.action { border-color: var(--color-accent); }
-
-  .node-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .workflow-node.trigger .node-icon { color: var(--color-success); }
-  .workflow-node.process .node-icon { color: var(--color-primary); }
-  .workflow-node.action .node-icon { color: var(--color-accent); }
-
-  .node-label {
     font-size: 0.75rem;
-    font-weight: 600;
     color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
   }
 
-  .workflow-arrow {
-    display: flex;
-    align-items: center;
-    color: var(--color-text-muted);
+  .stat-divider {
+    width: 1px;
+    height: 36px;
+    background-color: var(--color-border);
   }
 
-  @media (min-width: 1024px) {
-    .hero .container {
-      grid-template-columns: 1fr 1fr;
+  .hero-animate {
+    opacity: 0;
+    transform: translateY(18px);
+    animation: fadeUp 0.7s ease forwards;
+  }
+
+  @keyframes fadeUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .hero {
+      padding: calc(var(--space-2xl) + 60px) 0 var(--space-2xl);
+      min-height: auto;
     }
 
-    .hero-visual {
-      display: block;
+    .hero-stats {
+      flex-direction: column;
+      gap: var(--space-md);
     }
+
+    .stat-divider {
+      width: 55px;
+      height: 1px;
+    }
+
+    .orb-1 {
+      width: 280px;
+      height: 280px;
+    }
+
+    .orb-2 {
+      width: 200px;
+      height: 200px;
+    }
+  }
+
+  /* Dark mode adjustments */
+  :global([data-theme="dark"]) .grid-pattern {
+    opacity: 0.12;
+  }
+
+  :global([data-theme="dark"]) .gradient-orb {
+    opacity: 0.28;
   }
 </style>

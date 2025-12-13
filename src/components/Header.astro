@@ -17,111 +17,142 @@ function isActive(href: string): boolean {
 }
 ---
 
-<header class="header">
-  <nav class="nav container">
-    <a href="/" class="nav-logo">
-      <img src="/favicon.png" alt="Logo" class="logo-icon" />
-      <span class="logo-text">Sandiyasa</span>
-    </a>
-    
-    <ul class="nav-links">
-      {navLinks.map(({ href, label }) => (
-        <li>
-          <a href={href} class:list={[{ active: isActive(href) }]} aria-current={isActive(href) ? 'page' : undefined}>
-            {label}
-          </a>
-        </li>
-      ))}
-    </ul>
-    
-    <div class="nav-actions">
-      <button class="theme-toggle" aria-label="Toggle theme" title="Toggle dark/light mode">
-        <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="5"/>
-          <line x1="12" y1="1" x2="12" y2="3"/>
-          <line x1="12" y1="21" x2="12" y2="23"/>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-          <line x1="1" y1="12" x2="3" y2="12"/>
-          <line x1="21" y1="12" x2="23" y2="12"/>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-        </svg>
-        <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-        </svg>
-      </button>
-      
-      <a href="/contact" class="btn btn-primary nav-cta">
-        Book a Call
+<div class="header-wrapper" id="header-wrapper">
+  <header class="header" id="main-header">
+    <nav class="nav">
+      <a href="/" class="nav-logo">
+        <div class="logo-icon">
+          <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+            <defs>
+              <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#0071e3" />
+                <stop offset="100%" style="stop-color:#af52de" />
+              </linearGradient>
+            </defs>
+            <rect width="32" height="32" rx="8" fill="url(#logoGradient)"/>
+            <path d="M10 16L14 20L22 12" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span class="logo-text">Sandiyasa</span>
       </a>
-    </div>
-    
-    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
-      <span class="hamburger"></span>
-    </button>
-  </nav>
-</header>
+      
+      <ul class="nav-links">
+        {navLinks.map(({ href, label }) => (
+          <li>
+            <a href={href} class:list={[{ active: isActive(href) }]} aria-current={isActive(href) ? 'page' : undefined}>
+              {label}
+            </a>
+          </li>
+        ))}
+      </ul>
+      
+      <div class="nav-actions">
+        <button class="theme-toggle" aria-label="Toggle theme" title="Toggle dark/light mode">
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+        
+        <a href="/contact" class="btn btn-cta">
+          Book a Call
+        </a>
+      </div>
+      
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span class="hamburger"></span>
+      </button>
+    </nav>
+  </header>
+</div>
 
 <style>
-  .header {
-    position: sticky;
+  .header-wrapper {
+    position: fixed;
     top: 0;
-    z-index: 50;
-    background-color: var(--color-bg);
-    border-bottom: 1px solid var(--color-border);
-    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
-                background-color 0.3s ease,
-                box-shadow 0.3s ease;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    padding: 1rem 1.5rem;
+    pointer-events: none;
+    transition: padding 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .header:global(.scroll-down) {
-    transform: translateY(-100%);
+  .header-wrapper.scrolled {
+    padding: 0.75rem 1.5rem;
   }
 
-  .header:global(.scroll-up) {
-    transform: translateY(0);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 1100px;
+    height: 56px;
+    padding: 0 1.5rem;
+    background: transparent;
+    border-radius: 1rem;
+    pointer-events: auto;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .header-wrapper.scrolled .header {
+    max-width: 800px;
+    height: 52px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-radius: 100px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  }
+
+  :global([data-theme="dark"]) .header-wrapper.scrolled .header {
+    background: rgba(29, 29, 31, 0.85);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.08);
   }
   
   .nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 72px;
+    width: 100%;
+    height: 100%;
   }
   
   .nav-logo {
     display: flex;
     align-items: center;
-    gap: var(--space-sm);
-    font-weight: 700;
-    font-size: 1.25rem;
-    color: var(--color-text);
-  }
-  
-  .nav-logo:hover {
-    color: var(--color-text);
-  }
-  
-  .logo-icon {
-    width: 36px;
-    height: 36px;
-    flex-shrink: 0;
-    transition: filter var(--transition-fast);
+    gap: 0.5rem;
+    text-decoration: none !important;
   }
 
-  :global([data-theme="dark"]) .logo-icon {
-    filter: invert(1);
+  .logo-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+  }
+
+  .nav-logo:hover .logo-icon {
+    transform: scale(1.05);
   }
 
   .logo-text {
-    font-weight: 700;
-    font-size: 1.25rem;
-    background: linear-gradient(135deg, var(--color-primary) 0%, #06b6d4 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-text);
   }
   
   .nav-links {
@@ -129,95 +160,98 @@ function isActive(href: string): boolean {
     list-style: none;
     margin: 0;
     padding: 0;
-    gap: var(--space-xl);
+    gap: 0.25rem;
   }
 
-  /* Mobile nav open state */
   .nav-links.nav-open {
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background-color: var(--color-bg);
-    border-bottom: 1px solid var(--color-border);
-    padding: var(--space-lg);
-    gap: var(--space-sm);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    z-index: 100;
+    top: calc(100% + 0.5rem);
+    left: 1rem;
+    right: 1rem;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 1rem;
+    padding: var(--space-md);
+    gap: var(--space-xs);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  }
+
+  :global([data-theme="dark"]) .nav-links.nav-open {
+    background: rgba(29, 29, 31, 0.95);
   }
 
   .nav-links.nav-open a {
-    padding: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
     border-radius: var(--radius-md);
-  }
-
-  .nav-links.nav-open a:hover {
-    background-color: var(--color-bg-alt);
   }
   
   .nav-links a {
-    color: var(--color-text-muted);
+    color: var(--color-text);
+    font-size: 0.875rem;
     font-weight: 500;
     transition: all var(--transition-fast);
-    padding: var(--space-xs) var(--space-sm);
-    border-radius: var(--radius-sm);
-    position: relative;
+    text-decoration: none !important;
+    padding: 0.5rem 0.875rem;
+    border-radius: 100px;
   }
   
   .nav-links a:hover {
     color: var(--color-primary);
+    background-color: rgba(0, 113, 227, 0.1);
   }
 
   .nav-links a.active {
     color: var(--color-primary);
-    font-weight: 600;
-  }
-
-  .nav-links a.active::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 20px;
-    height: 3px;
-    background: linear-gradient(135deg, var(--color-primary) 0%, #06b6d4 100%);
-    border-radius: 2px;
+    background-color: rgba(0, 113, 227, 0.1);
   }
   
   .nav-actions {
     display: flex;
     align-items: center;
-    gap: var(--space-md);
+    gap: var(--space-sm);
   }
 
-  .nav-cta {
+  .btn-cta {
     display: none;
+    padding: 0.5rem 1.25rem !important;
+    font-size: 0.875rem !important;
+    font-weight: 500 !important;
+    background: linear-gradient(135deg, #0071e3 0%, #af52de 100%);
+    color: white !important;
+    border-radius: 100px !important;
+    border: none;
+    transition: all 0.3s ease;
+    text-decoration: none !important;
+  }
+
+  .btn-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 113, 227, 0.35);
   }
 
   .theme-toggle {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     background: transparent;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
+    border: none;
+    border-radius: 100px;
     cursor: pointer;
-    transition: all var(--transition-fast);
+    transition: background-color var(--transition-fast);
+    color: var(--color-text);
   }
 
   .theme-toggle:hover {
-    border-color: var(--color-primary);
-    background-color: var(--color-bg-alt);
+    background-color: rgba(0, 0, 0, 0.06);
   }
 
-  .icon-sun,
-  .icon-moon {
-    color: var(--color-text);
+  :global([data-theme="dark"]) .theme-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
   }
 
   .icon-moon {
@@ -236,8 +270,8 @@ function isActive(href: string): boolean {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     background: transparent;
     border: none;
     cursor: pointer;
@@ -245,9 +279,10 @@ function isActive(href: string): boolean {
   
   .hamburger {
     position: relative;
-    width: 24px;
+    width: 20px;
     height: 2px;
     background-color: var(--color-text);
+    border-radius: 2px;
     transition: background-color var(--transition-fast);
   }
   
@@ -256,21 +291,21 @@ function isActive(href: string): boolean {
     content: '';
     position: absolute;
     left: 0;
-    width: 24px;
+    width: 20px;
     height: 2px;
     background-color: var(--color-text);
+    border-radius: 2px;
     transition: transform var(--transition-base);
   }
   
   .hamburger::before {
-    top: -8px;
+    top: -6px;
   }
   
   .hamburger::after {
-    bottom: -8px;
+    bottom: -6px;
   }
 
-  /* Hamburger animation when open */
   .nav-toggle[aria-expanded="true"] .hamburger {
     background-color: transparent;
   }
@@ -290,7 +325,7 @@ function isActive(href: string): boolean {
       display: flex;
     }
     
-    .nav-cta {
+    .btn-cta {
       display: inline-flex;
     }
     
@@ -301,9 +336,23 @@ function isActive(href: string): boolean {
 </style>
 
 <script>
+  const headerWrapper = document.getElementById('header-wrapper');
   const navToggle = document.querySelector('.nav-toggle');
   const navLinks = document.querySelector('.nav-links');
   
+  // Scroll effect - pill shape animation
+  function handleScroll() {
+    if (window.scrollY > 50) {
+      headerWrapper?.classList.add('scrolled');
+    } else {
+      headerWrapper?.classList.remove('scrolled');
+    }
+  }
+
+  window.addEventListener('scroll', handleScroll);
+  handleScroll(); // Check on load
+
+  // Mobile menu
   function closeMenu() {
     navToggle?.setAttribute('aria-expanded', 'false');
     navLinks?.classList.remove('nav-open');
@@ -315,12 +364,10 @@ function isActive(href: string): boolean {
     navLinks?.classList.toggle('nav-open');
   });
 
-  // Close menu when clicking a link
   navLinks?.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', closeMenu);
   });
 
-  // Close menu when clicking outside
   document.addEventListener('click', (e) => {
     if (!navToggle?.contains(e.target as Node) && !navLinks?.contains(e.target as Node)) {
       closeMenu();
@@ -331,7 +378,6 @@ function isActive(href: string): boolean {
   const themeToggle = document.querySelector('.theme-toggle');
   const html = document.documentElement;
   
-  // Check saved theme or system preference
   const savedTheme = localStorage.getItem('theme');
   if (savedTheme) {
     html.setAttribute('data-theme', savedTheme);

@@ -17,7 +17,6 @@ const connectLinks = [
   { href: '/contact', label: 'Contact' },
   { href: 'https://linkedin.com', label: 'LinkedIn', external: true },
   { href: 'https://github.com', label: 'GitHub', external: true },
-  { href: 'https://twitter.com', label: 'Twitter', external: true },
 ];
 
 const currentYear = new Date().getFullYear();
@@ -26,14 +25,6 @@ const currentYear = new Date().getFullYear();
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
-      <div class="footer-brand">
-        <a href="/" class="footer-logo">
-          <img src="/favicon.png" alt="Logo" class="logo-icon" />
-          <span class="logo-text">Sandiyasa</span>
-        </a>
-        <p>Reliable workflows that save hours.</p>
-      </div>
-      
       <div class="footer-links">
         <h4>Services</h4>
         <ul>
@@ -67,10 +58,10 @@ const currentYear = new Date().getFullYear();
     </div>
     
     <div class="footer-bottom">
-      <p>&copy; {currentYear} AutomateFlow. All rights reserved.</p>
+      <p>Copyright © {currentYear} Sandiyasa. All rights reserved.</p>
       <div class="footer-legal">
         <a href="/privacy">Privacy Policy</a>
-        <a href="/terms">Terms of Service</a>
+        <a href="/terms">Terms of Use</a>
       </div>
     </div>
   </div>
@@ -80,60 +71,22 @@ const currentYear = new Date().getFullYear();
   .footer {
     background-color: var(--color-bg-alt);
     border-top: 1px solid var(--color-border);
-    padding: var(--space-2xl) 0 var(--space-xl);
+    padding: var(--space-2xl) 0 var(--space-lg);
   }
   
   .footer-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--space-xl) var(--space-lg);
     margin-bottom: var(--space-xl);
   }
   
-  .footer-brand {
-    grid-column: 1 / -1;
-    margin-bottom: var(--space-md);
-  }
-  
-  .footer-brand p {
-    margin-top: var(--space-sm);
-    font-size: 0.875rem;
-    max-width: 280px;
-  }
-  
-  .footer-logo {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    font-weight: 700;
-    font-size: 1.125rem;
-    color: var(--color-text);
-  }
-  
-  .logo-icon {
-    width: 32px;
-    height: 32px;
-    flex-shrink: 0;
-    transition: filter var(--transition-fast);
-  }
-
-  :global([data-theme="dark"]) .logo-icon {
-    filter: invert(1);
-  }
-
-  .logo-text {
-    background: linear-gradient(135deg, var(--color-primary) 0%, #06b6d4 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  
   .footer-links h4 {
     font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: var(--space-sm);
+    font-weight: 600;
     color: var(--color-text);
+    margin-bottom: var(--space-sm);
+    letter-spacing: 0;
   }
   
   .footer-links ul {
@@ -143,17 +96,19 @@ const currentYear = new Date().getFullYear();
   }
   
   .footer-links li {
-    margin-bottom: var(--space-xs);
+    margin-bottom: 0.25rem;
   }
   
   .footer-links a {
     color: var(--color-text-muted);
-    font-size: 0.8125rem;
+    font-size: 0.75rem;
     line-height: 1.6;
+    text-decoration: none !important;
+    transition: color var(--transition-fast);
   }
   
   .footer-links a:hover {
-    color: var(--color-primary);
+    color: var(--color-text);
   }
   
   .footer-bottom {
@@ -164,67 +119,45 @@ const currentYear = new Date().getFullYear();
     gap: var(--space-sm);
     padding-top: var(--space-lg);
     border-top: 1px solid var(--color-border);
-    font-size: 0.8125rem;
+    font-size: 0.75rem;
     color: var(--color-text-muted);
   }
   
   .footer-bottom p {
     margin: 0;
+    font-size: 0.75rem;
   }
   
   .footer-legal {
     display: flex;
-    gap: var(--space-md);
+    gap: var(--space-lg);
   }
   
   .footer-legal a {
     color: var(--color-text-muted);
+    text-decoration: none !important;
+    transition: color var(--transition-fast);
   }
 
   .footer-legal a:hover {
-    color: var(--color-primary);
+    color: var(--color-text);
   }
   
   @media (min-width: 640px) {
     .footer-grid {
-      grid-template-columns: repeat(4, 1fr);
-      gap: var(--space-xl);
-    }
-
-    .footer-brand {
-      grid-column: 1;
-      margin-bottom: 0;
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 
   @media (min-width: 768px) {
     .footer {
-      padding: var(--space-3xl) 0 var(--space-xl);
-    }
-
-    .footer-grid {
-      grid-template-columns: 2fr repeat(3, 1fr);
-      margin-bottom: var(--space-2xl);
-    }
-
-    .footer-links h4 {
-      font-size: 0.875rem;
-      margin-bottom: var(--space-md);
-    }
-
-    .footer-links a {
-      font-size: 0.875rem;
-    }
-
-    .footer-links li {
-      margin-bottom: var(--space-sm);
+      padding: var(--space-2xl) 0;
     }
     
     .footer-bottom {
       flex-direction: row;
       justify-content: space-between;
       text-align: left;
-      padding-top: var(--space-xl);
     }
   }
 </style>

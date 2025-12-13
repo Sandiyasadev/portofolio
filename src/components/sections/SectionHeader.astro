@@ -11,7 +11,7 @@ const { title, highlight, description, class: className = '' } = Astro.props;
 
 <div class={`section-header ${className}`}>
   <h2>
-    {title} {highlight && <span class="gradient-text">{highlight}</span>}
+    {title}{highlight && <> <span class="gradient-text">{highlight}</span></>}
   </h2>
   {description && <p>{description}</p>}
 </div>
@@ -25,9 +25,14 @@ const { title, highlight, description, class: className = '' } = Astro.props;
 
   .section-header h2 {
     margin-bottom: var(--space-md);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 600;
+    letter-spacing: -0.01em;
   }
 
   .section-header p {
     font-size: 1.125rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
   }
 </style>
