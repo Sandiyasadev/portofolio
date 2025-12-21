@@ -1,0 +1,380 @@
+---
+interface Props {
+  name?: string;
+  title?: string;
+  tagline?: string;
+}
+
+const {
+  name = "Developer Name",
+  title = "Web Developer",
+  tagline = "Membangun pengalaman digital yang bermakna melalui kode yang bersih dan desain yang thoughtful."
+} = Astro.props;
+---
+
+<section class="hero">
+  <div class="hero-container">
+    <div class="hero-content">
+      <!-- Status Badge -->
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        <span>{title} • Available 2025</span>
+      </div>
+
+      <!-- Main Heading -->
+      <h1 class="hero-heading">
+        Crafting the <span class="hero-heading-accent">Digital</span> Experience.
+      </h1>
+
+      <!-- Quote -->
+      <p class="hero-quote">
+        "{tagline}"
+      </p>
+
+      <!-- CTAs -->
+      <div class="hero-ctas">
+        <a href="#projects" class="btn-primary">
+          <span>Lihat Karya Saya</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+        <a href="#about" class="btn-text">
+          Tentang Saya
+        </a>
+      </div>
+    </div>
+
+    <!-- Hero Visual -->
+    <div class="hero-visual">
+      <div class="visual-card">
+        <!-- Grid Pattern -->
+        <div class="visual-grid"></div>
+        
+        <!-- Code Lines -->
+        <div class="visual-code">
+          {[...Array(25)].map((_, i) => (
+            <div class="code-line">
+              <span class="code-prefix">INIT [{i.toString(16).padStart(4, '0')}]</span>
+              <span class="code-hash">{`0x${Math.random().toString(16).substr(2, 12)}`}</span>
+            </div>
+          ))}
+        </div>
+
+        <!-- Center Icon -->
+        <div class="visual-center">
+          <div class="visual-glow"></div>
+          <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="visual-icon">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
+        </div>
+
+        <!-- Status Badge -->
+        <div class="visual-status">
+          <div class="status-header">
+            <span class="status-dot"></span>
+            <span class="status-label">System Core: Operational</span>
+          </div>
+          <p class="status-text">
+            "Kode yang baik adalah kode yang tidak perlu dijelaskan."
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    padding-top: 10rem;
+    padding-bottom: 5rem;
+    border-bottom: 1px solid var(--color-border);
+    overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .hero {
+      padding-top: 15rem;
+      padding-bottom: 10rem;
+    }
+  }
+
+  .hero-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: grid;
+    gap: 4rem;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-container {
+      grid-template-columns: 7fr 5fr;
+    }
+  }
+
+  .hero-content {
+    max-width: 700px;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.375rem 1rem;
+    background: var(--color-accent-light);
+    color: var(--color-accent);
+    border: 1px solid var(--color-accent-border);
+    border-radius: 9999px;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 2rem;
+  }
+
+  .badge-dot {
+    position: relative;
+    width: 0.5rem;
+    height: 0.5rem;
+  }
+
+  .badge-dot::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: var(--color-accent);
+    animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  .badge-dot::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: var(--color-accent);
+  }
+
+  @keyframes ping {
+    75%, 100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+
+  .hero-heading {
+    font-family: var(--font-serif);
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-heading-accent {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--color-accent);
+  }
+
+  .hero-quote {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-style: italic;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin-bottom: 3rem;
+    padding-left: 2rem;
+    border-left: 1px solid var(--color-border);
+    max-width: 600px;
+  }
+
+  @media (min-width: 768px) {
+    .hero-quote {
+      font-size: 1.5rem;
+    }
+  }
+
+  .hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--color-bg-dark);
+    color: white;
+    padding: 1.25rem 2.5rem;
+    border-radius: 0.125rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-xl);
+  }
+
+  .btn-primary:hover {
+    background: var(--color-accent);
+    transform: translateY(-2px);
+  }
+
+  .btn-primary svg {
+    transition: transform 0.3s ease;
+  }
+
+  .btn-primary:hover svg {
+    transform: translateX(8px);
+  }
+
+  .btn-text {
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.5rem 0;
+    border-bottom: 2px solid var(--color-border);
+    transition: border-color 0.3s ease;
+  }
+
+  .btn-text:hover {
+    border-color: var(--color-bg-dark);
+  }
+
+  /* Hero Visual */
+  .hero-visual {
+    position: relative;
+  }
+
+  .visual-card {
+    position: relative;
+    aspect-ratio: 1;
+    background: var(--color-bg-dark);
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: var(--shadow-2xl);
+  }
+
+  @media (min-width: 768px) {
+    .visual-card {
+      aspect-ratio: 4/5;
+    }
+  }
+
+  .visual-grid {
+    position: absolute;
+    inset: 0;
+    opacity: 0.15;
+    background-image: 
+      linear-gradient(#333 1px, transparent 1px),
+      linear-gradient(90deg, #333 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  .visual-code {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.5rem;
+    color: #555;
+    overflow: hidden;
+  }
+
+  .code-line {
+    display: flex;
+    justify-content: space-between;
+    opacity: 0.5;
+    margin-bottom: 0.25rem;
+    height: 0.75rem;
+    overflow: hidden;
+  }
+
+  .code-prefix {
+    color: var(--color-accent);
+  }
+
+  .visual-center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .visual-glow {
+    position: absolute;
+    width: 150%;
+    height: 150%;
+    background: radial-gradient(circle, rgba(0, 59, 92, 0.3) 0%, transparent 70%);
+    animation: pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+  }
+
+  .visual-icon {
+    position: relative;
+    z-index: 10;
+    color: white;
+    opacity: 0.8;
+  }
+
+  .visual-status {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    right: 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.25rem;
+    border-radius: 0.75rem;
+  }
+
+  .status-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .status-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    background: #22c55e;
+    border-radius: 50%;
+  }
+
+  .status-label {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: white;
+    opacity: 0.8;
+  }
+
+  .status-text {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 300;
+    line-height: 1.5;
+  }
+</style>

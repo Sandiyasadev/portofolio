@@ -1,197 +1,44 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { HeroSection, ProofBar, TechSecurity } from '../components/home';
-import { SectionHeader, CTASection } from '../components/sections';
-import { ValueCard, CaseStudyCard, TestimonialCard } from '../components/cards';
-import Button from '../components/ui/Button.astro';
+import Header from '../components/ui/Header.astro';
+import Hero from '../components/ui/Hero.astro';
+import BentoGrid from '../components/ui/BentoGrid.astro';
+import ProjectShowcase from '../components/ui/ProjectShowcase.astro';
+import AboutSection from '../components/ui/AboutSection.astro';
+import Footer from '../components/ui/Footer.astro';
 
-const integrations = [
-  { name: 'Google Workspace', icon: 'mail' },
-  { name: 'Slack', icon: 'message-square' },
-  { name: 'Notion', icon: 'file-text' },
-  { name: 'Airtable', icon: 'database' },
-  { name: 'HubSpot', icon: 'target' },
-  { name: 'WooCommerce', icon: 'shopping-cart' },
-  { name: 'WhatsApp', icon: 'phone' },
-  { name: 'PostgreSQL', icon: 'database' },
-  { name: 'OpenAI', icon: 'bot' },
-  { name: 'Stripe', icon: 'credit-card' },
-];
-
-const valueBlocks = [
-  {
-    icon: 'search',
-    title: 'Automation Audit',
-    description: 'Get a prioritized roadmap of what to automate first for maximum ROI.',
-    link: '/services#audit'
-  },
-  {
-    icon: 'settings',
-    title: 'Build & Deploy',
-    description: 'Production-ready n8n workflows with error handling, logging, and documentation.',
-    link: '/services#development'
-  },
-  {
-    icon: 'trending-up',
-    title: 'Monitoring & Optimization',
-    description: 'Hands-off automation with 24/7 monitoring and proactive improvements.',
-    link: '/services#managed'
-  },
-  {
-    icon: 'graduation-cap',
-    title: 'Training & Handover',
-    description: 'Your team becomes self-sufficient in building and maintaining workflows.',
-    link: '/services#training'
-  }
-];
-
-const caseStudies = [
-  {
-    industry: 'E-commerce',
-    title: 'Automated Order Processing Pipeline',
-    metric: '40h/week saved',
-    description: 'Streamlined order-to-fulfillment workflow reducing manual data entry by 90%.',
-    slug: 'ecommerce-order-processing'
-  },
-  {
-    industry: 'Agency',
-    title: 'Lead Enrichment & Routing System',
-    metric: '15min → 30sec response',
-    description: 'AI-powered lead scoring with instant assignment to the right sales rep.',
-    slug: 'agency-lead-routing'
-  },
-  {
-    industry: 'SaaS',
-    title: 'Customer Onboarding Automation',
-    metric: '85% reduction in errors',
-    description: 'End-to-end onboarding flow from signup to active customer in 24 hours.',
-    slug: 'saas-customer-onboarding'
-  }
-];
-
-const testimonials = [
-  {
-    quote: "We saved over 40 hours per week and eliminated countless manual errors. The ROI was visible within the first month.",
-    name: "Sarah Chen",
-    role: "COO",
-    company: "TechRetail Co",
-  },
-  {
-    quote: "Finally, automation that just works. No more duct-tape solutions that break every week.",
-    name: "Michael Torres",
-    role: "Operations Manager",
-    company: "Growth Agency",
-  },
-  {
-    quote: "The documentation and training were exceptional. Our team can now handle most updates ourselves.",
-    name: "Aisha Patel",
-    role: "RevOps Lead",
-    company: "CloudScale Inc",
-  }
-];
-
-const securityFeatures = [
-  { icon: 'lock', title: 'Secure Credential Handling', description: 'OAuth, encrypted secrets, no hardcoded keys' },
-  { icon: 'git-branch', title: 'Version Control', description: 'All workflows tracked in Git with change history' },
-  { icon: 'bar-chart', title: 'Comprehensive Logging', description: 'Every execution logged for debugging and auditing' },
-  { icon: 'refresh-cw', title: 'Error Recovery', description: 'Automatic retries and fallback mechanisms' },
-  { icon: 'bell', title: 'Monitoring & Alerts', description: 'Real-time notifications when things go wrong' },
-];
-
-const heroStats = [
-  { value: '500+', label: 'Workflows Built' },
-  { value: '40+', label: 'Happy Clients' },
-  { value: '10,000+', label: 'Hours Saved' },
-];
+// Personal configuration
+const siteConfig = {
+  name: "Pande I Gede Sandiyasa",
+  title: "Full-Stack Developer",
+  tagline: "Membangun pengalaman digital yang bermakna melalui kode yang bersih dan desain yang thoughtful.",
+  email: "sandiyasadev@gmail.com",
+  location: "Bali, Indonesia",
+  availableFor: "2025"
+};
 ---
 
-<Layout title="n8n Expert | Automation Architect - Automate Smarter">
-  <HeroSection
-    badge="n8n Automation Expert"
-    title="Save Your Time From Manual Work"
-    highlight="Automate with Confidence"
-    subtitle="I build reliable n8n workflows that save 10–40 hours per week, reduce human errors, and give you real-time visibility into your operations. No more duct-tape automation."
-    primaryCTA={{ text: 'Book a 30-Min Call', href: '/contact' }}
-    secondaryCTA={{ text: 'See Real Results', href: '/case-studies' }}
-    stats={heroStats}
-  />
-
-  <ProofBar integrations={integrations} />
-
-  <section class="section section-alt">
-    <div class="container">
-      <div class="reveal">
-        <SectionHeader 
-          title="How I Help You" 
-          highlight="Automate Operations"
-          description="From audit to deployment to ongoing optimization—end-to-end automation services."
-        />
-      </div>
-      <div class="grid-4 reveal-stagger">
-        {valueBlocks.map((block) => (
-          <ValueCard {...block} />
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <div class="reveal">
-        <SectionHeader 
-          title="Real Results," 
-          highlight="Measured Outcomes"
-          description="See how businesses like yours saved 20+ hours/week with custom n8n automations."
-        />
-      </div>
-      <div class="grid-3 reveal-stagger">
-        {caseStudies.map((study) => (
-          <CaseStudyCard {...study} />
-        ))}
-      </div>
-      <div class="section-cta reveal">
-        <Button href="/case-studies" variant="secondary">
-          View All Case Studies →
-        </Button>
-      </div>
-    </div>
-  </section>
-
-  <TechSecurity
-    title="Built for"
-    highlight="Security & Reliability"
-    description="Your automations handle sensitive data. I build with security and maintainability in mind from day one."
-    features={securityFeatures}
-  />
-
-  <section class="section">
-    <div class="container">
-      <div class="reveal">
-        <SectionHeader 
-          title="What" 
-          highlight="Clients Say"
-          description="Real feedback from teams that transformed their operations."
-        />
-      </div>
-      <div class="grid-3 reveal-stagger">
-        {testimonials.map((testimonial) => (
-          <TestimonialCard {...testimonial} />
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <CTASection
-    title="Ready to Automate?"
-    description="Let's map your automation opportunities and estimate your time savings. No commitment, just clarity."
-    buttonText="Book a Free Strategy Call"
-    note="30-minute call • No pressure • Actionable insights"
+<Layout title={`${siteConfig.name} - ${siteConfig.title} Portfolio`}>
+  <Header />
+  
+  <main>
+    <Hero 
+      name={siteConfig.name}
+      title={siteConfig.title}
+      tagline={siteConfig.tagline}
+    />
+    
+    <BentoGrid />
+    
+    <ProjectShowcase />
+    
+    <AboutSection />
+  </main>
+  
+  <Footer 
+    name={siteConfig.name}
+    email={siteConfig.email}
+    location={siteConfig.location}
+    availableFor={siteConfig.availableFor}
   />
 </Layout>
-
-<style>
-  .section-cta {
-    text-align: center;
-    margin-top: var(--space-2xl);
-  }
-</style>

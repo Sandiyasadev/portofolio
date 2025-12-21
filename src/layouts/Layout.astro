@@ -1,219 +1,61 @@
 ---
-import '../styles/global.css';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-
 interface Props {
   title: string;
   description?: string;
-  image?: string;
 }
 
 const { 
   title, 
-  description = "n8n automation expert helping businesses save 10-40 hours weekly through reliable, measurable workflows.",
-  image = "/og-image.png"
+  description = "Portfolio website of a passionate web developer" 
 } = Astro.props;
-
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="id">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
     
-    <link rel="canonical" href={canonicalURL} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
+    <!-- Preload Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
     
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-    
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonicalURL} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={image} />
-    
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={image} />
-    
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Automation Architect",
-      "jobTitle": "n8n Expert & Automation Architect",
-      "description": "Building reliable workflows that save hours, not just demos",
-      "url": "https://example.com",
-      "sameAs": []
-    }
-    </script>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     
     <title>{title}</title>
   </head>
   <body>
-    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <!-- Background Pattern -->
+    <div class="bg-pattern fixed inset-0 pointer-events-none" style="position: fixed; inset: 0; z-index: 0;"></div>
     
-    <Header />
-
-    <main id="main-content" class="page-transition">
-      <slot />
-    </main>
-
-    <Footer />
-
+    <slot />
+    
+    <!-- Console Easter Egg -->
     <script>
-      // Apple-style scroll animations
-      document.addEventListener('DOMContentLoaded', () => {
-        // Intersection Observer for reveal animations
-        const observerOptions = {
-          root: null,
-          rootMargin: '0px 0px -100px 0px',
-          threshold: 0.1
-        };
-
-        const revealObserver = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('active');
-              // Optional: unobserve after animation
-              // revealObserver.unobserve(entry.target);
-            }
-          });
-        }, observerOptions);
-
-        // Observe all reveal elements
-        const revealElements = document.querySelectorAll(
-          '.reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-blur, .reveal-stagger, .img-reveal'
-        );
-        revealElements.forEach(el => revealObserver.observe(el));
-
-        // Smooth parallax effect on scroll
-        let ticking = false;
-        const parallaxElements = document.querySelectorAll('.parallax-element');
-        
-        if (parallaxElements.length > 0) {
-          window.addEventListener('scroll', () => {
-            if (!ticking) {
-              requestAnimationFrame(() => {
-                const scrollY = window.scrollY;
-                parallaxElements.forEach(el => {
-                  const speed = parseFloat((el as HTMLElement).dataset.speed || '0.5');
-                  const yPos = -(scrollY * speed);
-                  (el as HTMLElement).style.transform = `translateY(${yPos}px)`;
-                });
-                ticking = false;
-              });
-              ticking = true;
-            }
-          });
-        }
-
-        // Counter animation
-        const counters = document.querySelectorAll('.counter[data-target]');
-        const counterObserver = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              const counter = entry.target as HTMLElement;
-              const target = parseInt(counter.dataset.target || '0');
-              const duration = 2000;
-              const start = 0;
-              const startTime = performance.now();
-
-              const updateCounter = (currentTime: number) => {
-                const elapsed = currentTime - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                const easeOut = 1 - Math.pow(1 - progress, 3);
-                const current = Math.round(start + (target - start) * easeOut);
-                counter.textContent = current.toString();
-
-                if (progress < 1) {
-                  requestAnimationFrame(updateCounter);
-                }
-              };
-
-              requestAnimationFrame(updateCounter);
-              counterObserver.unobserve(counter);
-            }
-          });
-        }, { threshold: 0.5 });
-
-        counters.forEach(counter => counterObserver.observe(counter));
-
-        // Magnetic button effect (subtle)
-        const magneticButtons = document.querySelectorAll('.btn-magnetic');
-        magneticButtons.forEach(btn => {
-          btn.addEventListener('mousemove', (e) => {
-            const rect = (btn as HTMLElement).getBoundingClientRect();
-            const x = (e as MouseEvent).clientX - rect.left - rect.width / 2;
-            const y = (e as MouseEvent).clientY - rect.top - rect.height / 2;
-            (btn as HTMLElement).style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
-          });
-
-          btn.addEventListener('mouseleave', () => {
-            (btn as HTMLElement).style.transform = 'translate(0, 0)';
-          });
-        });
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-          anchor.addEventListener('click', (e) => {
-            const href = (anchor as HTMLAnchorElement).getAttribute('href');
-            if (href && href !== '#') {
-              e.preventDefault();
-              const target = document.querySelector(href);
-              if (target) {
-                target.scrollIntoView({
-                  behavior: 'smooth',
-                  block: 'start'
-                });
-              }
-            }
-          });
-        });
-
-        // Text split animation helper
-        const splitTextElements = document.querySelectorAll('.split-text');
-        splitTextElements.forEach(el => {
-          const text = el.textContent || '';
-          el.innerHTML = text.split('').map((char, i) => 
-            `<span style="animation-delay: ${i * 30}ms">${char === ' ' ? '&nbsp;' : char}</span>`
-          ).join('');
-        });
-      });
-
-      // Navbar hide on scroll down, show on scroll up
-      let lastScroll = 0;
-      const header = document.querySelector('header');
-      
-      if (header) {
-        window.addEventListener('scroll', () => {
-          const currentScroll = window.scrollY;
-          
-          if (currentScroll <= 0) {
-            header.classList.remove('scroll-up');
-            return;
-          }
-          
-          if (currentScroll > lastScroll && !header.classList.contains('scroll-down')) {
-            // Scroll down
-            header.classList.remove('scroll-up');
-            header.classList.add('scroll-down');
-          } else if (currentScroll < lastScroll && header.classList.contains('scroll-down')) {
-            // Scroll up
-            header.classList.remove('scroll-down');
-            header.classList.add('scroll-up');
-          }
-          
-          lastScroll = currentScroll;
-        });
-      }
+      console.log(
+        '%c👋 Hey there, fellow developer!',
+        'font-size: 16px; font-weight: bold; color: #003B5C;'
+      );
+      console.log(
+        '%cLooks like you\'re curious about how this site is built. Nice!',
+        'font-size: 12px; color: #666;'
+      );
+      console.log(
+        '%c🛠️ Built with Astro, React, and vanilla CSS',
+        'font-size: 12px; color: #666;'
+      );
+      console.log(
+        '%c📫 Let\'s connect: https://github.com/yourusername',
+        'font-size: 12px; color: #003B5C;'
+      );
     </script>
   </body>
 </html>
+
+<style is:global>
+  @import '../styles/global.css';
+</style>

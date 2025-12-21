@@ -1,0 +1,354 @@
+---
+interface Props {
+  name?: string;
+  email?: string;
+  location?: string;
+  availableFor?: string;
+}
+
+const {
+  name = "Developer Name",
+  email = "hello@developer.com",
+  location = "Jakarta, Indonesia",
+  availableFor = "H1 2026"
+} = Astro.props;
+
+const socialLinks = [
+  { name: 'GitHub', icon: 'github' },
+  { name: 'Twitter', icon: 'twitter' },
+  { name: 'LinkedIn', icon: 'linkedin' }
+];
+---
+
+<footer id="contact" class="footer">
+  <div class="footer-container">
+    <div class="footer-main">
+      <!-- Left: CTA -->
+      <div class="footer-cta">
+        <h2 class="footer-heading">
+          Mari membangun <span class="accent">sesuatu</span> bersama.
+        </h2>
+        <p class="footer-desc">
+          Tersedia untuk project freelance, kolaborasi open-source, atau posisi full-time yang menantang.
+        </p>
+        <div class="footer-email">
+          <span class="email-label">Direct Contact</span>
+          <a href={`mailto:${email}`} class="email-link">{email}</a>
+        </div>
+      </div>
+
+      <!-- Right: Info -->
+      <div class="footer-info">
+        <div class="footer-columns">
+          <!-- Presence -->
+          <div class="footer-column">
+            <h4 class="column-title">Presence</h4>
+            <ul class="column-list">
+              <li>{location}</li>
+              <li>Remote Anywhere</li>
+              <li class="availability">
+                <span class="availability-dot"></span>
+                Available for {availableFor}
+              </li>
+            </ul>
+          </div>
+
+          <!-- Connect -->
+          <div class="footer-column">
+            <h4 class="column-title">Connect</h4>
+            <div class="social-links">
+              <a href="#" class="social-link" aria-label="GitHub">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                </svg>
+              </a>
+              <a href="#" class="social-link" aria-label="Twitter">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+                </svg>
+              </a>
+              <a href="#" class="social-link" aria-label="LinkedIn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                  <rect x="2" y="9" width="4" height="12"></rect>
+                  <circle cx="4" cy="4" r="2"></circle>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="newsletter">
+          <h4 class="column-title">Stay Updated</h4>
+          <form class="newsletter-form">
+            <input 
+              type="email" 
+              placeholder="E-mail untuk update terbaru" 
+              class="newsletter-input"
+            />
+            <button type="submit" class="newsletter-btn" aria-label="Subscribe">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="footer-bottom">
+      <p class="copyright">© 2025 {name}. Crafted with passion.</p>
+      <div class="footer-links">
+        <a href="#" class="footer-link">Privacy</a>
+        <a href="#" class="footer-link">Colophon</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--color-bg-darker);
+    color: white;
+    padding-top: 8rem;
+    padding-bottom: 4rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .footer-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .footer-main {
+    display: grid;
+    gap: 6rem;
+    margin-bottom: 8rem;
+  }
+
+  @media (min-width: 1024px) {
+    .footer-main {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  /* CTA Section */
+  .footer-cta {
+    max-width: 500px;
+  }
+
+  .footer-heading {
+    font-family: var(--font-serif);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 2.5rem;
+  }
+
+  .footer-heading .accent {
+    color: var(--color-accent);
+  }
+
+  .footer-desc {
+    font-size: 1.25rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.7;
+    margin-bottom: 3rem;
+  }
+
+  .footer-email {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .email-label {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .email-link {
+    font-family: var(--font-mono);
+    font-size: clamp(1rem, 3vw, 1.75rem);
+    font-weight: 700;
+    transition: color 0.3s ease;
+    border-bottom: 2px solid transparent;
+    display: inline-block;
+    width: fit-content;
+  }
+
+  .email-link:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  /* Info Section */
+  .footer-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+  }
+
+  @media (min-width: 1024px) {
+    .footer-info {
+      justify-content: space-between;
+    }
+  }
+
+  .footer-columns {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+  }
+
+  .column-title {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4em;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 1.5rem;
+  }
+
+  .column-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    font-size: 0.875rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .column-list li {
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+
+  .column-list li:hover {
+    color: white;
+  }
+
+  .availability {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-accent) !important;
+  }
+
+  .availability-dot {
+    width: 0.375rem;
+    height: 0.375rem;
+    background: #22c55e;
+    border-radius: 50%;
+  }
+
+  /* Social Links */
+  .social-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .social-link {
+    padding: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.75rem;
+    color: white;
+    transition: all 0.3s ease;
+  }
+
+  .social-link:hover {
+    background: white;
+    color: var(--color-bg-dark);
+  }
+
+  /* Newsletter */
+  .newsletter-form {
+    position: relative;
+  }
+
+  .newsletter-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.25rem 0;
+    font-family: var(--font-serif);
+    font-size: 1.125rem;
+    font-style: italic;
+    color: white;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+
+  .newsletter-input::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+  }
+
+  .newsletter-input:focus {
+    border-color: var(--color-accent);
+  }
+
+  .newsletter-btn {
+    position: absolute;
+    right: 0;
+    bottom: 1.5rem;
+    color: var(--color-accent);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .newsletter-form:hover .newsletter-btn {
+    transform: translateX(4px);
+  }
+
+  /* Bottom Bar */
+  .footer-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    padding-top: 3rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  @media (min-width: 768px) {
+    .footer-bottom {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 3rem;
+  }
+
+  .footer-link {
+    transition: color 0.3s ease;
+  }
+
+  .footer-link:hover {
+    color: white;
+  }
+</style>
