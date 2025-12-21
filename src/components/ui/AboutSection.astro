@@ -1,4 +1,18 @@
 ---
+interface Props {
+  name?: string;
+  role?: string;
+  profileImage?: string;
+  bio?: string;
+}
+
+const {
+  name = "Pande I Gede Sandiyasa",
+  role = "Full-Stack Developer",
+  profileImage = "/images/profile.png",
+  bio = "Membangun solusi digital yang efisien dan scalable. Fokus pada clean code dan user experience."
+} = Astro.props;
+
 interface AboutEntry {
   date: string;
   category: string;
@@ -27,40 +41,64 @@ const entries: AboutEntry[] = [
   <div class="about-pattern"></div>
 
   <div class="about-container">
-    <!-- Section Header -->
-    <div class="about-header">
-      <h2 class="about-title">Developer's Journal</h2>
-      <div class="about-divider">
-        <span class="divider-line"></span>
-        <span class="divider-text">Thoughts & Experiences</span>
-        <span class="divider-line"></span>
+    <div class="about-grid">
+      <!-- Left Column: Profile -->
+      <div class="profile-column">
+        <div class="profile-card">
+          <div class="profile-image-wrapper">
+            <img 
+              src={profileImage} 
+              alt={`Foto ${name}`}
+              class="profile-image"
+              loading="lazy"
+            />
+          </div>
+          <div class="profile-info">
+            <h2 class="profile-name">{name}</h2>
+            <span class="profile-role">{role}</span>
+            <p class="profile-bio">{bio}</p>
+            <div class="profile-status">
+              <span class="status-dot"></span>
+              <span>Available for work</span>
+            </div>
+          </div>
+          
+          <div class="profile-cta">
+            <button class="about-btn">
+              Explore Knowledge Base
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <!-- Entries -->
-    <div class="about-entries">
-      {entries.map(entry => (
-        <article class="about-entry">
-          <div class="entry-meta">
-            <span class="entry-date">{entry.date}</span>
-            <span class="entry-dot"></span>
-            <span class="entry-category">{entry.category}</span>
+      <!-- Right Column: Journal -->
+      <div class="journal-column">
+        <div class="journal-header">
+          <h2 class="journal-title">Developer's Journal</h2>
+          <div class="journal-divider">
+            <span class="divider-line"></span>
+            <span class="divider-text">Thoughts & Experiences</span>
           </div>
-          <h3 class="entry-title">{entry.title}</h3>
-          <p class="entry-snippet">"{entry.snippet}"</p>
-          <div class="entry-read-more">
-            <span>Read Full Entry</span>
-            <span class="read-more-line"></span>
-          </div>
-        </article>
-      ))}
-    </div>
+        </div>
 
-    <!-- CTA -->
-    <div class="about-cta">
-      <button class="about-btn">
-        Explore the Knowledge Base
-      </button>
+        <div class="journal-entries">
+          {entries.map(entry => (
+            <article class="journal-entry">
+              <div class="entry-meta">
+                <span class="entry-date">{entry.date}</span>
+                <span class="entry-dot"></span>
+                <span class="entry-category">{entry.category}</span>
+              </div>
+              <h3 class="entry-title">{entry.title}</h3>
+              <p class="entry-snippet">"{entry.snippet}"</p>
+              <div class="entry-read-more">
+                <span>Read Full Entry</span>
+                <span class="read-more-line"></span>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -84,32 +122,174 @@ const entries: AboutEntry[] = [
   }
 
   .about-container {
-    max-width: 900px;
+    max-width: 1280px;
     margin: 0 auto;
     padding: 0 2rem;
     position: relative;
     z-index: 10;
   }
 
-  .about-header {
-    text-align: center;
-    margin-bottom: 6rem;
+  .about-grid {
+    display: grid;
+    gap: 4rem;
   }
 
-  .about-title {
+  @media (min-width: 768px) {
+    .about-grid {
+      grid-template-columns: 300px 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .about-grid {
+      grid-template-columns: 350px 1fr;
+      gap: 6rem;
+    }
+  }
+
+  /* Left Column: Profile */
+  .profile-column {
+    position: relative;
+  }
+
+  @media (min-width: 768px) {
+    .profile-column {
+      position: sticky;
+      top: 8rem;
+    }
+  }
+
+  .profile-card {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .profile-image-wrapper {
+    position: relative;
+  }
+
+  .profile-image {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    filter: grayscale(20%);
+    transition: all 0.5s ease;
+  }
+
+  .profile-image:hover {
+    filter: grayscale(0%);
+    border-color: var(--color-accent);
+  }
+
+  .profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .profile-name {
     font-family: var(--font-serif);
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .profile-role {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-accent);
+  }
+
+  .profile-bio {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 0.5rem;
+  }
+
+  .profile-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 0.5rem;
+  }
+
+  .status-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    background: #22c55e;
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
+    50% { opacity: 0.8; box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+  }
+
+  .profile-cta {
+    margin-top: 1rem;
+  }
+
+  .about-btn {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.5rem;
+    background: transparent;
+    color: white;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .about-btn:hover {
+    background: white;
+    color: var(--color-bg-dark);
+  }
+
+  /* Right Column: Journal */
+  .journal-column {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  .journal-header {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .journal-title {
+    font-family: var(--font-serif);
+    font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: 700;
     font-style: italic;
     letter-spacing: -0.02em;
-    margin-bottom: 2rem;
-    opacity: 0.9;
+    line-height: 1.1;
   }
 
-  .about-divider {
+  .journal-divider {
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 1rem;
   }
 
@@ -128,21 +308,24 @@ const entries: AboutEntry[] = [
     color: var(--color-accent);
   }
 
-  /* Entries */
-  .about-entries {
+  .journal-entries {
     display: flex;
     flex-direction: column;
-    gap: 6rem;
+    gap: 0;
   }
 
-  .about-entry {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 4rem;
+  .journal-entry {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 4rem 0;
     cursor: pointer;
     transition: border-color 0.3s ease;
   }
 
-  .about-entry:hover {
+  .journal-entry:last-child {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .journal-entry:hover {
     border-color: rgba(0, 59, 92, 0.5);
   }
 
@@ -182,7 +365,7 @@ const entries: AboutEntry[] = [
     transition: color 0.3s ease;
   }
 
-  .about-entry:hover .entry-title {
+  .journal-entry:hover .entry-title {
     color: var(--color-accent);
   }
 
@@ -209,7 +392,7 @@ const entries: AboutEntry[] = [
     transition: color 0.3s ease;
   }
 
-  .about-entry:hover .entry-read-more {
+  .journal-entry:hover .entry-read-more {
     color: white;
   }
 
@@ -220,34 +403,8 @@ const entries: AboutEntry[] = [
     transition: all 0.3s ease;
   }
 
-  .about-entry:hover .read-more-line {
+  .journal-entry:hover .read-more-line {
     width: 3rem;
     background: var(--color-accent);
-  }
-
-  /* CTA */
-  .about-cta {
-    margin-top: 6rem;
-    text-align: center;
-  }
-
-  .about-btn {
-    padding: 1.25rem 3rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 9999px;
-    background: transparent;
-    color: white;
-    font-family: var(--font-mono);
-    font-size: 0.6875rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .about-btn:hover {
-    background: white;
-    color: var(--color-bg-dark);
   }
 </style>
