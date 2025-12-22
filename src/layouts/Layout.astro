@@ -1,4 +1,6 @@
 ---
+import FloatingWhatsApp from '../components/ui/FloatingWhatsApp.astro';
+
 interface Props {
   title: string;
   description?: string;
@@ -33,6 +35,9 @@ const {
     <div class="bg-pattern fixed inset-0 pointer-events-none" style="position: fixed; inset: 0; z-index: 0;"></div>
     
     <slot />
+    
+    <!-- Floating WhatsApp Button -->
+    <FloatingWhatsApp />
     
     <!-- Console Easter Egg -->
     <script>
