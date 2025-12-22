@@ -274,13 +274,15 @@ const philosophies: Philosophy[] = [
   .bento-flex-container {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-    height: 500px;
+    gap: 1rem;
+    height: auto;
   }
 
   @media (min-width: 768px) {
     .bento-flex-container {
       flex-direction: row;
+      gap: 1.5rem;
+      height: 500px;
     }
   }
 
@@ -293,19 +295,20 @@ const philosophies: Philosophy[] = [
   .bento-main {
     background: var(--color-bg-dark);
     color: white;
-    padding: 3rem;
+    padding: 1.75rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     position: relative;
     overflow: hidden;
-    flex: 2.2;
-    min-height: 250px;
+    flex: none;
+    min-height: auto;
   }
 
   @media (min-width: 768px) {
     .bento-main {
-      min-height: auto;
+      padding: 3rem;
+      flex: 2.2;
     }
   }
 
@@ -347,17 +350,26 @@ const philosophies: Philosophy[] = [
   }
 
   .card-icon-box {
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 2.75rem;
+    height: 2.75rem;
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 1rem;
+    border-radius: 0.75rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
     transition: transform 0.3s ease;
+  }
+
+  @media (min-width: 768px) {
+    .card-icon-box {
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: 1rem;
+      margin-bottom: 2.5rem;
+    }
   }
 
   .bento-main:hover .card-icon-box {
@@ -379,17 +391,30 @@ const philosophies: Philosophy[] = [
   }
 
   .card-desc {
-    font-size: 1.125rem;
+    font-size: 0.9375rem;
     font-weight: 300;
     color: rgba(255, 255, 255, 0.6);
-    line-height: 1.7;
+    line-height: 1.6;
     max-width: 500px;
+  }
+
+  @media (min-width: 768px) {
+    .card-desc {
+      font-size: 1.125rem;
+      line-height: 1.7;
+    }
   }
 
   .card-footer {
     position: relative;
     z-index: 10;
-    margin-top: 3rem;
+    margin-top: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .card-footer {
+      margin-top: 3rem;
+    }
   }
 
   .card-link {
@@ -419,14 +444,22 @@ const philosophies: Philosophy[] = [
   .bento-side {
     background: white;
     border: 1px solid var(--color-border);
-    padding: 2.5rem;
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
-    flex: 1;
+    flex: none;
     cursor: pointer;
     position: relative;
     overflow: hidden;
-    min-height: 200px;
+    min-height: auto;
+  }
+
+  @media (min-width: 768px) {
+    .bento-side {
+      padding: 2.5rem;
+      flex: 1;
+      min-height: 200px;
+    }
   }
 
   .bento-side:hover {
@@ -694,12 +727,19 @@ const philosophies: Philosophy[] = [
   /* Small Cards */
   .bento-small {
     background: var(--color-bg-card);
-    padding: 2.5rem;
+    padding: 1.25rem;
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1rem;
     border: 1px solid transparent;
     box-shadow: var(--shadow-sm);
+  }
+
+  @media (min-width: 768px) {
+    .bento-small {
+      padding: 2.5rem;
+      gap: 1.5rem;
+    }
   }
 
   .bento-small:hover {
@@ -755,12 +795,19 @@ const philosophies: Philosophy[] = [
     cursor: pointer;
     background: var(--color-accent);
     color: white;
-    padding: 2.5rem;
+    padding: 1.25rem;
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1rem;
     box-shadow: var(--shadow-lg);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  @media (min-width: 768px) {
+    .bento-accent {
+      padding: 2.5rem;
+      gap: 1.5rem;
+    }
   }
 
   .bento-accent:hover {
