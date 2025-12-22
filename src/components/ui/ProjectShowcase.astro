@@ -1,36 +1,11 @@
 ---
-interface Project {
-  title: string;
-  description: string;
-  tags: string[];
-  image?: string;
-  liveUrl?: string;
-  repoUrl?: string;
-}
+import { getCollection } from 'astro:content';
 
-const projects: Project[] = [
-  {
-    title: "E-Commerce Platform",
-    description: "Platform e-commerce full-stack dengan fitur keranjang belanja, pembayaran, dan dashboard admin. Dibangun dengan Next.js dan Node.js.",
-    tags: ["Next.js", "Node.js", "PostgreSQL", "Stripe"],
-    liveUrl: "#",
-    repoUrl: "#"
-  },
-  {
-    title: "Task Management App",
-    description: "Aplikasi manajemen tugas realtime dengan drag-and-drop, kolaborasi tim, dan notifikasi. Menggunakan React dan Firebase.",
-    tags: ["React", "Firebase", "Tailwind CSS"],
-    liveUrl: "#",
-    repoUrl: "#"
-  },
-  {
-    title: "Portfolio Generator",
-    description: "Tool untuk membuat portfolio developer secara otomatis dari data GitHub. Menggunakan Astro dan GitHub API.",
-    tags: ["Astro", "GitHub API", "TypeScript"],
-    liveUrl: "#",
-    repoUrl: "#"
-  }
-];
+const allProjects = await getCollection('projects');
+const projects = allProjects
+  .filter(p => p.data.featured)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
 ---
 
 <section id="projects" class="projects-section">
@@ -47,7 +22,7 @@ const projects: Project[] = [
     <!-- Projects Grid -->
     <div class="projects-grid">
       {projects.map((project, index) => (
-        <article class="project-card">
+        <a href={`/projects/${project.slug}`} class="project-card">
           <!-- Project Image Placeholder -->
           <div class="project-image">
             <div class="project-image-placeholder">
@@ -59,46 +34,27 @@ const projects: Project[] = [
               <span>Project {index + 1}</span>
             </div>
             <div class="project-overlay">
-              <div class="project-links">
-                {project.liveUrl && (
-                  <a href={project.liveUrl} class="project-link" target="_blank" rel="noopener noreferrer">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                      <polyline points="15 3 21 3 21 9"></polyline>
-                      <line x1="10" y1="14" x2="21" y2="3"></line>
-                    </svg>
-                    <span>Live Demo</span>
-                  </a>
-                )}
-                {project.repoUrl && (
-                  <a href={project.repoUrl} class="project-link" target="_blank" rel="noopener noreferrer">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                    </svg>
-                    <span>Source Code</span>
-                  </a>
-                )}
-              </div>
+              <span class="view-detail">Lihat Detail</span>
             </div>
           </div>
 
           <!-- Project Info -->
           <div class="project-info">
-            <h3 class="project-title">{project.title}</h3>
-            <p class="project-description">{project.description}</p>
+            <h3 class="project-title">{project.data.title}</h3>
+            <p class="project-description">{project.data.description}</p>
             <div class="project-tags">
-              {project.tags.map(tag => (
+              {project.data.tags.map(tag => (
                 <span class="project-tag">{tag}</span>
               ))}
             </div>
           </div>
-        </article>
+        </a>
       ))}
     </div>
 
     <!-- View All Button -->
     <div class="projects-footer">
-      <a href="#" class="view-all-btn">
+      <a href="/projects" class="view-all-btn">
         <span>Lihat Semua Project</span>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -174,17 +130,24 @@ const projects: Project[] = [
 
   /* Project Card */
   .project-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
     background: white;
     border: 1px solid var(--color-border);
     border-radius: 1.5rem;
     overflow: hidden;
-    transition: all 0.5s ease;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .project-card:hover {
     border-color: var(--color-accent-border);
-    box-shadow: var(--shadow-xl);
-    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    transform: translateY(-8px);
+  }
+
+  .project-card:hover .project-title {
+    color: var(--color-accent);
   }
 
   .project-image {
@@ -214,39 +177,34 @@ const projects: Project[] = [
   .project-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.8);
+    background: linear-gradient(135deg, rgba(0, 59, 92, 0.9) 0%, rgba(0, 30, 50, 0.95) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.4s ease;
   }
 
   .project-card:hover .project-overlay {
     opacity: 1;
   }
 
-  .project-links {
-    display: flex;
-    gap: 1rem;
-  }
-
-  .project-link {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: white;
-    color: var(--color-bg-dark);
-    padding: 0.75rem 1.25rem;
-    border-radius: 9999px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    transition: all 0.3s ease;
-  }
-
-  .project-link:hover {
-    background: var(--color-accent);
+  .view-detail {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
     color: white;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 9999px;
+    transform: translateY(10px);
+    transition: all 0.4s ease;
+  }
+
+  .project-card:hover .view-detail {
+    transform: translateY(0);
   }
 
   .project-info {
@@ -258,6 +216,7 @@ const projects: Project[] = [
     font-size: 1.25rem;
     font-weight: 700;
     margin-bottom: 0.75rem;
+    transition: color 0.3s ease;
   }
 
   .project-description {
