@@ -16,38 +16,38 @@ const {
   <div class="hero-container">
     <div class="hero-content">
       <!-- Status Badge -->
-      <div class="hero-badge">
+      <div class="hero-badge hero-animate" style="--hero-delay: 0.2s; --hero-duration: 1s;">
         <span class="badge-dot"></span>
         <span>{title} • Available 2025</span>
       </div>
 
       <!-- Main Heading -->
-      <h1 class="hero-heading">
+      <h1 class="hero-heading hero-animate hero-fade-up" style="--hero-delay: 0.4s; --hero-duration: 1.2s;">
         Crafting the <span class="hero-heading-accent">Digital</span> Experience.
       </h1>
 
       <!-- Quote -->
-      <p class="hero-quote">
+      <p class="hero-quote hero-animate hero-blur" style="--hero-delay: 0.7s; --hero-duration: 1.4s;">
         "{tagline}"
       </p>
 
       <!-- CTAs -->
-      <div class="hero-ctas">
-        <a href="#projects" class="btn-primary">
+      <div class="hero-ctas hero-animate hero-fade-up" style="--hero-delay: 1s; --hero-duration: 1s;">
+        <a href="/#projects" class="btn-primary">
           <span>Lihat Karya Saya</span>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="5" y1="12" x2="19" y2="12"></line>
             <polyline points="12 5 19 12 12 19"></polyline>
           </svg>
         </a>
-        <a href="#about" class="btn-text">
+        <a href="/#about" class="btn-text">
           Tentang Saya
         </a>
       </div>
     </div>
 
     <!-- Hero Visual -->
-    <div class="hero-visual">
+    <div class="hero-visual hero-animate hero-slide-right" style="--hero-delay: 0.5s; --hero-duration: 1.4s;" data-parallax="0.05">
       <div class="visual-card">
         <!-- Grid Pattern -->
         <div class="visual-grid"></div>
@@ -376,5 +376,98 @@ const {
     color: rgba(255, 255, 255, 0.6);
     font-weight: 300;
     line-height: 1.5;
+  }
+
+  /* ========================================
+     Hero Animations - Auto-play on load
+     ======================================== */
+  
+  .hero-animate {
+    opacity: 0;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    animation-delay: var(--hero-delay, 0s);
+    animation-duration: var(--hero-duration, 1s);
+  }
+
+  /* Default: Fade from left */
+  .hero-animate {
+    transform: translateX(-40px);
+    animation-name: heroFadeLeft;
+  }
+
+  /* Fade from bottom */
+  .hero-animate.hero-fade-up {
+    transform: translateY(50px);
+    animation-name: heroFadeUp;
+  }
+
+  /* Blur dissolve */
+  .hero-animate.hero-blur {
+    transform: scale(0.97);
+    filter: blur(8px);
+    animation-name: heroBlur;
+  }
+
+  /* Slide from right with scale */
+  .hero-animate.hero-slide-right {
+    transform: translateX(80px) scale(0.92);
+    animation-name: heroSlideRight;
+  }
+
+  @keyframes heroFadeLeft {
+    0% {
+      opacity: 0;
+      transform: translateX(-40px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes heroFadeUp {
+    0% {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes heroBlur {
+    0% {
+      opacity: 0;
+      transform: scale(0.97);
+      filter: blur(8px);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+      filter: blur(0);
+    }
+  }
+
+  @keyframes heroSlideRight {
+    0% {
+      opacity: 0;
+      transform: translateX(80px) scale(0.92);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+  }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-animate {
+      opacity: 1;
+      transform: none;
+      filter: none;
+      animation: none;
+    }
   }
 </style>

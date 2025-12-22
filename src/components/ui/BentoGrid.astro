@@ -28,11 +28,11 @@ const philosophies: Philosophy[] = [
   <div class="skills-container">
     <!-- Section Header -->
     <div class="skills-header">
-      <div class="skills-header-content">
+      <div class="skills-header-content" data-animate="fade-left">
         <span class="section-label">Core Skills</span>
         <h2 class="section-title">The Knowledge Grid</h2>
       </div>
-      <p class="skills-header-desc">
+      <p class="skills-header-desc" data-animate="fade-right" data-delay="1">
         Eksplorasi mendalam pada perpaduan antara kreativitas desain dan presisi engineering.
       </p>
     </div>
@@ -40,7 +40,7 @@ const philosophies: Philosophy[] = [
     <!-- Bento Grid - Two Card Layout -->
     <div class="bento-flex-container" id="bentoContainer">
       <!-- Main Card (Left) -->
-      <div class="bento-card bento-main" id="mainCard">
+      <div class="bento-card bento-main" id="mainCard" data-animate="slide-scale-left" data-delay="2">
         <div class="card-gradient"></div>
         <div class="card-content">
           <div class="card-icon-box">
@@ -77,7 +77,7 @@ const philosophies: Philosophy[] = [
       </div>
 
       <!-- Side Card (Right) - Development Philosophy -->
-      <div class="bento-card bento-side" id="sideCard">
+      <div class="bento-card bento-side" id="sideCard" data-animate="slide-scale-right" data-delay="3">
         <div class="side-header">
           <div class="card-icon-subtle">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -157,7 +157,7 @@ const philosophies: Philosophy[] = [
     <!-- Bottom Row Cards -->
     <div class="bento-bottom-row">
       <!-- Small Card - Stack Focus -->
-      <div class="bento-card bento-small">
+      <div class="bento-card bento-small" data-animate="fade-up" data-delay="4">
         <div class="small-card-icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
@@ -179,7 +179,7 @@ const philosophies: Philosophy[] = [
       </div>
 
       <!-- Small Card - Experience -->
-      <div  class="bento-card bento-small">
+      <div class="bento-card bento-small" data-animate="fade-up" data-delay="5">
         <div class="small-card-icon green">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
@@ -192,7 +192,7 @@ const philosophies: Philosophy[] = [
       </div>
 
       <!-- Accent Card - Projects -->
-      <a href="#projects" class="bento-card bento-accent">
+      <a href="/projects" class="bento-card bento-accent" data-animate="scale-bounce" data-delay="6">
         <div class="accent-card-icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
