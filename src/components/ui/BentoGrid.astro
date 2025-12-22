@@ -1,49 +1,25 @@
 ---
-interface Skill {
+interface Philosophy {
   icon: string;
   title: string;
-  description: string;
-  type: 'main' | 'side' | 'small' | 'accent';
-  stat?: string;
-  statLabel?: string;
+  desc: string;
 }
 
-const skills: Skill[] = [
+const philosophies: Philosophy[] = [
+  {
+    icon: 'code',
+    title: 'Clean & Maintainable',
+    desc: 'Menulis kode yang mudah dibaca oleh manusia, bukan hanya mesin.'
+  },
   {
     icon: 'zap',
-    title: 'Full-Stack Development',
-    description: 'Membangun aplikasi web end-to-end dengan teknologi modern. Dari frontend yang responsif hingga backend yang scalable dan secure.',
-    type: 'main'
+    title: 'Performance First',
+    desc: 'Optimalisasi kecepatan dari level aset hingga arsitektur database.'
   },
   {
-    icon: 'lock',
-    title: 'Clean Code & Best Practices',
-    description: 'Menulis kode yang bersih, maintainable, dan well-documented. Mengikuti standar industri dan design patterns.',
-    type: 'side'
-  },
-  {
-    icon: 'cpu',
-    title: 'Tech Stack',
-    description: 'React, Next.js, Astro, Node.js',
-    type: 'small',
-    stat: 'Modern',
-    statLabel: 'Stack Focus'
-  },
-  {
-    icon: 'activity',
-    title: 'Experience',
-    description: 'Years of building digital products',
-    type: 'small',
-    stat: '5+',
-    statLabel: 'Years Exp'
-  },
-  {
-    icon: 'database',
-    title: 'Projects Completed',
-    description: 'Explore my portfolio',
-    type: 'accent',
-    stat: '50+',
-    statLabel: 'Projects'
+    icon: 'layers',
+    title: 'Scalable Architecture',
+    desc: 'Membangun sistem yang siap tumbuh bersama bisnis Anda.'
   }
 ];
 ---
@@ -61,27 +37,37 @@ const skills: Skill[] = [
       </p>
     </div>
 
-    <!-- Bento Grid -->
-    <div class="bento-grid">
-      <!-- Main Card -->
-      <div class="bento-card bento-main">
+    <!-- Bento Grid - Two Card Layout -->
+    <div class="bento-flex-container" id="bentoContainer">
+      <!-- Main Card (Left) -->
+      <div class="bento-card bento-main" id="mainCard">
         <div class="card-gradient"></div>
         <div class="card-content">
           <div class="card-icon-box">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
+              <rect x="9" y="9" width="6" height="6"></rect>
+              <line x1="9" y1="1" x2="9" y2="4"></line>
+              <line x1="15" y1="1" x2="15" y2="4"></line>
+              <line x1="9" y1="20" x2="9" y2="23"></line>
+              <line x1="15" y1="20" x2="15" y2="23"></line>
+              <line x1="20" y1="9" x2="23" y2="9"></line>
+              <line x1="20" y1="14" x2="23" y2="14"></line>
+              <line x1="1" y1="9" x2="4" y2="9"></line>
+              <line x1="1" y1="14" x2="4" y2="14"></line>
             </svg>
           </div>
           <h3 class="card-title">
-            Building <span class="accent">Digital Products</span> with Modern Technologies
+            Building <span class="accent">Digital Products</span> with Modern Tech.
           </h3>
           <p class="card-desc">
-            Spesialisasi dalam pengembangan aplikasi web full-stack menggunakan React, Next.js, dan Node.js. Fokus pada performa, aksesibilitas, dan user experience yang exceptional.
+            Spesialisasi dalam pengembangan full-stack menggunakan React, Next.js, dan Node.js. Fokus pada performa dan pengalaman pengguna.
           </p>
         </div>
         <div class="card-footer">
           <a href="#projects" class="card-link">
-            <span>View Projects</span>
+            <span class="link-full">VIEW PROJECTS</span>
+            <span class="link-short">PROJECTS</span>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="5" y1="12" x2="19" y2="12"></line>
               <polyline points="12 5 19 12 12 19"></polyline>
@@ -90,28 +76,87 @@ const skills: Skill[] = [
         </div>
       </div>
 
-      <!-- Side Card -->
-      <div class="bento-card bento-side">
-        <div class="card-icon-subtle">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-          </svg>
+      <!-- Side Card (Right) - Development Philosophy -->
+      <div class="bento-card bento-side" id="sideCard">
+        <div class="side-header">
+          <div class="card-icon-subtle">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              <polyline points="9 12 11 14 15 10"></polyline>
+            </svg>
+          </div>
+          <button class="back-btn" id="backBtn" title="Kembali">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
         </div>
-        <h4 class="card-title-sm">Clean Code & Best Practices</h4>
-        <p class="card-desc-sm">
-          Menulis kode yang bersih, maintainable, dan well-documented. Mengikuti standar industri, testing practices, dan design patterns.
-        </p>
-        <div class="card-footer-side">
-          <span class="card-label">Development Philosophy</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="arrow-icon">
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-            <polyline points="12 5 19 12 12 19"></polyline>
+
+        <div class="side-content">
+          <h4 class="card-title-sm">Development Philosophy</h4>
+          <p class="card-desc-expanded">
+            
+          </p>
+
+          <!-- Philosophy Items (visible when expanded) -->
+          <div class="philosophy-grid">
+            {philosophies.map((item, idx) => (
+              <div class="philosophy-item" style={`--delay: ${idx * 100}ms`}>
+                <div class="philosophy-icon">
+                  {item.icon === 'code' && (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="16 18 22 12 16 6"></polyline>
+                      <polyline points="8 6 2 12 8 18"></polyline>
+                    </svg>
+                  )}
+                  {item.icon === 'zap' && (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                    </svg>
+                  )}
+                  {item.icon === 'layers' && (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                      <polyline points="2 17 12 22 22 17"></polyline>
+                      <polyline points="2 12 12 17 22 12"></polyline>
+                    </svg>
+                  )}
+                </div>
+                <div class="philosophy-text">
+                  <h5 class="philosophy-title">{item.title}</h5>
+                  <p class="philosophy-desc">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <!-- Click hint (visible when collapsed) -->
+          <div class="card-footer-side">
+            <span class="card-label">LIHAT FILOSOFI</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="arrow-icon">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Grid pattern background -->
+        <div class="grid-pattern">
+          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" stroke-width="0.5"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
           </svg>
         </div>
       </div>
+    </div>
 
-      <!-- Small Cards Row -->
+    <!-- Bottom Row Cards -->
+    <div class="bento-bottom-row">
+      <!-- Small Card - Stack Focus -->
       <div class="bento-card bento-small">
         <div class="small-card-icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -133,7 +178,8 @@ const skills: Skill[] = [
         </div>
       </div>
 
-      <div class="bento-card bento-small">
+      <!-- Small Card - Experience -->
+      <div  class="bento-card bento-small">
         <div class="small-card-icon green">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
@@ -145,8 +191,8 @@ const skills: Skill[] = [
         </div>
       </div>
 
-      <!-- Accent Card -->
-      <div class="bento-card bento-accent">
+      <!-- Accent Card - Projects -->
+      <a href="#projects" class="bento-card bento-accent">
         <div class="accent-card-icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
@@ -162,7 +208,7 @@ const skills: Skill[] = [
           <line x1="5" y1="12" x2="19" y2="12"></line>
           <polyline points="12 5 19 12 12 19"></polyline>
         </svg>
-      </div>
+      </a>
     </div>
   </div>
 </section>
@@ -224,22 +270,23 @@ const skills: Skill[] = [
     line-height: 1.6;
   }
 
-  /* Bento Grid */
-  .bento-grid {
-    display: grid;
+  /* Bento Flex Container */
+  .bento-flex-container {
+    display: flex;
+    flex-direction: column;
     gap: 1.5rem;
-    grid-template-columns: 1fr;
+    height: 500px;
   }
 
   @media (min-width: 768px) {
-    .bento-grid {
-      grid-template-columns: repeat(12, 1fr);
+    .bento-flex-container {
+      flex-direction: row;
     }
   }
 
   .bento-card {
     border-radius: 1.5rem;
-    transition: all 0.5s ease;
+    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   /* Main Card */
@@ -250,15 +297,28 @@ const skills: Skill[] = [
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 500px;
     position: relative;
     overflow: hidden;
+    flex: 2.2;
+    min-height: 250px;
   }
 
   @media (min-width: 768px) {
     .bento-main {
-      grid-column: span 8;
+      min-height: auto;
     }
+  }
+
+  /* When side is expanded, main card shrinks */
+  .bento-flex-container.expanded .bento-main {
+    flex: 1;
+    background: rgba(26, 26, 26, 0.5);
+    opacity: 0.9;
+    cursor: pointer;
+  }
+
+  .bento-flex-container.expanded .bento-main:hover {
+    background: var(--color-bg-dark);
   }
 
   .bento-main:hover {
@@ -362,12 +422,11 @@ const skills: Skill[] = [
     padding: 2.5rem;
     display: flex;
     flex-direction: column;
-  }
-
-  @media (min-width: 768px) {
-    .bento-side {
-      grid-column: span 4;
-    }
+    flex: 1;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    min-height: 200px;
   }
 
   .bento-side:hover {
@@ -375,40 +434,180 @@ const skills: Skill[] = [
     box-shadow: var(--shadow-xl);
   }
 
+  /* When side is expanded */
+  .bento-flex-container.expanded .bento-side {
+    flex: 2.2;
+    cursor: default;
+  }
+
+  .side-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 10;
+  }
+
   .card-icon-subtle {
     width: fit-content;
     padding: 1rem;
     background: var(--color-bg-card);
     border-radius: 1rem;
-    margin-bottom: 2rem;
     color: var(--color-accent);
-    transition: background 0.3s ease;
+    transition: all 0.3s ease;
   }
 
-  .bento-side:hover .card-icon-subtle {
+  .bento-flex-container.expanded .bento-side .card-icon-subtle {
     background: var(--color-accent-light);
+  }
+
+  .back-btn {
+    padding: 0.5rem;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    color: var(--color-text-muted);
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.3s ease;
+  }
+
+  .bento-flex-container.expanded .back-btn {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .back-btn:hover {
+    background: var(--color-bg-card);
+    color: var(--color-text-primary);
+  }
+
+  .side-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 10;
   }
 
   .card-title-sm {
     font-family: var(--font-serif);
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 700;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
+    transition: font-size 0.5s ease;
   }
 
-  .card-desc-sm {
+  .bento-flex-container.expanded .card-title-sm {
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .card-desc-expanded {
     font-size: 0.9375rem;
     font-weight: 300;
     color: var(--color-text-secondary);
     line-height: 1.7;
-    flex-grow: 1;
-    margin-bottom: 2rem;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+    margin-bottom: 0;
+  }
+
+  .bento-flex-container.expanded .card-desc-expanded {
+    max-height: 100px;
+    opacity: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Philosophy Grid */
+  .philosophy-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    transition: all 0.5s ease;
+    max-height: 0;
+    overflow: hidden;
+  }
+
+  .bento-flex-container.expanded .philosophy-grid {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    max-height: 500px;
+  }
+
+  .philosophy-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--color-bg-card);
+    border-radius: 1rem;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+    transition-delay: var(--delay);
+  }
+
+  .philosophy-item:hover {
+    border-color: var(--color-border);
+    background: white;
+  }
+
+  .philosophy-icon {
+    padding: 0.5rem;
+    background: var(--color-accent-light);
+    border-radius: 0.5rem;
+    color: var(--color-accent);
+    flex-shrink: 0;
+  }
+
+  .philosophy-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .philosophy-title {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    transition: color 0.3s ease;
+  }
+
+  .philosophy-item:hover .philosophy-title {
+    color: var(--color-accent);
+  }
+
+  .philosophy-desc {
+    font-size: 0.875rem;
+    font-weight: 300;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
   }
 
   .card-footer-side {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 0.5rem;
+    margin-top: auto;
+    padding-top: 1rem;
+    transition: all 0.5s ease;
+  }
+
+  .bento-flex-container.expanded .card-footer-side {
+    opacity: 0;
+    transform: scale(0.9);
+    max-height: 0;
+    overflow: hidden;
+    padding-top: 0;
   }
 
   .card-label {
@@ -429,6 +628,69 @@ const skills: Skill[] = [
     transform: translateX(8px);
   }
 
+  /* Grid Pattern Background */
+  .grid-pattern {
+    position: absolute;
+    inset: 0;
+    color: var(--color-border);
+    opacity: 0.3;
+    pointer-events: none;
+    transition: opacity 0.7s ease;
+  }
+
+  .bento-flex-container.expanded .grid-pattern {
+    opacity: 0.5;
+  }
+
+  /* Main card content adjustments when expanded */
+  .bento-flex-container.expanded .card-title {
+    font-size: clamp(1.25rem, 3vw, 1.5rem);
+  }
+
+  .bento-flex-container.expanded .card-icon-box {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .bento-flex-container.expanded .card-desc {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    margin: 0;
+  }
+
+  .bento-flex-container.expanded .card-link {
+    padding: 0.5rem 1rem;
+    font-size: 0.5rem;
+  }
+
+  .link-short {
+    display: none;
+  }
+
+  .bento-flex-container.expanded .link-full {
+    display: none;
+  }
+
+  .bento-flex-container.expanded .link-short {
+    display: inline;
+  }
+
+  /* Bottom Row */
+  .bento-bottom-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .bento-bottom-row {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
   /* Small Cards */
   .bento-small {
     background: var(--color-bg-card);
@@ -438,12 +700,6 @@ const skills: Skill[] = [
     gap: 1.5rem;
     border: 1px solid transparent;
     box-shadow: var(--shadow-sm);
-  }
-
-  @media (min-width: 768px) {
-    .bento-small {
-      grid-column: span 4;
-    }
   }
 
   .bento-small:hover {
@@ -495,6 +751,8 @@ const skills: Skill[] = [
 
   /* Accent Card */
   .bento-accent {
+    text-decoration: none;
+    cursor: pointer;
     background: var(--color-accent);
     color: white;
     padding: 2.5rem;
@@ -502,16 +760,12 @@ const skills: Skill[] = [
     align-items: center;
     gap: 1.5rem;
     box-shadow: var(--shadow-lg);
-  }
-
-  @media (min-width: 768px) {
-    .bento-accent {
-      grid-column: span 4;
-    }
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
 
   .bento-accent:hover {
     box-shadow: var(--shadow-xl);
+    transform: scale(1.02);
   }
 
   .accent-card-icon {
@@ -550,3 +804,35 @@ const skills: Skill[] = [
     font-size: 0.875rem;
   }
 </style>
+
+<script>
+  const container = document.getElementById('bentoContainer');
+  const sideCard = document.getElementById('sideCard');
+  const mainCard = document.getElementById('mainCard');
+  const backBtn = document.getElementById('backBtn');
+
+  function expand() {
+    container?.classList.add('expanded');
+  }
+
+  function collapse() {
+    container?.classList.remove('expanded');
+  }
+
+  sideCard?.addEventListener('click', (e) => {
+    if (!container?.classList.contains('expanded')) {
+      expand();
+    }
+  });
+
+  mainCard?.addEventListener('click', () => {
+    if (container?.classList.contains('expanded')) {
+      collapse();
+    }
+  });
+
+  backBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    collapse();
+  });
+</script>
